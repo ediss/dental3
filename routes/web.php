@@ -37,3 +37,5 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/user', 'HomeController@user');
 
+Route::get('/registracija', 'Register@showRegistrationForm')->name('admin.register');
+Route::post('/registracija', 'Register@register')->name('admin.register.submit');

@@ -26,7 +26,7 @@ class FolderService
     public static function createFolder($folder, $path) {
         $full_path = public_path().'/'.$path.'/'.$folder;
 
-        if (self::folderExist($full_path) !== true) mkdir($full_path, 0755, true);
+        if (self::folderExist($full_path) != true) mkdir($full_path, 0755, true);
     }
 
     /**

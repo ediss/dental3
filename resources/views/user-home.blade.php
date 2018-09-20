@@ -69,6 +69,9 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                welcome     {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
                         <a href="{{ url('/logout') }}">Logout</a>
                     @endauth
                 </div>

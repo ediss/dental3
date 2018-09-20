@@ -15,6 +15,7 @@ class AdminDataSeeder extends Seeder
             ->insert(
                 [
                     'id'        =>  1,
+                    'name'      =>  'Admin',
                     'email'     =>  'admin@gmail.com',
                     'password'  =>  Hash::make('admin123'),
                     'role_id'   =>  '1'
