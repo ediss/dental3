@@ -11,18 +11,42 @@ class RoleDataSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')
-        ->insert(
-            [
-                'id_role'        =>  1,
-                'role'      =>  'Admin',
+        try{
+            DB::table('roles')
+            ->insert(
+                [
+                    'id_role'   =>  1,
+                    'role'      =>  'Admin',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Uloga 'Admin' vec postoji!";
+        }
 
-            ],
-            [
-                'id_role'        =>  2,
-                'role'      =>  'Doctor',
+        try{
+            DB::table('roles')
+            ->insert(
+                [
+                    'id_role'   =>  2,
+                    'role'      =>  'Doktor',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Uloga 'Doktor' vec postoji!";
+        }
 
-            ]
-        );
+        try{
+            DB::table('roles')
+            ->insert(
+                [
+                    'id_role'   =>  3,
+                    'role'      =>  'Pacijent',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Uloga 'Doktor' vec postoji!";
+        }
+
+        echo "Uspesno ste uneli uloge!";
     }
 }

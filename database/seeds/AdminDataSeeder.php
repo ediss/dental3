@@ -11,7 +11,8 @@ class AdminDataSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')
+        try {
+            DB::table('admins')
             ->insert(
                 [
                     'id'        =>  1,
@@ -21,5 +22,9 @@ class AdminDataSeeder extends Seeder
                     'role_id'   =>  '1'
                 ]
             );
+        } catch (\Exception $e) {
+            "Admin vec postoji!";
+        }
+        
     }
 }
