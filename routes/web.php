@@ -28,7 +28,7 @@ Route::prefix('admin')->group(function() {
 
     Route::post('/login',           'Auth\AdminLoginController@login')         ->name('admin.login.submit');
 
-    Route::get('/upravljanje',      'AdminController@index')                   ->name('admin.home');
+    Route::get('/pocetna',          'AdminController@index')                   ->name('admin.home');
 
     Route::get('/registracija',     'Register@showRegistrationForm')           ->name('admin.registracija');
 
@@ -43,6 +43,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/user', 'HomeController@user');
+Route::get('/user', 'HomeController@user')->name('user');
 
 

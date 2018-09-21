@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     /*
@@ -44,7 +45,8 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-      /**
+
+    /**
      * Logout user and redirect to home page
      *
      * @return void

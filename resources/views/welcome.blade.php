@@ -81,12 +81,22 @@
                 </div>
 
                 <div class="links">
-                    <a href="/login">User login</a>
-                    <a href="/admin/login">Admin login</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+
+
+                    @if (Auth::guest())
+                        <a href="/login">User login</a>
+                        <a href="/admin/login">Admin login</a>
+                        <a href="https://laravel-news.com">News</a>
+                        <a href="https://nova.laravel.com">Nova</a>
+                        <a href="https://forge.laravel.com">Forge</a>
+                        <a href="https://github.com/laravel/laravel">GitHub</a>
+                    @elseif (Auth::guest()->admin)
+                        <a href="{{ route('user') }}">test</a>
+                        <a href="/admin/login">test</a>
+                    @else
+                        <a href="{{ route('user') }}">User page</a>
+                        <a href="/admin/login">Admin login</a>
+                    @endif
                 </div>
             </div>
         </div>

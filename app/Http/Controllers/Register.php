@@ -8,21 +8,33 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+//use App\Models\User;
 use App\Providers\FolderService;
-use App\Providers\UserService;
+//use App\Providers\UserService;
+use App\Providers\AdminService;
 use App\Providers\RoleService;
 
 class Register extends Controller
 {
+
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     use RegistersUsers;
 
-    public function showRegistrationForm()
-    {
+    public function showRegistrationForm() {
        /* $roles = RoleService::getRoles();
         return view('auth.register', $roles);
 
-        trosenje ram memorije zbog pravljenaj vise promenljivih
+        trosenje ram memorije zbog pravljenja vise promenljivih
         */
 
         return view('auth.register', ['roles' => RoleService::getRoles()]);
@@ -43,9 +55,14 @@ class Register extends Controller
         $password   = Hash::make($request->input('password'));
         $role       = $request->input('role');
 
-        $id =  UserService::createUser($name, $email, $password);
-        // admin servis createAdmin
-        FolderService::createFolder($id, FolderService::$patien_document_route);
+        if($role == 3) {
+            $id =  AdminService::createUser($name, $email, $password);
+            FolderService::createFolder($id, FolderService::$patien_document_route);
+        }
+        else {
+            AdminService::createAdmin($name, $email, $password, $role);
+        }
+
 
         return view('admin-home');
     }
