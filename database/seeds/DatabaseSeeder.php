@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
             RoleDataSeeder::class,
             UserDataSeeder::class,
             AdminDataSeeder::class,
+            AppointmentDataSeeder::class,
+            TermDataSeeder::class,
+            ServiceDataSeeder::class,
         ]);
     }
 }

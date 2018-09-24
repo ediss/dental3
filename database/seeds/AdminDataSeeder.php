@@ -25,6 +25,6 @@ class AdminDataSeeder extends Seeder
         } catch (\Exception $e) {
             "Admin vec postoji!";
         }
-        
+
     }
 }

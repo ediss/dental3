@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
             html, body {
                 background-color: #fff;
@@ -81,15 +82,34 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Admin page
+                   Uvid u preglede
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
-                    <a href="{{ route('admin.pregledi') }}">Uvid u preglede</a>
-                    <a href="#">Link 3</a>
-                    <a href="#">Link 4</a>
-                    <a href="#">Link 5</a>
+                <table class="table  table-dark">
+                    <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th>-->
+                            <th scope="col">Pacijent</th>
+                            <th scope="col">Usluga</th>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Termin</th>
+                            <th scope="col">Doktor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($appointmets as $appointment)
+                        <tr>
+                        <!--<th scope="row">1</th>-->
+                            <td>{{ $appointment->user_name }}</td>
+                            <td>{{ $appointment->service }}</td>
+                            <td>{{ $appointment->date_appoitment }}</td>
+                            <td>{{ $appointment->term }}</td>
+                            <td>{{ $appointment->admin_name }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>

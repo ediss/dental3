@@ -22,13 +22,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         return view('welcome');
     }
 
-    public function user()
-    {
+    /**
+     * Show the user page after user login
+     *
+     * @return void
+     */
+    public function user() {
         return view('user-home');
     }
 }

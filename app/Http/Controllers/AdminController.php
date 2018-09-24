@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Providers\AppointmentService;
 
 class AdminController extends Controller
 {
@@ -24,5 +25,12 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin-home');
+    }
+
+    public function patientsAppointments() {
+       /* $appointmets = AppointmentService::getAppointments();
+
+        return view('appointments', $appointmets);*/
+        return view('appointments', ['appointmets' => AppointmentService::getAppointments()]);
     }
 }

@@ -34,6 +34,8 @@ Route::prefix('admin')->group(function() {
 
     Route::post('/registracija',    'Register@register')                       ->name('admin.registracija.submit');
 
+    Route::get('/pregledi',         'AdminController@patientsAppointments')    ->name('admin.pregledi');
+
     Route::get('/logout',           'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
 
