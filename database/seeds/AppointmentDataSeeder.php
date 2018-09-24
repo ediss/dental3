@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 
 class AppointmentDataSeeder extends Seeder
+
 {
     /**
      * Run the database seeds.
@@ -32,7 +33,7 @@ class AppointmentDataSeeder extends Seeder
             ->insert(
                 [
                     'id_appoitment'     => 2  ,
-                    //'date_appoitment'   => 'datum time stamp',
+                    'date_appoitment'   => 'datum time stamp',
                     'patient_id'        => '23',
                     'doctor_id'         => '3',
                     'term_id'           => '2',

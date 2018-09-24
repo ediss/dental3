@@ -92,6 +92,7 @@
                            <!-- <th scope="col">#</th>-->
                             <th scope="col">Pacijent</th>
                             <th scope="col">Usluga</th>
+                            <th scope="col">Cena</th>
                             <th scope="col">Datum</th>
                             <th scope="col">Termin</th>
                             <th scope="col">Doktor</th>
@@ -103,7 +104,9 @@
                         <!--<th scope="row">1</th>-->
                             <td>{{ $appointment->user_name }}</td>
                             <td>{{ $appointment->service }}</td>
-                            <td>{{ $appointment->date_appoitment }}</td>
+                            <td>{{ $appointment->price }}</td>
+                           <!-- <td>{{ $appointment->date_appoitment }}</td>-->
+                            <td>{{ \Carbon\Carbon::parse($appointment->date_appoitment)->format('d-m-Y')}}</td>
                             <td>{{ $appointment->term }}</td>
                             <td>{{ $appointment->admin_name }}</td>
                         </tr>

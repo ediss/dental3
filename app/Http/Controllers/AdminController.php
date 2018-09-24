@@ -27,6 +27,11 @@ class AdminController extends Controller
         return view('admin-home');
     }
 
+    /**
+     * Get the data from appoitments table and passing it to view
+     *
+     * @return void
+     */
     public function patientsAppointments() {
        /* $appointmets = AppointmentService::getAppointments();
 
