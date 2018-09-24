@@ -12,12 +12,13 @@ class AppointmentDataSeeder extends Seeder
      */
     public function run()
     {
+        $date = now();
         try {
-            DB::table('appoitments')
+            DB::table('appoitmentes')
             ->insert(
                 [
                     'id_appoitment'     => 1  ,
-                    //'date_appoitment'   => 'datum time stamp',
+                    //'date_appoitment'   => 1537813757,
                     'patient_id'        => '25',
                     'doctor_id'         => '2',
                     'term_id'           => '1',
@@ -28,12 +29,12 @@ class AppointmentDataSeeder extends Seeder
             "Pregled pacijenta je vec unesen!";
         }
 
-        try {
+       /* try {
             DB::table('appoitments')
             ->insert(
                 [
                     'id_appoitment'     => 2  ,
-                    'date_appoitment'   => 'datum time stamp',
+                  //  'date_appoitment'   => 'datum time stamp',
                     'patient_id'        => '23',
                     'doctor_id'         => '3',
                     'term_id'           => '2',
@@ -42,6 +43,6 @@ class AppointmentDataSeeder extends Seeder
             );
         } catch (\Exception $e) {
             "Pregled pacijenta je vec unesen!";
-        }
+        }*/
     }
 }

@@ -3,22 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use DB;
 use App\Models\Appointment;
 
 class AppointmentService extends ServiceProvider
 {
     public static function getAppointments() {
-        $appointments = DB::table('appoitments')
-            ->join('users',     'appoitments.patient_id',       '=', 'users.id')
-            ->join('admins',    'appoitments.doctor_id',        '=', 'admins.id')
-            ->join('services',  'appoitments.service_id',       '=', 'services.id_service')
-            ->join('terms',     'appoitments.term_id',          '=', 'terms.id_term')
+        $appointments = Appointment::all();
 
-            ->select('appoitments.*', 'users.name as user_name', 'admins.name as admin_name', 'services.service', 'services.price', 'terms.term')
-            ->get();
-
-          // dd($appointments);
         return $appointments;
     }
 

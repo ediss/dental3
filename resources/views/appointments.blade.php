@@ -99,16 +99,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($appointmets as $appointment)
+                    @foreach($appointments as $appointment)
                         <tr>
                         <!--<th scope="row">1</th>-->
-                            <td>{{ $appointment->user_name }}</td>
-                            <td>{{ $appointment->service }}</td>
-                            <td>{{ $appointment->price }}</td>
-                           <!-- <td>{{ $appointment->date_appoitment }}</td>-->
-                            <td>{{ \Carbon\Carbon::parse($appointment->date_appoitment)->format('d-m-Y')}}</td>
-                            <td>{{ $appointment->term }}</td>
-                            <td>{{ $appointment->admin_name }}</td>
+                            <td>{{ $appointment->user->name }}</td>
+                            <td>{{ $appointment->service->service }}</td>
+                            <td>{{ $appointment->service->price }}</td>
+                            <td>{{ $appointment->user->email }}</td>
+
+                            <td>{{ $appointment->term->term }}</td>
+                            <td>{{ $appointment->doctor->name }}</td>
                         </tr>
                     @endforeach
                     </tbody>

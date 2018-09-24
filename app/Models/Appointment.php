@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $table = 'appointments';
+    protected $table = 'appoitments';
 
-    protected $dateFormat = 'd-M-Y';
+    protected $dateFormat = 'U';
 
     protected $dates = [
         'date_appoitment',
@@ -18,9 +18,25 @@ class Appointment extends Model
         return ucfirst($value);
     }
 
-    public function setAppointmentDate($value) {
-        $this->attributes['date_appoitment'] = ucfirst($value);
+    public function getNameAttribute($value) {
+        return strtoupper($value);
     }
 
+    public function user() {
+        return $this->belongsTo('App\Models\User', 'patient_id', 'id');
+    }
+
+    public function doctor() {
+        return $this->belongsTo('App\Models\Admin', 'doctor_id', 'id');
+    }
+
+    public function term() {
+        return $this->belongsTo('App\Models\Term', 'term_id', 'id_term');
+    }
+
+
+    public function service() {
+        return $this->belongsTo('App\Models\Service', 'service_id', 'id_service');
+    }
 
 }

@@ -36,6 +36,7 @@ class AdminController extends Controller
        /* $appointmets = AppointmentService::getAppointments();
 
         return view('appointments', $appointmets);*/
-        return view('appointments', ['appointmets' => AppointmentService::getAppointments()]);
+
+        return view('appointments', ['appointments' => AppointmentService::getAppointments()]);
     }
 }
