@@ -99,6 +99,7 @@
                         </tr>
                     </thead>
                     <tbody>
+<<<<<<< HEAD
                         @foreach($appointmets as $appointment)
                             <tr>
                                 <td>{{ $appointment->patient->name }}</td>
@@ -108,6 +109,20 @@
                                 <td>{{ $appointment->doctor->name }}</td>
                             </tr>
                         @endforeach
+=======
+                    @foreach($appointments as $appointment)
+                        <tr>
+                        <!--<th scope="row">1</th>-->
+                            <td>{{ $appointment->user->name }}</td>
+                            <td>{{ $appointment->service->service }}</td>
+                            <td>{{ $appointment->service->price }}</td>
+                            <td>{{ $appointment->user->email }}</td>
+
+                            <td>{{ $appointment->term->term }}</td>
+                            <td>{{ $appointment->doctor->name }}</td>
+                        </tr>
+                    @endforeach
+>>>>>>> 859247fd8e9d60c5b8f48629c39f3e7b126fca7c
                     </tbody>
                 </table>
                 </div>

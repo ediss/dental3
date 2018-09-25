@@ -7,6 +7,9 @@ use App\Models\User;
 
 class UserService {
 
+
+    protected $table = 'users';
+
     /**
      * 
      * CREATE

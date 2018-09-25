@@ -34,5 +34,17 @@ class TermDataSeeder extends Seeder
         } catch (\Exception $e) {
             "Termin je vec unesen!";
         }
+
+        try {
+            DB::table('terms')
+            ->insert(
+                [
+                    'id_term'   => 3  ,
+                    'term'      => '10:00-11:00'
+                ]
+            );
+        } catch (\Exception $e) {
+            "Termin je vec unesen!";
+        }
     }
 }

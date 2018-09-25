@@ -2,11 +2,16 @@
 
 namespace App\Providers;
 
+<<<<<<< HEAD
+=======
+use Illuminate\Support\ServiceProvider;
+>>>>>>> 859247fd8e9d60c5b8f48629c39f3e7b126fca7c
 use App\Models\Appointment;
 
 class AppointmentService {
 
     public static function getAppointments() {
+<<<<<<< HEAD
         return Appointment::all();
 
     }
@@ -28,6 +33,11 @@ class AppointmentService {
 
         $appointmenmt->save();
         
+=======
+        $appointments = Appointment::all();
+
+        return $appointments;
+>>>>>>> 859247fd8e9d60c5b8f48629c39f3e7b126fca7c
     }
 
 }
