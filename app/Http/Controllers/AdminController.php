@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Providers\AppointmentService;
+use App\Providers\AdminService;
+use App\Providers\UserService;
+
 
 class AdminController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -24,7 +28,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin-home');
+        return view('admin/admin-home');
     }
 
     /**
@@ -33,9 +37,36 @@ class AdminController extends Controller
      * @return void
      */
     public function patientsAppointments() {
-       /* $appointmets = AppointmentService::getAppointments();
+/*       $appointmets = array(
+        AppointmentService::getAppointments(),
+        Admin::find(1),
+       );
 
-        return view('appointments', $appointmets);*/
-        return view('appointments', ['appointmets' => AppointmentService::getAppointments()]);
+        return view('appointments', $appointmets);
+        //$user = Admin::find(1);*/
+
+        return view('appointments', ['appointmets' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
     }
+
+    /**
+     * Function for listing all patient's
+     *
+     * @return User
+     */
+    public function showPatients() {
+        return view('admin/admin-patient', ['patients' => UserService::getUsers()]);
+    }
+
+
+    /**
+     * Edit patients data
+     *
+     * @param       $id     user id
+     * @return void
+     */
+    public function editPatient($id) {
+        return view('admin/patient-edit', ['patient'=>UserService::editUser()]);
+    }
+
+
 }

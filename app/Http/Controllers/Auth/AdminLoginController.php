@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Models\Admin;
 
 class AdminLoginController extends Controller
 {
@@ -30,6 +31,7 @@ class AdminLoginController extends Controller
             // If successful, then redirect to their intended location
             return redirect()->intended(route('admin.home'));
         }
+
 
         // If unsuccessful, then redirect back to the login with the form data
         return redirect()->back()->withInput($request->only('email', 'remember'));

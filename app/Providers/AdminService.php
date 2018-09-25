@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AdminService extends ServiceProvider
 {
@@ -37,24 +37,19 @@ class AdminService extends ServiceProvider
     }
 
     /**
-     * Function for adding new user
      *
-     * @param string    $name       user name
-     * @param string    $email      user email
-     * @param string    $password   user password
-     * @return void
+     * READ
+     *
      */
-    public static function createUser($name, $email, $password){
-        $user = new User;
 
-        $user->name     = $name;
-        $user->email    = $email;
-        $user->password = $password;
-
-        $user->save();
-        $id = $user->id;
-
-        return $id;
+    /**
+     * Get's current admin
+     *
+     * @return  Admin
+     */
+    public static function getCurrentAdmin() {
+        return Auth::guard('admin')->user();
     }
 
+    
 }

@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
             html, body {
                 background-color: #fff;
@@ -81,15 +82,32 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Admin page
+                   Uvid u pacijente
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
-                    <a href="{{ route('admin.pregledi') }}">Uvid u preglede</a>
-                    <a href="#">Link 3</a>
-                    <a href="#">Link 4</a>
-                    <a href="#">Link 5</a>
+                <table class="table  table-dark">
+                    <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th>-->
+                            <th scope="col">Ime</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Izmeni</th>
+                            <th scope="col">Obrisi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($patients as $patient)
+                            <tr>
+                                <td>{{ $patient->name }}</td>
+                                <td>{{ $patient->email }}</td>
+
+                                <td> <a href="/admin/pacijenti/izmena/{{$patient->id}}">izmena</a></td>
+                                <td> <a href="{{ route('admin.patient.delete') }}">brisanje</a></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>

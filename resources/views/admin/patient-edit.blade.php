@@ -82,34 +82,24 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                   Uvid u preglede
+                    Iznema Pacijenta
                 </div>
-                    <p> {{ $admin->role->role }} </p>
+                    
                 <div class="links">
-                <table class="table  table-dark">
-                    <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th>-->
-                            <th scope="col">Pacijent</th>
-                            <th scope="col">Usluga</th>
-                            <th scope="col">Cena</th>
-                            <th scope="col">Datum</th>
-                            <th scope="col">Termin</th>
-                            <th scope="col">Doktor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($appointmets as $appointment)
-                            <tr>
-                                <td>{{ $appointment->patient->name }}</td>
-                                <td>{{ $appointment->service->service }}</td>
-                                <td>{{ $appointment->service->price }}</td>
-                                <td>{{ $appointment->term->term }}</td>
-                                <td>{{ $appointment->doctor->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                    <form method="post" action="route('users.edit', $user)">
+                        {{ csrf_field() }}
+                        {{ method_field('patch') }}
+
+                        <input type="text" name="name"  value="{{ $user->name }}" />
+
+                        <input type="email" name="email"  value="{{ $user->email }}" />
+
+                        <input type="password" name="password" />
+
+                        <input type="password" name="password_confirmation" />
+
+                        <button type="submit">Izmeni</button>
+                    </form>
                 </div>
             </div>
         </div>

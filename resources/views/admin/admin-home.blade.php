@@ -11,7 +11,6 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
             html, body {
                 background-color: #fff;
@@ -82,34 +81,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                   Uvid u preglede
+                    Admin page
                 </div>
-                    <p> {{ $admin->role->role }} </p>
+
                 <div class="links">
-                <table class="table  table-dark">
-                    <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th>-->
-                            <th scope="col">Pacijent</th>
-                            <th scope="col">Usluga</th>
-                            <th scope="col">Cena</th>
-                            <th scope="col">Datum</th>
-                            <th scope="col">Termin</th>
-                            <th scope="col">Doktor</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($appointmets as $appointment)
-                            <tr>
-                                <td>{{ $appointment->patient->name }}</td>
-                                <td>{{ $appointment->service->service }}</td>
-                                <td>{{ $appointment->service->price }}</td>
-                                <td>{{ $appointment->term->term }}</td>
-                                <td>{{ $appointment->doctor->name }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                    <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
+                    <a href="{{ route('admin.pregledi') }}">Uvid u preglede</a>
+                    <a href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
+                    <a href="#">Link 4</a>
+                    <a href="#">Link 5</a>
                 </div>
             </div>
         </div>

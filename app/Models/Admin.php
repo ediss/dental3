@@ -10,6 +10,7 @@ class Admin extends Authenticatable
     use Notifiable;
 
     protected $table = 'admins';
+
     protected $guard = 'admin';
 
     /**
@@ -29,4 +30,8 @@ class Admin extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function role() {
+        return $this->belongsTo('App\Models\Role', 'role_id', 'id_role');
+    }
 }

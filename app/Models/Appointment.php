@@ -4,11 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Appointment extends Model
-{
-    protected $table = 'appointments';
+class Appointment extends Model {
 
-    protected $dateFormat = 'd-M-Y';
+    protected $table = 'appoitments';
+
+    protected $with = [
+        'doctor',
+        'patient',
+        'term',
+        'service',
+    ];
+
+    protected $dateFormat = 'd-mm-Y';
 
     protected $dates = [
         'date_appoitment',
@@ -22,5 +29,19 @@ class Appointment extends Model
         $this->attributes['date_appoitment'] = ucfirst($value);
     }
 
+    public function doctor() {
+        return $this->belongsTo('App\Models\Admin', 'doctor_id', 'id');
+    }
 
+    public function patient() {
+        return $this->belongsTo('App\Models\User', 'patient_id', 'id');
+    }
+
+    public function term() {
+        return $this->belongsTo('App\Models\Term', 'term_id', 'id_term');
+    }
+
+    public function service() {
+        return $this->belongsTo('App\Models\Service', 'service_id', 'id_service');
+    }
 }

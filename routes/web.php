@@ -16,28 +16,30 @@
 });*/
 Route::get('/', 'HomeController@index');
 
+Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
 
+    Route::get('/login',                    'Auth\AdminLoginController@showLoginForm') ->name('admin.login');
 
-/*Route::get('/home', 'HomeController@index')->name('home');
+    Route::post('/login',                   'Auth\AdminLoginController@login')         ->name('admin.login.submit');
 
-Route::get('/test', 'MojKontroler@index');*/
+    Route::get('/pocetna',                  'AdminController@index')                   ->name('admin.home');
 
-Route::prefix('admin')->group(function() {
+    Route::get('/registracija',             'Register@showRegistrationForm')           ->name('admin.registracija');
 
-    Route::get('/login',            'Auth\AdminLoginController@showLoginForm') ->name('admin.login');
+    Route::post('/registracija',            'Register@register')                       ->name('admin.registracija.submit');
 
-    Route::post('/login',           'Auth\AdminLoginController@login')         ->name('admin.login.submit');
+    Route::get('/pacijenti',                'AdminController@showPatients')            ->name('admin.upravljanje.pacijenti');
 
-    Route::get('/pocetna',          'AdminController@index')                   ->name('admin.home');
+    Route::get('/pacijenti/izmena',         'AdminController@editPatient');             /*->name('admin.patient.edit');*/
 
-    Route::get('/registracija',     'Register@showRegistrationForm')           ->name('admin.registracija');
+    Route::get('/pacijenti/brisanje',       'AdminController@editPatient')             ->name('admin.patient.delete');
 
-    Route::post('/registracija',    'Register@register')                       ->name('admin.registracija.submit');
+    Route::get('/pregledi',                 'AdminController@patientsAppointments')    ->name('admin.pregledi');
 
-    Route::get('/pregledi',         'AdminController@patientsAppointments')    ->name('admin.pregledi');
-
-    Route::get('/logout',           'Auth\AdminLoginController@logout')        ->name('admin.logout');
+    Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
+
+
 
 Auth::routes();
 

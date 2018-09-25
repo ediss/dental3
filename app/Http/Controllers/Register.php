@@ -8,9 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
-//use App\Models\User;
 use App\Providers\FolderService;
-//use App\Providers\UserService;
+use App\Providers\UserService;
 use App\Providers\AdminService;
 use App\Providers\RoleService;
 
@@ -47,23 +46,18 @@ class Register extends Controller
      * @return void
      */
     public static function register(Request $request){
-
-        //$id         = Auth::id();
-        //$id ='nesto';
         $name       = $request->input('name');
         $email      = $request->input('email');
         $password   = Hash::make($request->input('password'));
         $role       = $request->input('role');
 
-        if($role == 3) {
-            $id =  AdminService::createUser($name, $email, $password);
+        if ($role === 3) {
+            $id = UserService::createUser($name, $email, $password);
             FolderService::createFolder($id, FolderService::$patien_document_route);
-        }
-        else {
+        } else {
             AdminService::createAdmin($name, $email, $password, $role);
         }
 
-
-        return view('admin-home');
+        return view('admin/admin-home');
     }
 }
