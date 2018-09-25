@@ -5,23 +5,58 @@ namespace App\Providers;
 use App\Models\Role;
 
 class RoleService {
-
-    public static function getRoles() {
-        $roles = Role::all();
-
-        return $roles;
-    }
-
+    
 
     /**
      * 
      * CREATE
      * 
      */
+        
+    public static function createRole($name_role) {
+        $role = new Role;
 
-     /*
-        lsitanje uloga
-        kreiranje uloga
+        $role->role = $name_role;
+
+        $role->save();
+    }
+
+    /**
+     * 
+     * READ
+     * 
+     */
+    public static function getRoles() {
+        $roles = Role::all();
+
+        return $roles;
+    }
+
+    /**
+     * 
+     * UPDATE
+     * 
+     */
+
+    
+    public static function editRole($role_id) {
+        //
+    }
+
+    public static function addRoleToUser($user_id, $role_id) {
+        //
+    }
+
+    /**
+     * 
+     * DELETE
+     * 
+     */
+
+     public static function deleteRole($role_id) {
+         //
+     }
+     /*   kreiranje uloga
         dodeljivanje uloga
         brisanje uloga
         izmena naziva uloge

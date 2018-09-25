@@ -40,10 +40,19 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
 });
 
 
+Route::prefix('doktor')->group(function () {
+    
+    Route::get('/zakazivanje',  'DoctorController@index')               ->name('doctor.make-appointment');
+    
+    Route::post('/zakazivanje', 'DoctorController@createAppointment')   ->name('doctor.make-appointment.submit');
+
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
 
 Route::get('/logout', 'Auth\LoginController@logout');
 

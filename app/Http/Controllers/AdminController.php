@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Providers\AppointmentService;
 use App\Providers\AdminService;
 use App\Providers\UserService;
-
+use App\Providers\RoleService;
 
 class AdminController extends Controller
 {
@@ -32,26 +32,18 @@ class AdminController extends Controller
     }
 
     /**
+     * 
+     * READ
+     * 
+     */
+    
+     /**
      * Get the data from appoitments table and passing it to view
      *
      * @return void
      */
     public function patientsAppointments() {
-/*       $appointmets = array(
-        AppointmentService::getAppointments(),
-        Admin::find(1),
-       );
-
-        return view('appointments', $appointmets);
-        //$user = Admin::find(1);*/
-
-<<<<<<< HEAD
         return view('appointments', ['appointmets' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
-=======
-        return view('appointments', $appointmets);*/
-
-        return view('appointments', ['appointments' => AppointmentService::getAppointments()]);
->>>>>>> 859247fd8e9d60c5b8f48629c39f3e7b126fca7c
     }
 
     /**
@@ -61,6 +53,17 @@ class AdminController extends Controller
      */
     public function showPatients() {
         return view('admin/admin-patient', ['patients' => UserService::getUsers()]);
+    }
+
+    /**
+     * 
+     * CREATE
+     * 
+     */
+    public function createRole(Request $request) {
+        $name_role = $request->input('name');
+
+        RoleService::createRole($name_role);
     }
 
 

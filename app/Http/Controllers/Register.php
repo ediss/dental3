@@ -51,13 +51,14 @@ class Register extends Controller
         $password   = Hash::make($request->input('password'));
         $role       = $request->input('role');
 
-        if ($role === 3) {
+        if ($role == 3) {
             $id = UserService::createUser($name, $email, $password);
             FolderService::createFolder($id, FolderService::$patien_document_route);
         } else {
             AdminService::createAdmin($name, $email, $password, $role);
         }
 
-        return view('admin/admin-home');
+        return redirect('admin/pocetna');
+       
     }
 }

@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-<<<<<<< HEAD
-=======
-use Illuminate\Database\Eloquent\Model;
->>>>>>> 859247fd8e9d60c5b8f48629c39f3e7b126fca7c
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;

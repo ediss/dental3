@@ -88,7 +88,7 @@
                     <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
                     <a href="{{ route('admin.pregledi') }}">Uvid u preglede</a>
                     <a href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
-                    <a href="#">Link 4</a>
+                    <a href="{{ route('doctor.make-appointment')}}">Zakazivanje pregleda</a>
                     <a href="#">Link 5</a>
                 </div>
             </div>
