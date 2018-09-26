@@ -110,6 +110,7 @@
                                 <td>{{ $appointment->patient->name }}</td>
                                 <td>{{ $appointment->service->service }}</td>
                                 <td>{{ $appointment->service->price }}</td>
+                                <td>{{ date('d-M-Y', strtotime($appointment->date_appoitment))}}</td>
                                 <td>{{ $appointment->term->term }}</td>
                                 <td>{{ $appointment->doctor->name }}</td>
                             </tr>

@@ -30,7 +30,9 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
 
     Route::get('/pacijenti',                'AdminController@showPatients')            ->name('admin.upravljanje.pacijenti');
 
-    Route::get('/pacijenti/izmena',         'AdminController@editPatient');             /*->name('admin.patient.edit');*/
+    Route::get('/pacijenti/izmena/{id}',    'AdminController@editPatient')             ->name('admin.patient.edit');
+    
+    Route::post('/pacijenti/izmena/{id}',    'AdminController@updatePatient')          ->name('admin.patient.update');
 
     Route::get('/pacijenti/brisanje',       'AdminController@editPatient')             ->name('admin.patient.delete');
 

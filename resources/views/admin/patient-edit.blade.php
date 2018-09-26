@@ -82,23 +82,27 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Iznema Pacijenta
+                    Izmena Pacijenta
                 </div>
                     
                 <div class="links">
-                    <form method="post" action="route('users.edit', $user)">
+                    <form method="post" action="{{ route('admin.patient.update', $patient->id)}}">
                         {{ csrf_field() }}
-                        {{ method_field('patch') }}
+                        
 
-                        <input type="text" name="name"  value="{{ $user->name }}" />
+                        <label>Ime:</label>
+                        <input type="text" name="name"   class = 'form-control'  value="{{$patient->name}}" />
 
-                        <input type="email" name="email"  value="{{ $user->email }}" />
+                        <label>E-mail adresa:</label>
+                        <input type="email" name="email" class = 'form-control'  value="{{$patient->email}}" />
 
-                        <input type="password" name="password" />
+                       <!-- <label>Lozinka:</label>
+                        <input type="password" name="password" class = 'form-control' />
 
-                        <input type="password" name="password_confirmation" />
+                        <label>Potvrdite lozinku:</label>
+                        <input type="password" name="password_confirmation" class = 'form-control' />-->
 
-                        <button type="submit">Izmeni</button>
+                        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
                     </form>
                 </div>
             </div>

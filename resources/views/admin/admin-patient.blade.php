@@ -102,8 +102,8 @@
                                 <td>{{ $patient->name }}</td>
                                 <td>{{ $patient->email }}</td>
 
-                                <td> <a href="/admin/pacijenti/izmena/{{$patient->id}}">izmena</a></td>
-                                <td> <a href="{{ route('admin.patient.delete') }}">brisanje</a></td>
+                                <td> <a href="{{ route('admin.patient.edit', $patient->id)}} " class ='btn btn-primary'>izmena</a></td>
+                                <td> <a href="{{ route('admin.patient.delete') }}" class = "btn btn-danger">brisanje</a></td>
                             </tr>
                         @endforeach
                     </tbody>

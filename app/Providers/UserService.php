@@ -48,4 +48,24 @@ class UserService {
 
      }
 
+     /**
+      * 
+      *EDIT
+      *
+      */
+
+    public static function editUser($id) {
+        return  User::find($id);
+    }
+
+    public static function updateUser($name, $email, $id) {
+        //return  User::find($id);
+        $user = User::find($id);
+
+        $user->name  = $name;
+        $user->email = $email;
+
+        $user->save();
+    }
+
 }

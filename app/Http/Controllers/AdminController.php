@@ -7,6 +7,8 @@ use App\Providers\AppointmentService;
 use App\Providers\AdminService;
 use App\Providers\UserService;
 use App\Providers\RoleService;
+use App\Models\User;
+use Session;
 
 class AdminController extends Controller
 {
@@ -74,7 +76,22 @@ class AdminController extends Controller
      * @return void
      */
     public function editPatient($id) {
-        return view('admin/patient-edit', ['patient'=>UserService::editUser()]);
+
+
+        return view('admin/patient-edit', ['patient'=>UserService::editUser($id)]);
+        //return view('admin/patient-edit', array($id));
+    }
+
+    public function updatePatient(Request $request, $id) {
+        $name  = $request->input('name');
+        $email = $request->input('email');
+        
+        UserService::updateUser($name, $email, $id);
+        
+        Session::flash('success', 'Uspesno ste izmenili podatke o korisniku!');
+
+        return redirect('admin/pocetna');
+        
     }
 
 
