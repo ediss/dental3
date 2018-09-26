@@ -34,7 +34,19 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
     
     Route::post('/pacijenti/izmena/{id}',    'AdminController@updatePatient')          ->name('admin.patient.update');
 
-    Route::get('/pacijenti/brisanje',       'AdminController@editPatient')             ->name('admin.patient.delete');
+    Route::get('/pacijenti/brisanje',       'AdminController@deletePatient')           ->name('admin.patient.delete');
+
+    Route::get('/uloge/forma',         'AdminController@createRole')              ->name('admin.role.create');
+
+    Route::post('/uloge/nova-uloga',         'AdminController@storeRole')             ->name('admin.role.create.submit');
+    
+    Route::get('/uloge',                    'AdminController@getRoles')                ->name('admin.roles');
+
+    Route::get('/uloge/izmena/{id}',        'AdminController@editRole')                ->name('admin.role.edit');
+    
+    Route::post('/uloge/izmena/{id}',       'AdminController@updateRole')              ->name('admin.role.update');
+
+    Route::get('/uloge/brisanje',           'AdminController@deleteRole')              ->name('admin.role.delete');
 
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });

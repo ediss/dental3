@@ -81,21 +81,20 @@
             @endif
 
             <div class="content">
-            @if (Session::has('success'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('success')}}
-            </div>
-            @endif
                 <div class="title m-b-md">
-                    Admin page
+                    Izmena Uloge
                 </div>
-
+                    
                 <div class="links">
-                    <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
-                    <a href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
-                    <a href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
-                    <a href="{{ route('doctor.make-appointment')}}">Zakazivanje pregleda</a>
-                    <a href="{{ route('admin.roles')}}"> Rad sa ulogama</a>
+                    <form method="post" action="{{ route('admin.role.update', $role->id_role)}}">
+                        {{ csrf_field() }}
+                        
+
+                        <label>Naziv role:</label>
+                        <input type="text" name="name" class = 'form-control'  value="{{$role->role}}" />
+
+                        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+                    </form>
                 </div>
             </div>
         </div>

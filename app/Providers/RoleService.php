@@ -27,9 +27,7 @@ class RoleService {
      * 
      */
     public static function getRoles() {
-        $roles = Role::all();
-
-        return $roles;
+        return Role::all();
     }
 
     /**
@@ -39,8 +37,19 @@ class RoleService {
      */
 
     
-    public static function editRole($role_id) {
-        //
+    public static function editRole($id_role) {
+        return  Role::where('id_role', $id_role)->first();
+
+    }
+
+
+    public static function updateRole($role_name, $id_role) {
+        //$role = Role::where('id_role', $id_role);
+        $role = Role::find($id_role);
+        
+        $role->role  = $role_name;
+
+        $role->save();
     }
 
     public static function addRoleToUser($user_id, $role_id) {

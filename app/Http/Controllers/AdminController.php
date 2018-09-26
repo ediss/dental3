@@ -57,17 +57,37 @@ class AdminController extends Controller
         return view('admin/admin-patient', ['patients' => UserService::getUsers()]);
     }
 
+    public function getRoles() {
+        return view('admin/roles', ['roles' => RoleService::getRoles()]);
+    }
+
     /**
      * 
      * CREATE
      * 
      */
-    public function createRole(Request $request) {
+
+    public function createRole() {
+        return view ('admin/create-role');
+    }
+
+    public function storeRole(Request $request) {
         $name_role = $request->input('name');
 
         RoleService::createRole($name_role);
+
+
+        Session::flash('success', 'Uspesno ste dodali novu ulogu!');
+        return redirect('admin/pocetna');
     }
 
+
+    /** 
+     * 
+     *UPDATE
+     * 
+     * 
+    */
 
     /**
      * Edit patients data
@@ -76,10 +96,7 @@ class AdminController extends Controller
      * @return void
      */
     public function editPatient($id) {
-
-
         return view('admin/patient-edit', ['patient'=>UserService::editUser($id)]);
-        //return view('admin/patient-edit', array($id));
     }
 
     public function updatePatient(Request $request, $id) {
@@ -89,6 +106,21 @@ class AdminController extends Controller
         UserService::updateUser($name, $email, $id);
         
         Session::flash('success', 'Uspesno ste izmenili podatke o korisniku!');
+
+        return redirect('admin/pocetna');
+        
+    }
+
+    public function editRole($id) {
+        return view('admin/role-edit', ['role'=>RoleService::editRole($id)]);
+    }
+
+    public function updateRole(Request $request, $id_role) {
+        $role  = $request->input('name');
+        
+        RoleService::updateRole($role, $id_role);
+        
+        Session::flash('success', 'Uspesno ste izmenili naziv uloge!');
 
         return redirect('admin/pocetna');
         

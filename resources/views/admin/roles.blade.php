@@ -81,22 +81,30 @@
             @endif
 
             <div class="content">
-            @if (Session::has('success'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('success')}}
-            </div>
-            @endif
                 <div class="title m-b-md">
-                    Admin page
+                   Uvid u pacijente
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
-                    <a href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
-                    <a href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
-                    <a href="{{ route('doctor.make-appointment')}}">Zakazivanje pregleda</a>
-                    <a href="{{ route('admin.roles')}}"> Rad sa ulogama</a>
+                <table class="table  table-dark">
+                    <thead>
+                        <tr>
+                           <!-- <th scope="col">#</th>-->
+                            <th scope="col">Naziv uloge</th>
+                            <th scope="col">Akcije</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($roles as $role)
+                            <tr>
+                                <td>{{ $role->role }}</td>
+                                <td> <a href="{{ route('admin.role.edit', $role->id_role)}} " class ='btn btn-primary'>izmena</a><a href="{{ route('admin.role.delete') }}" class = "btn btn-danger ml-1">brisanje</a></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 </div>
+                <a href = "{{route('admin.role.create')}}" class = "btn btn-success btn-block">Unesi novu ulogu</a>
             </div>
         </div>
     </body>
