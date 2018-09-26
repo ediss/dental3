@@ -12,16 +12,16 @@ class PermissionDataSeeder extends Seeder
     public function run()
     {
         try{
-            DB::table('role_permissions')
+            DB::table('permissions')
             ->insert(
                 [
-                    'id_role_permission'   =>  1,
-                    'role_id'              =>  2,
-                    'permission_id'        =>  1
+                    'id_permission'   =>  2,
+                    'permission'      => 'roleModify',
+                    'description'     => 'Create, Read, Update, Delete options for roles ',
                 ]
             );
         } catch(\Exception $e) {
-            echo "Dozvola 'appointmentModify' vec postoji!";
+            echo "Dozvola 'roleModify' vec postoji!";
         }
     }
 }

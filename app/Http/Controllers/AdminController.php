@@ -76,8 +76,8 @@ class AdminController extends Controller
 
         RoleService::createRole($name_role);
 
-
         Session::flash('success', 'Uspesno ste dodali novu ulogu!');
+        
         return redirect('admin/pocetna');
     }
 

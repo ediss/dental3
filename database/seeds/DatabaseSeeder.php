@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AppointmentDataSeeder::class,
             ServiceDataSeeder::class,
             PermissionDataSeeder::class,
+            RolePermissionsDataSeeder::class,
         ]);
     }
 }

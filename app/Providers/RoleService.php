@@ -14,6 +14,8 @@ class RoleService {
      */
         
     public static function createRole($name_role) {
+        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za dodavanje uloge!');
+
         $role = new Role;
 
         $role->role = $name_role;
@@ -38,13 +40,15 @@ class RoleService {
 
     
     public static function editRole($id_role) {
-        return  Role::where('id_role', $id_role)->first();
+        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
 
+        return  Role::where('id_role', $id_role)->first();
     }
 
 
     public static function updateRole($role_name, $id_role) {
-        //$role = Role::where('id_role', $id_role);
+        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
+
         $role = Role::find($id_role);
         
         $role->role  = $role_name;
