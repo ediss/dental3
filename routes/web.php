@@ -34,8 +34,6 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
 
     Route::get('/pacijenti/brisanje',       'AdminController@editPatient')             ->name('admin.patient.delete');
 
-    Route::get('/pregledi',                 'AdminController@patientsAppointments')    ->name('admin.pregledi');
-
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
 
@@ -52,7 +50,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
+Route::get('doktor/pregledi',     'AdminController@patientsAppointments')->name('doktor.pregledi');
 
 Route::get('/logout', 'Auth\LoginController@logout');
 

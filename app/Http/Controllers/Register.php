@@ -12,6 +12,7 @@ use App\Providers\FolderService;
 use App\Providers\UserService;
 use App\Providers\AdminService;
 use App\Providers\RoleService;
+use Session;
 
 class Register extends Controller
 {
@@ -57,6 +58,8 @@ class Register extends Controller
         } else {
             AdminService::createAdmin($name, $email, $password, $role);
         }
+        
+        Session::flash('success', 'Uspesno ste registrovali novog korisnika!');
 
         return redirect('admin/pocetna');
        

@@ -24,7 +24,6 @@ class AppointmentService {
         
         $appointmenmt->save();
 
-        //return redirect('admin/pocetna'); // ne stavljaj u servis redisrect nego u kontroller
 
     }
 

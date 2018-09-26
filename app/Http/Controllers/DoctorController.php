@@ -7,6 +7,7 @@ use App\Providers\UserService;
 use App\Providers\ServiceService;
 use App\Providers\TermsService;
 use App\Providers\DoctorService;
+use Session;
 
 class DoctorController extends Controller
 {
@@ -27,6 +28,10 @@ class DoctorController extends Controller
         $term       = $request->input('terms');
         $doctor     = 2;
 
-        return DoctorService::createAppointment($name, $doctor, $date, $term, $service);
+        DoctorService::createAppointment($name, $doctor, $date, $term, $service);
+
+        Session::flash('success', 'Uspesno ste zakazali pregled!');
+        return redirect('doktor/pregledi');
+
     }
 }

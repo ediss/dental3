@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <style>
             html, body {
                 background-color: #fff;
@@ -80,13 +81,18 @@
             @endif
 
             <div class="content">
+            @if (Session::has('success'))
+            <div class="alert alert-success" role="alert">
+                {{Session::get('success')}}
+            </div>
+            @endif
                 <div class="title m-b-md">
                     Admin page
                 </div>
 
                 <div class="links">
                     <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
-                    <a href="{{ route('admin.pregledi') }}">Uvid u preglede</a>
+                    <a href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
                     <a href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
                     <a href="{{ route('doctor.make-appointment')}}">Zakazivanje pregleda</a>
                     <a href="#">Link 5</a>
