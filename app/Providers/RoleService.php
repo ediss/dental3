@@ -5,14 +5,14 @@ namespace App\Providers;
 use App\Models\Role;
 
 class RoleService {
-    
+
 
     /**
-     * 
+     *
      * CREATE
-     * 
+     *
      */
-        
+
     public static function createRole($name_role) {
         if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za dodavanje uloge!');
 
@@ -24,21 +24,21 @@ class RoleService {
     }
 
     /**
-     * 
+     *
      * READ
-     * 
+     *
      */
     public static function getRoles() {
         return Role::all();
     }
 
     /**
-     * 
+     *
      * UPDATE
-     * 
+     *
      */
 
-    
+
     public static function editRole($id_role) {
         if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
 
@@ -50,7 +50,7 @@ class RoleService {
         if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
 
         $role = Role::find($id_role);
-        
+
         $role->role  = $role_name;
 
         $role->save();
@@ -61,14 +61,19 @@ class RoleService {
     }
 
     /**
-     * 
+     *
      * DELETE
-     * 
+     *
      */
 
-     public static function deleteRole($role_id) {
-         //
-     }
+    public static function deleteRole($id_role) {
+        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu da izbrisete ulogu!');
+
+        $role = Role::find($id_role);
+
+        $role->delete();
+
+    }
      /*   kreiranje uloga
         dodeljivanje uloga
         brisanje uloga

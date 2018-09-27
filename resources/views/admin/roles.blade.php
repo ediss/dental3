@@ -82,7 +82,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                   Uvid u pacijente
+                   Rad sa ulogama
                 </div>
 
                 <div class="links">
@@ -98,7 +98,7 @@
                         @foreach($roles as $role)
                             <tr>
                                 <td>{{ $role->role }}</td>
-                                <td> <a href="{{ route('admin.role.edit', $role->id_role)}} " class ='btn btn-primary'>izmena</a><a href="{{ route('admin.role.delete') }}" class = "btn btn-danger ml-1">brisanje</a></td>
+                                <td> <a href="{{ route('admin.role.edit', $role->id_role)}} " class ='btn btn-primary'>Izmeni</a><a href="{{ route('admin.role.delete', $role->id_role) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -11,6 +11,20 @@ class RolePermissionsDataSeeder extends Seeder
      */
     public function run()
     {
+        
+        try{
+            DB::table('role_permissions')
+            ->insert(
+                [
+                    'id_role_permission'   => 1,
+                    'role_id'              => 2,
+                    'permission_id'        => 1,
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Dozvola 'appointmentModify' je vec dodeljena!";
+        }
+        
         try{
             DB::table('role_permissions')
             ->insert(
@@ -23,5 +37,6 @@ class RolePermissionsDataSeeder extends Seeder
         } catch(\Exception $e) {
             echo "Dozvola 'roleModify' je vec dodeljena!";
         }
+
     }
 }

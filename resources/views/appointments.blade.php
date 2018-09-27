@@ -80,7 +80,7 @@
                 </div>
             @endif
 
-         
+
             <div class="content">
             @if (Session::has('success'))
             <div class="alert alert-success" role="alert">
@@ -118,6 +118,7 @@
                     </tbody>
                 </table>
                 </div>
+                <a href ="{{ route('doctor.make-appointment.submit')}}" class = "btn btn-success"><strong>Zakazi novi pregled</strong></a>
             </div>
         </div>
     </body>

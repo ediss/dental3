@@ -11,9 +11,9 @@ class UserService {
     protected $table = 'users';
 
     /**
-     * 
+     *
      * CREATE
-     * 
+     *
      */
 
     /**
@@ -38,9 +38,9 @@ class UserService {
     }
 
     /**
-     * 
+     *
      * READ
-     * 
+     *
      */
 
      public static function getUsers() {
@@ -49,7 +49,7 @@ class UserService {
      }
 
      /**
-      * 
+      *
       *EDIT
       *
       */
@@ -66,6 +66,19 @@ class UserService {
         $user->email = $email;
 
         $user->save();
+    }
+
+
+    /**
+     *
+     * DELETE
+     *
+     */
+
+    public static function deleteUser($id) {
+        $user =  User::find($id);
+
+        $user->delete();
     }
 
 }

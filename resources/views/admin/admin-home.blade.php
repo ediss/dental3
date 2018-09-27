@@ -94,7 +94,7 @@
                     <a href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
                     <a href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
                     <a href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
-                    <a href="{{ route('doctor.make-appointment')}}">Zakazivanje pregleda</a>
+                    <a href="{{ route('admin.permissions')}}">Rad sa dozvolama</a>
                     <a href="{{ route('admin.roles')}}"> Rad sa ulogama</a>
                 </div>
             </div>
