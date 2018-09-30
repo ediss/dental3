@@ -16,8 +16,9 @@
 });*/
 Route::get('/', 'HomeController@index');
 
-Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
+//Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
 
+Route::prefix('admin')->group(function () {
     Route::get('/login',                    'Auth\AdminLoginController@showLoginForm') ->name('admin.login');
     Route::post('/login',                   'Auth\AdminLoginController@login')         ->name('admin.login.submit');
 
@@ -26,19 +27,19 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
     Route::get('/registracija',             'Register@showRegistrationForm')           ->name('admin.registracija');
     Route::post('/registracija',            'Register@register')                       ->name('admin.registracija.submit');
 
-    Route::get('/pacijenti',                'AdminController@showPatients')            ->name('admin.upravljanje.pacijenti');
+    Route::get('/pacijenti',                'AdminController@getPatients')             ->name('admin.upravljanje.pacijenti');
 
-    Route::get('/pacijenti/izmena/{id}',    'AdminController@editPatient')             ->name('admin.patient.edit');
-    Route::post('/pacijenti/izmena/{id}',   'AdminController@updatePatient')           ->name('admin.patient.update');
+    Route::get('/pacijenti-izmena/{id}',    'AdminController@editPatient')             ->name('admin.patient.edit');
+    Route::post('/pacijenti-izmena/{id}',   'AdminController@updatePatient')           ->name('admin.patient.update');
 
     Route::get('/pacijenti/brisanje/{id}',  'AdminController@deleteUser')              ->name('admin.patient.delete');
 
-    Route::get('/uloge/dodavanje',          'AdminController@createRole')              ->name('admin.role.create');
+    Route::get('/dodavanje-uloge',          'AdminController@createRole')              ->name('admin.role.create');
     Route::post('/uloge/nova-uloga',        'AdminController@storeRole')               ->name('admin.role.create.submit');
 
     Route::get('/uloge',                    'AdminController@getRoles')                ->name('admin.roles');
 
-    Route::get('/uloge/izmena/{id}',        'AdminController@editRole')                ->name('admin.role.edit');
+    Route::get('/izmena-uloge/{id}',        'AdminController@editRole')                ->name('admin.role.edit');
     Route::post('/uloge/izmena/{id}',       'AdminController@updateRole')              ->name('admin.role.update');
 
     Route::get('/uloge/brisanje/{id}',      'AdminController@deleteRole')              ->name('admin.role.delete');
@@ -53,6 +54,8 @@ Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function() {
 
     Route::get('/dozvole/brisanje/{id}',    'AdminController@deletePermission')        ->name('admin.permission.delete');
 
+    Route::get('/dozvole/doeljivanje',      'AdminController@getRolePermission')       ->name('admin.role-permission.create');
+    Route::post('/dozvole/doeljivanje',     'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
 
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });

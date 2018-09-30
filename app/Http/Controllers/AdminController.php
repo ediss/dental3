@@ -8,6 +8,7 @@ use App\Providers\AdminService;
 use App\Providers\UserService;
 use App\Providers\RoleService;
 use App\Providers\PermissionService;
+use App\Providers\RolePermissionService;
 use App\Models\User;
 use Session;
 
@@ -54,7 +55,7 @@ class AdminController extends Controller
      *
      * @return User
      */
-    public function showPatients() {
+    public function getPatients() {
         return view('admin/admin-patient', ['patients' => UserService::getUsers()]);
     }
 
@@ -63,7 +64,11 @@ class AdminController extends Controller
     }
 
     public function getPermissions() {
-        return view('admin/permissions', ['permissions' => PermissionService::getPermissions()]);
+        return view('admin/permissions',  ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
+    }
+
+    public function getRolePermission() {
+        return view('admin/add-role-permission',  ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
     }
 
     /**
@@ -88,6 +93,7 @@ class AdminController extends Controller
 
     public function createPermission() {
         return view ('admin/create-permission');
+
     }
 
 
@@ -98,6 +104,17 @@ class AdminController extends Controller
         PermissionService::createPermission($name_permission, $description_permission);
 
         Session::flash('success', 'Uspesno ste dodali novu dozvolu!');
+
+        return redirect('admin/pocetna');
+    }
+
+    public function createRolePermission(Request $request) {
+        $name_permission = $request->input('permissions');
+        $role            = $request->input('roles');
+
+        RolePermissionService::createRolePermission($name_permission, $role);
+
+        Session::flash('success', 'Uspesno ste dodali dozvolu ulozi!');
 
         return redirect('admin/pocetna');
     }
@@ -166,9 +183,9 @@ class AdminController extends Controller
 
 
     /**
-     * 
+     *
      * DELETE
-     * 
+     *
      */
 
     public function deleteUser($id) {

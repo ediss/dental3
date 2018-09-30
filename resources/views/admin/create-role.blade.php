@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends ('admin.admin-main')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+
+        <div class="col-md-4">
             <div class="card">
 
                 <div class="card-header">{{ __('Kreiranje nove uloge') }}</div>
@@ -13,7 +12,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Uloga:') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Naziv uloge:') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
@@ -31,6 +30,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    
+
 @endsection
