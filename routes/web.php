@@ -75,7 +75,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/dozvole/dodeljivanje',    'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
 
     Route::get('/pacijenti/dodeljivanje',   'AdminController@getDoctorPatients')       ->name('assignment.patients');
-    Route::post('/pacijenti/dodeljivanje',    'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
+    Route::post('/pacijenti/dodeljivanje',  'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
 
 
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');

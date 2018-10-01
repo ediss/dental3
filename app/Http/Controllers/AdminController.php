@@ -142,6 +142,8 @@ class AdminController extends Controller
      * @return void
      */
     public function assigmentPatient(Request $request) {
+        if(!PermissionService::checkPermission('assignmentPatient')) throw new \Exception('Nemate dozvolu da dodelite pacijenta!');
+
         $patient = $request->input('patients');
         $doctor  = $request->input('doctors');
 
