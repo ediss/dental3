@@ -59,7 +59,7 @@ class UserService {
     }
 
     public static function updateUser($name, $email, $id) {
-        //return  User::find($id);
+        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o pacijentu!');
         $user = User::find($id);
 
         $user->name  = $name;
