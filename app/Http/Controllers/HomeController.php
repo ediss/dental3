@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+
+use Session;
 
 class HomeController extends Controller
 {
@@ -32,6 +36,8 @@ class HomeController extends Controller
      * @return void
      */
     public function user() {
-        return view('user-home');
+        $session_id = Session::getId();
+        $user = Auth::user()->id;
+        return view('user-home', ['sesija'=>$session_id, 'user'=>$user]);
     }
 }

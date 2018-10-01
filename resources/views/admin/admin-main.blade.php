@@ -208,6 +208,14 @@
             <li class="nav-item">
                 <a class = 'nav-link' href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
             </li>
+
+             <li class="nav-item">
+                <a class = 'nav-link' href="{{ route('assignment.patients') }}">Dodeli pacijente</a>
+            </li>
+
+             <li class="nav-item">
+                <a class = 'nav-link' href="{{ route('doctor.patients') }}">Moji pacijenti</a>
+            </li>
           </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
+use App\Models\DoctorPatient;
 use Illuminate\Support\Facades\Auth;
 
 class AdminService extends ServiceProvider
@@ -36,6 +37,16 @@ class AdminService extends ServiceProvider
         $admin->save();
     }
 
+    public static function assigmentPatient($patient, $dr){
+        $doctor = new DoctorPatient;
+
+        $doctor->patient_id = $patient;
+        $doctor->doctor_id  = $dr;
+
+        $doctor->save();
+
+    }
+
     /**
      *
      * READ
@@ -63,6 +74,8 @@ class AdminService extends ServiceProvider
      */
 
     public static function updateAdmin($name, $email, $id) {
+        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o adminu!');
+
         $admin = Admin::find($id);
 
         $admin->name  = $name;
@@ -78,6 +91,8 @@ class AdminService extends ServiceProvider
      */
 
     public static function deleteAdmin($id) {
+        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izbrisete admina!');
+
         $admin =  Admin::find($id);
 
         $admin->delete();

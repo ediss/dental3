@@ -3,9 +3,9 @@
 @section ('content')
     <div class = 'col-md-4'>
         <div class="title">
-            Dodeljivanje
+            Dodeljivanje dozvola
         </div>
-        
+
         <div class="card">
 
             <div class="card-header">{{ __('Dodeljivanje dozvole ulozi') }}</div>

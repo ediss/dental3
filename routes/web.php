@@ -71,14 +71,20 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/dozvole/brisanje/{id}',    'AdminController@deletePermission')        ->name('admin.permission.delete');
 
-    Route::get('/dozvole/doeljivanje',      'AdminController@getRolePermission')       ->name('admin.role-permission.create');
-    Route::post('/dozvole/doeljivanje',     'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
+    Route::get('/dozvole/dodeljivanje',     'AdminController@getRolePermission')       ->name('admin.role-permission.create');
+    Route::post('/dozvole/ddoeljivanje',    'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
+
+    Route::get('/pacijenti/dodeljivanje',   'AdminController@getDoctorPatients')       ->name('assignment.patients');
+    Route::post('/dozvole/ddoeljivanje',    'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
+
 
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
 
 
 Route::prefix('doktor')->group(function () {
+
+    Route::get('/pacijenti',    'DoctorController@getPatients')         ->name('doctor.patients');
 
     Route::get('/zakazivanje',  'DoctorController@index')               ->name('doctor.make-appointment');
 

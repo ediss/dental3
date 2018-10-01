@@ -11,6 +11,10 @@ use Session;
 
 class DoctorController extends Controller
 {
+    public function getPatients() {
+        return view('pacijenti', ['patients'=>DoctorService::getPatients()]);
+    }
+
     public function index() {
         $data = array (
             "patients" => UserService::getUsers(),

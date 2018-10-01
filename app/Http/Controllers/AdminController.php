@@ -63,7 +63,7 @@ class AdminController extends Controller
     }
 
     public function getDoctors() {
-        return view('admin/doctors',    ['doctors' => DoctorService::getDoctors()]);
+        return view('admin/doctors',    ['doctors' => DoctorService::getDoctors(), 'id'=>DoctorService::getCurrentDoctor()]);
     }
 
     public function getPatients() {
@@ -80,6 +80,10 @@ class AdminController extends Controller
 
     public function getRolePermission() {
         return view('admin/add-role-permission',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
+    }
+
+    public function getDoctorPatients() {
+        return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers()]);
     }
 
     /**
@@ -131,6 +135,24 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * DODELJNIVANJE PACIJENTA DOKTORU
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function assigmentPatient(Request $request) {
+        $patient = $request->input('patients');
+        $doctor  = $request->input('doctors');
+
+        AdminService::assigmentPatient($patient, $doctor);
+
+        Session::flash('success', 'Uspesno ste dodelili pacijenta doktoru!');
+
+        return redirect('admin/pacijenti/dodeljivanje');
+        //
+    }
+    
     /**
      *
      *UPDATE

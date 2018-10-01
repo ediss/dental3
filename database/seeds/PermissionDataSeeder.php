@@ -37,5 +37,18 @@ class PermissionDataSeeder extends Seeder
         } catch(\Exception $e) {
             echo "Dozvola 'roleModify' vec postoji!";
         }
+
+        try{
+            DB::table('permissions')
+            ->insert(
+                [
+                    'id_permission'   =>  3,
+                    'permission'      => 'permissionModify',
+                    'description'     => 'Create, Read, Update, Delete options for permissions ',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Dozvola 'permissionModify' vec postoji!";
+        }
     }
 }

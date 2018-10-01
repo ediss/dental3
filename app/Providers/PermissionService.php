@@ -86,15 +86,15 @@ class PermissionService {
         $permission->permission   = $permission_name;
         $permission->description  = $description;
 
-        
+
         $permission->save();
     }
 
 
     /**
-     * 
+     *
      * DELETE
-     * 
+     *
      */
 
     public static function deletePermission($id_permission) {

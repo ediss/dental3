@@ -19,12 +19,13 @@ class AssistantService extends ServiceProvider
     }
 
     /**
-     * 
+     *
      * UPDATE
-     * 
+     *
      */
 
     public static function updateAssistant($name, $email, $id) {
+        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o  asistentu!');
         $assistant = Assistant::find($id);
 
         $assistant->name  = $name;
@@ -32,7 +33,7 @@ class AssistantService extends ServiceProvider
 
         $assistant->save();
     }
-    
+
     /**
      *
      * DELETE
@@ -40,6 +41,8 @@ class AssistantService extends ServiceProvider
      */
 
     public static function deleteAssistant($id) {
+        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izbrisete asistenta!');
+
         $assistant =  Assistant::find($id);
 
         $assistant->delete();

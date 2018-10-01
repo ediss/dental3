@@ -7,6 +7,8 @@
                     {{Session::get('success')}}
                 </div>
             @endif
+
+            ovde ide id: <strong>{{$id->id}}</strong>
             <div class="content">
                 <div class="title m-b-md">
                    <h1>Doktori</h1>
