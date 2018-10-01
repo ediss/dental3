@@ -27,7 +27,24 @@ Route::prefix('admin')->group(function () {
     Route::get('/registracija',             'Register@showRegistrationForm')           ->name('admin.registracija');
     Route::post('/registracija',            'Register@register')                       ->name('admin.registracija.submit');
 
-    Route::get('/pacijenti',                'AdminController@getPatients')             ->name('admin.upravljanje.pacijenti');
+    Route::get('/admini',                   'AdminController@getAdmins')               ->name('admin.users.admins');
+
+    Route::post('/admini/{id}',             'AdminController@updateAdmin')             ->name('admin.update.submit');
+    Route::get('/admini/brisanje/{id}',     'AdminController@deleteAdmin')             ->name('admin.delete');
+
+    Route::get('/asistenti',                'AdminController@getAssistants')           ->name('admin.users.assistants');
+
+
+    Route::post('/asistenti/{id}',          'AdminController@updateAssistant')         ->name('admin.assistant.update');
+    Route::get('/asistenti/brisanje/{id}',  'AdminController@deleteAssistant')         ->name('admin.assistant.delete');
+
+    Route::get('/doktori',                  'AdminController@getDoctors')              ->name('admin.users.doctors');
+    
+    Route::post('/doktori/{id}',            'AdminController@updateDoctor')            ->name('admin.doctor.update.submit');
+    Route::get('/doktori/brisanje/{id}',   'AdminController@deleteDoctor')             ->name('admin.doctor.delete');
+
+
+    Route::get('/pacijenti',                'AdminController@getPatients')             ->name('admin.users.patients');
 
     Route::get('/pacijenti-izmena/{id}',    'AdminController@editPatient')             ->name('admin.patient.edit');
     Route::post('/pacijenti-izmena/{id}',   'AdminController@updatePatient')           ->name('admin.patient.update');

@@ -9,6 +9,9 @@ use App\Providers\UserService;
 use App\Providers\RoleService;
 use App\Providers\PermissionService;
 use App\Providers\RolePermissionService;
+use App\Providers\AssistantService;
+use App\Providers\DoctorService;
+
 use App\Models\User;
 use Session;
 
@@ -50,25 +53,33 @@ class AdminController extends Controller
         return view('appointments', ['appointmets' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
     }
 
-    /**
-     * Function for listing all patient's
-     *
-     * @return User
-     */
+
+    public function getAdmins() {
+        return view('admin/admins',     ['admins' => AdminService::getAdmins()]);
+    }
+
+    public function getAssistants() {
+        return view('admin/assistants', ['assistants' => AssistantService::getAssistants()]);
+    }
+
+    public function getDoctors() {
+        return view('admin/doctors',    ['doctors' => DoctorService::getDoctors()]);
+    }
+
     public function getPatients() {
-        return view('admin/admin-patient', ['patients' => UserService::getUsers()]);
+        return view('admin/patients',  ['patients' => UserService::getUsers()]);
     }
 
     public function getRoles() {
-        return view('admin/roles', ['roles' => RoleService::getRoles()]);
+        return view('admin/roles',  ['roles' => RoleService::getRoles()]);
     }
 
     public function getPermissions() {
-        return view('admin/permissions',  ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
+        return view('admin/permissions',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
     }
 
     public function getRolePermission() {
-        return view('admin/add-role-permission',  ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
+        return view('admin/add-role-permission',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
     }
 
     /**
@@ -127,25 +138,15 @@ class AdminController extends Controller
      *
     */
 
-    /**
-     * Edit patients data
-     *
-     * @param       $id     user id
-     * @return void
-     */
-    public function editPatient($id) {
-        return view('admin/patient-edit', ['patient'=>UserService::editUser($id)]);
-    }
-
     public function updatePatient(Request $request, $id) {
         $name  = $request->input('name');
         $email = $request->input('email');
 
         UserService::updateUser($name, $email, $id);
 
-        Session::flash('success', 'Uspesno ste izmenili podatke o korisniku!');
+        Session::flash('success', 'Uspesno ste izmenili podatke o pacijentu!');
 
-        return redirect('admin/pocetna');
+        return redirect('admin/pacijenti');
 
     }
 
@@ -181,6 +182,42 @@ class AdminController extends Controller
 
     }
 
+    public function updateDoctor(Request $request, $id) {
+        $name   = $request->input('name');
+        $email  = $request->input('email');
+
+        DoctorService::updateDoctor($name, $email, $id);
+
+        Session::flash('success', 'Uspesno ste izmenili podatke o doktoru!');
+
+        return redirect('admin/doktori');
+
+    }
+
+    public function updateAdmin(Request $request, $id) {
+        $name   = $request->input('name');
+        $email  = $request->input('email');
+
+        AdminService::updateAdmin($name, $email, $id);
+
+        Session::flash('success', 'Uspesno ste izmenili podatke o adminu!');
+
+        return redirect('admin/admini');
+
+    }
+
+    public function updateAssistant(Request $request, $id) {
+        $name   = $request->input('name');
+        $email  = $request->input('email');
+
+        AssistantService::updateAssistant($name, $email, $id);
+
+        Session::flash('success', 'Uspesno ste izmenili podatke o asistentu!');
+
+        return redirect('admin/asistenti');
+
+    }
+
 
     /**
      *
@@ -191,9 +228,9 @@ class AdminController extends Controller
     public function deleteUser($id) {
         UserService::deleteUser($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali korisnika!');
+        Session::flash('success', 'Uspesno ste izbrisali pacijenta!');
 
-        return redirect('admin/pocetna');
+        return redirect('admin/pacijenti');
     }
 
 
@@ -211,6 +248,30 @@ class AdminController extends Controller
         Session::flash('success', 'Uspesno ste izbrisali dozvolu!');
 
         return redirect('admin/pocetna');
+    }
+
+    public function deleteDoctor($id) {
+        DoctorService::deleteDoctor($id);
+
+        Session::flash('success', 'Uspesno ste izbrisali doktora!');
+
+        return redirect('admin/doktori');
+    }
+
+    public function deleteAdmin($id) {
+        AdminService::deleteAdmin($id);
+
+        Session::flash('success', 'Uspesno ste izbrisali admina!');
+
+        return redirect('admin/admini');
+    }
+
+    public function deleteAssistant($id) {
+        AssistantService::deleteAssistant($id);
+
+        Session::flash('success', 'Uspesno ste izbrisali asistenta!');
+
+        return redirect('admin/asistenti');
     }
 
 }

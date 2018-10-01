@@ -155,9 +155,27 @@
                 <a class="nav-link" href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
             </li>
             <li class="nav-item">
-                
+
             </li>
-            
+
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj korisnicima</a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                    <a class='nav-link' href="{{ route('admin.users.admins')}}">Administratori</a>
+                </li>
+                <li class="nav-item">
+                    <a href = "{{route('admin.users.assistants')}}" class = "nav-link">Recepcija</a>
+                </li>
+                <li class="nav-item">
+                    <a href = "{{route('admin.users.doctors')}}" class = "nav-link">Doktori</a>
+                </li>
+                <li class="nav-item">
+                  <a class = 'nav-link' href="{{ route('admin.users.patients')}}">Pacijenti</a>
+              </li>
+              </ul>
+            </li>
+
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj ulogama</a>
               <ul class="nav-dropdown-items">
@@ -183,11 +201,8 @@
                 <li class="nav-item">
                     <a href = "{{route('admin.role-permission.create')}}" class = "nav-link">Dodeljivanje dozvola</a>
                 </li>
-              
+
               </ul>
-            </li>
-            <li class="nav-item">
-                <a class = 'nav-link' href="{{ route('admin.upravljanje.pacijenti')}}">Upravljaj pacijentima</a>
             </li>
 
             <li class="nav-item">
@@ -297,7 +312,7 @@
                     <img class="img-avatar" src="img/avatars/5.jpg" alt="admin@bootstrapmaster.com">
                   </div>
                   <div class="avatar avatar-xs">
-                    
+
                   </div>
                 </div>
               </div>
@@ -331,7 +346,7 @@
                     <img class="img-avatar" src="img/avatars/5.jpg" alt="admin@bootstrapmaster.com">
                   </div>
                   <div class="avatar avatar-xs">
-                    
+
                   </div>
                   <div class="avatar avatar-xs">
                     <img class="img-avatar" src="img/avatars/7.jpg" alt="admin@bootstrapmaster.com">
@@ -513,6 +528,9 @@
         </div>
       </aside>
     </div>
+    
+    @yield('modal')
+
     <footer class="app-footer">
       <div>
         <a href="https://coreui.io">CoreUI</a>

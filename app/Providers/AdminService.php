@@ -42,6 +42,10 @@ class AdminService extends ServiceProvider
      *
      */
 
+    public static function getAdmins() {
+        return  Admin::where('role_id', '1')->get();
+    }
+
     /**
      * Get's current admin
      *
@@ -51,5 +55,32 @@ class AdminService extends ServiceProvider
         return Auth::guard('admin')->user();
     }
 
-    
+
+    /**
+     *
+     * UPDATE
+     *
+     */
+
+    public static function updateAdmin($name, $email, $id) {
+        $admin = Admin::find($id);
+
+        $admin->name  = $name;
+        $admin->email = $email;
+
+        $admin->save();
+    }
+
+    /**
+     *
+     * DELETE
+     *
+     */
+
+    public static function deleteAdmin($id) {
+        $admin =  Admin::find($id);
+
+        $admin->delete();
+    }
+
 }
