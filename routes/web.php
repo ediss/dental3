@@ -72,10 +72,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/dozvole/brisanje/{id}',    'AdminController@deletePermission')        ->name('admin.permission.delete');
 
     Route::get('/dozvole/dodeljivanje',     'AdminController@getRolePermission')       ->name('admin.role-permission.create');
-    Route::post('/dozvole/ddoeljivanje',    'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
+    Route::post('/dozvole/dodeljivanje',    'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
 
     Route::get('/pacijenti/dodeljivanje',   'AdminController@getDoctorPatients')       ->name('assignment.patients');
-    Route::post('/dozvole/ddoeljivanje',    'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
+    Route::post('/pacijenti/dodeljivanje',    'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
 
 
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
