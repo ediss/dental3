@@ -12,7 +12,7 @@ use Session;
 class DoctorController extends Controller
 {
     public function getPatients() {
-        return view('pacijenti', ['patients'=>DoctorService::getPatients()]);
+        return self::response('patients', ['patients'=>DoctorService::getPatients()]);
     }
 
     public function index() {
@@ -21,7 +21,7 @@ class DoctorController extends Controller
             "services" => ServiceService::getServices(),
             "terms"    => TermsService::getTerms(),
         );
-        return view('make-appointment', $data);
+        return self::response('make-appointment', $data);
     }
 
     public function createAppointment(Request $request) {

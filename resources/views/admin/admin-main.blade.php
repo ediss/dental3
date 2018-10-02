@@ -144,6 +144,10 @@
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
+            @foreach ($permissions as $permission)
+                {{ $permission->permission }}
+                <br/>
+            @endforeach
             <li class="nav-item">
               <a class="nav-link" href="index.html">
                 <i class="nav-icon icon-speedometer"></i> Dashboard
@@ -243,9 +247,9 @@
         </ol>
         <div class="container-fluid">
           <div class="animated fadeIn">
-
+            
                 @yield('content')
-
+           
           </div>
         </div>
 
@@ -536,7 +540,7 @@
         </div>
       </aside>
     </div>
-    
+
     @yield('modal')
 
     <footer class="app-footer">

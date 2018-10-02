@@ -39,7 +39,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/asistenti/brisanje/{id}',  'AdminController@deleteAssistant')         ->name('admin.assistant.delete');
 
     Route::get('/doktori',                  'AdminController@getDoctors')              ->name('admin.users.doctors');
-    
+
     Route::post('/doktori/{id}',            'AdminController@updateDoctor')            ->name('admin.doctor.update.submit');
     Route::get('/doktori/brisanje/{id}',   'AdminController@deleteDoctor')             ->name('admin.doctor.delete');
 
@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/uloge',                    'AdminController@getRoles')                ->name('admin.roles');
 
     Route::get('/izmena-uloge/{id}',        'AdminController@editRole')                ->name('admin.role.edit');
-    Route::post('/uloge/izmena/{id}',       'AdminController@updateRole')              ->name('admin.role.update');
+    Route::post('/izmena-uloge/{id}',       'AdminController@updateRole')              ->name('admin.role.update');
 
     Route::get('/uloge/brisanje/{id}',      'AdminController@deleteRole')              ->name('admin.role.delete');
 
@@ -66,8 +66,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/dozvole/dodavanje',        'AdminController@createPermission')        ->name('admin.permission.create');
     Route::post('/dozvole/dodavanje',       'AdminController@storePermission')         ->name('admin.permission.create.submit');
 
-    Route::get('/dozvole/izmena/{id}',      'AdminController@editPermission')          ->name('admin.permission.edit');
-    Route::post('/dozvole/izmena/{id}',     'AdminController@updatePermission')        ->name('admin.permission.update');
+    Route::get('/dozvole-izmena/{id}',      'AdminController@editPermission')          ->name('admin.permission.edit');
+    Route::post('/dozvole-izmena/{id}',     'AdminController@updatePermission')        ->name('admin.permission.update');
 
     Route::get('/dozvole/brisanje/{id}',    'AdminController@deletePermission')        ->name('admin.permission.delete');
 

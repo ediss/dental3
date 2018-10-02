@@ -37,7 +37,7 @@ class Register extends Controller
         trosenje ram memorije zbog pravljenja vise promenljivih
         */
 
-        return view('auth.register', ['roles' => RoleService::getRoles()]);
+        return self::response('auth.register');
     }
 
     /**
@@ -58,10 +58,10 @@ class Register extends Controller
         } else {
             AdminService::createAdmin($name, $email, $password, $role);
         }
-        
+
         Session::flash('success', 'Uspesno ste registrovali novog korisnika!');
 
-        return redirect('admin/pocetna');
-       
+        return self::response('admin/admin-home');
+
     }
 }

@@ -17,6 +17,8 @@ class AddTablePermissions extends Migration
             $table->increments('id_permission');
             $table->string('permission', 31);
             $table->string('description', 127);
+
+//            $table->index('permission');
         });
     }
 

@@ -1,6 +1,12 @@
 @extends ('admin.admin-main')
 
 @section('content')
+
+            @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{Session::get('success')}}
+                </div>
+            @endif
             <div class="content">
                 <div class="title m-b-md">
                    <h1>Asistenti</h1>
@@ -17,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($assistants as $assistant)
+                        @foreach($data['assistants'] as $assistant)
                             <tr>
                                 <td>{{ $assistant->name }}</td>
                                 <td>{{ $assistant->email }}</td>

@@ -35,7 +35,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin/admin-home');
+        return self::response('admin/admin-home');
     }
 
     /**
@@ -50,32 +50,38 @@ class AdminController extends Controller
      * @return void
      */
     public function patientsAppointments() {
-        return view('appointments', ['appointmets' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
+        return self::response('appointments', ['appointmets' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
     }
 
 
     public function getAdmins() {
-        return view('admin/admins',     ['admins' => AdminService::getAdmins()]);
+        return self::response('admin/admins', ['admins' => AdminService::getAdmins()]);
+
+        //return view('admin/admins',     ['admins' => AdminService::getAdmins(), 'roles' => RoleService::getRoles()]);
     }
 
     public function getAssistants() {
-        return view('admin/assistants', ['assistants' => AssistantService::getAssistants()]);
+        return self::response('admin/assistants', ['assistants' => AssistantService::getAssistants()]);
     }
 
     public function getDoctors() {
-        return view('admin/doctors',    ['doctors' => DoctorService::getDoctors(), 'id'=>DoctorService::getCurrentDoctor()]);
+        return self::response('admin/doctors',    ['doctors' => DoctorService::getDoctors(), 'id'=>DoctorService::getCurrentDoctor()]);
     }
 
     public function getPatients() {
-        return view('admin/patients',  ['patients' => UserService::getUsers()]);
+        return self::response('admin/patients',  ['patients' => UserService::getUsers()]);
     }
 
     public function getRoles() {
-        return view('admin/roles',  ['roles' => RoleService::getRoles()]);
+        return self::response('admin/roles');
+
+        //return view('admin/roles',  ['roles' => RoleService::getRoles()]);
     }
 
     public function getPermissions() {
-        return view('admin/permissions',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
+        return self::response('admin/permissions');
+
+        // return view('admin/permissions',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
     }
 
     public function getRolePermission() {
@@ -83,7 +89,9 @@ class AdminController extends Controller
     }
 
     public function getDoctorPatients() {
-        return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers()]);
+        return self::response('admin/assignment-patient',  ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers()]);
+
+        // return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers(), 'roles' => RoleService::getRoles()]);
     }
 
     /**
@@ -93,7 +101,7 @@ class AdminController extends Controller
      */
 
     public function createRole() {
-        return view ('admin/create-role');
+        return self::response('admin/create-role');
     }
 
     public function storeRole(Request $request) {
@@ -107,7 +115,7 @@ class AdminController extends Controller
     }
 
     public function createPermission() {
-        return view ('admin/create-permission');
+        return self::response('admin/create-permission');
 
     }
 
@@ -154,7 +162,7 @@ class AdminController extends Controller
         return redirect('admin/pacijenti/dodeljivanje');
         //
     }
-    
+
     /**
      *
      *UPDATE
@@ -174,9 +182,9 @@ class AdminController extends Controller
 
     }
 
-    public function editRole($id) {
-        return view('admin/role-edit', ['role'=>RoleService::editRole($id)]);
-    }
+    /*public function editRole($id) {
+        return self::response('admin/role-edit', ['role'=>RoleService::editRole($id)]);
+    }*/
 
     public function updateRole(Request $request, $id_role) {
         $role  = $request->input('name');
@@ -185,14 +193,16 @@ class AdminController extends Controller
 
         Session::flash('success', 'Uspesno ste izmenili naziv uloge!');
 
-        return redirect('admin/pocetna');
+        return self::response('admin/roles');
 
     }
 
 
-    public function editPermission($id_permission) {
-        return view('admin/permission-edit', ['permission'=>PermissionService::editPermission($id_permission)]);
-    }
+    /*public function editPermission($id_permission) {
+        return self::response('admin/permission-edit',  ['permission'=>PermissionService::editPermission($id_permission)]);
+
+        //return view('admin/permission-edit', ['permission'=>PermissionService::editPermission($id_permission)]);
+    }*/
 
     public function updatePermission(Request $request, $id_permission) {
         $permission   = $request->input('name');
@@ -202,7 +212,7 @@ class AdminController extends Controller
 
         Session::flash('success', 'Uspesno ste izmenili dozvolu!');
 
-        return redirect('admin/pocetna');
+        return self::response('admin/permissions');
 
     }
 

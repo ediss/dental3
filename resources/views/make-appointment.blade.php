@@ -17,7 +17,7 @@
 
                             <div class="col-md-6">
                                 <select name = 'patients' class = 'form-control'>
-                                    @foreach ($patients as $patient)
+                                    @foreach ($data['patients'] as $patient)
                                         <option value = "{{ $patient->id }}" > {{$patient->name}} </option>
                                     @endforeach
                                 </select>
@@ -30,7 +30,7 @@
 
                             <div class="col-md-6">
                                 <select name = 'services' class = 'form-control'>
-                                    @foreach ($services as $service)
+                                    @foreach ($data['services'] as $service)
                                         <option value = "{{ $service->id_service }}" > {{$service->service}} </option>
                                     @endforeach
                                 </select>
@@ -51,7 +51,7 @@
 
                             <div class="col-md-6">
                                 <select name = 'terms' class = 'form-control'>
-                                    @foreach ($terms as $term)
+                                    @foreach ($data['terms'] as $term)
                                         <option value = "{{ $term->id_term }}" > {{$term->term}} </option>
                                     @endforeach
                                 </select>

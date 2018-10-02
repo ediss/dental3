@@ -29,9 +29,6 @@ class RolePermissionService {
      * READ
      *
      */
-    public static function getRoles() {
-        return Role::all();
-    }
 
     /**
      *
@@ -40,22 +37,7 @@ class RolePermissionService {
      */
 
 
-    public static function editRole($id_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
 
-        return  Role::where('id_role', $id_role)->first();
-    }
-
-
-    public static function updateRole($role_name, $id_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
-
-        $role = Role::find($id_role);
-
-        $role->role  = $role_name;
-
-        $role->save();
-    }
 
     public static function addRoleToUser($user_id, $role_id) {
         //
@@ -67,14 +49,6 @@ class RolePermissionService {
      *
      */
 
-    public static function deleteRole($id_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu da izbrisete ulogu!');
-
-        $role = Role::find($id_role);
-
-        $role->delete();
-
-    }
      /*   kreiranje uloga
         dodeljivanje uloga
         brisanje uloga

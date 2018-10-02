@@ -8,7 +8,7 @@
                 </div>
             @endif
 
-            ovde ide id: <strong>{{$id->id}}</strong>
+            ovde ide id: <strong>{{$data['id']->id}}</strong>
             <div class="content">
                 <div class="title m-b-md">
                    <h1>Doktori</h1>
@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($doctors as $doctor)
+                        @foreach($data['doctors'] as $doctor)
                             <tr>
                                 <td>{{ $doctor->name }}</td>
                                 <td>{{ $doctor->email }}</td>

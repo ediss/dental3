@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($patients as $patient)
+                        @foreach($data['patients'] as $patient)
                             <tr>
                                 <td>{{ $patient->name }}</td>
                                 <td>{{ $patient->email }}</td>

@@ -1,12 +1,14 @@
 @extends('admin/admin-main')
 
 @section('content')
+
+                @if (Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{Session::get('success')}}
+                    </div>
+                @endif
             <div class="content">
-            @if (Session::has('success'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('success')}}
-            </div>
-            @endif
+
                 <div class="title m-b-md">
                    <h1>Uvid u pacijente</h1>
                 </div>
@@ -21,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($patients as $patient)
+                        @foreach($data['patients'] as $patient)
                             <tr>
                                 <td>{{ $patient->patient_name }}</td>
                                 <td>{{ $patient->doctor_name }}</td>

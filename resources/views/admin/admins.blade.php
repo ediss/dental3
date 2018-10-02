@@ -1,7 +1,6 @@
 @extends ('admin.admin-main')
 
 @section('content')
-
             @if (Session::has('success'))
                 <div class="alert alert-success" role="alert">
                     {{Session::get('success')}}
@@ -23,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($admins as $admin)
+                        @foreach($data['admins'] as $admin)
                             <tr>
                                 <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->email }}</td>

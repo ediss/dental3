@@ -1,12 +1,11 @@
 @extends ('admin.admin-main')
 
 @section ('content')
-
-        @if (Session::has('success'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('success')}}
-            </div>
-        @endif
+    @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{Session::get('success')}}
+        </div>
+    @endif
     <div class = 'col-md-4'>
         <div class="title">
             <h1>Dodeljivanje pacijenata</h1>
@@ -25,8 +24,8 @@
 
                         <div class="col-md-6">
                             <select name = 'patients' class = 'form-control'>
-                                @foreach ($patients as $patient)
-                                    <option value = "{{ $patient->id }}" > {{$patient->name}} </option>
+                                @foreach ($data['patients'] as $patient)
+                                    <option value = "{{ $patient->id }}" > {{ $patient->name }} </option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,8 +36,8 @@
 
                             <div class="col-md-6">
                                 <select name = 'doctors' class = 'form-control'>
-                                    @foreach ($doctors as $doctor)
-                                        <option value = "{{ $doctor->id }}" > {{$doctor->name}} </option>
+                                    @foreach ($data['doctors'] as $doctor)
+                                        <option value = "{{ $doctor->id }}" > {{ $doctor->name }} </option>
                                     @endforeach
                                 </select>
                             </div>
