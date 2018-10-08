@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-         
+
                 <div class="card-header">{{ __('Zakazivanje pregleda') }}</div>
 
                 <div class="card-body">
@@ -21,7 +21,6 @@
                                         <option value = "{{ $patient->id }}" > {{$patient->name}} </option>
                                     @endforeach
                                 </select>
-                                <!--<input id="name" type="text" class="form-control" name="name" value="" required autofocus>-->
                             </div>
                         </div>
 
@@ -34,7 +33,6 @@
                                         <option value = "{{ $service->id_service }}" > {{$service->service}} </option>
                                     @endforeach
                                 </select>
-                              <!--  <input id="service" type="text" name = "service" class="form-control" required>-->
                             </div>
                         </div>
 
@@ -55,12 +53,10 @@
                                         <option value = "{{ $term->id_term }}" > {{$term->term}} </option>
                                     @endforeach
                                 </select>
-
-                              <!--  <input id="term" type="text" class="form-control" name="term" required>-->
                             </div>
                         </div>
 
-              
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

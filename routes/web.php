@@ -84,11 +84,13 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('doktor')->group(function () {
 
-    Route::get('/pacijenti',    'DoctorController@getPatients')         ->name('doctor.patients');
+    Route::get('/pacijenti',    'DoctorController@getPatients')             ->name('doctor.patients');
 
-    Route::get('/zakazivanje',  'DoctorController@index')               ->name('doctor.make-appointment');
+    Route::get('/zakazivanje',  'DoctorController@index')                   ->name('doctor.make-appointment');
 
-    Route::post('/zakazivanje', 'DoctorController@createAppointment')   ->name('doctor.make-appointment.submit');
+    Route::post('/pacijenti',   'DoctorController@createAppointment')       ->name('doctor.make-appointment.submit');
+
+    Route::get('/karton/{id}',  'DoctorController@patientMedicalHistory')   ->name('patient.medical.history');
 
 });
 

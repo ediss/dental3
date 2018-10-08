@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\RolePermissions;
+use Session;
 
 class RolePermissionService {
 
@@ -14,14 +15,25 @@ class RolePermissionService {
      */
 
     public static function createRolePermission($permission, $role) {
-        //if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za dodavanje uloge!');
+        if(!PermissionService::checkPermission('rolePermissionModify')) throw new \Exception('Nemate dozvolu za dodavanje dozvole ulozi!');
 
-        $rolePermission = new RolePermissions;
+        if (RolePermissions::where('role_id', '=', $role)
+                           ->where('permission_id', '=', $permission)
+                           ->exists()) {
+           return Session::flash('error', 'Dozvola je vec dodeljena!');
+         }
 
-        $rolePermission->role_id       = $role;
-        $rolePermission->permission_id = $permission;
+         else{
+            $rolePermission = new RolePermissions;
 
-        $rolePermission->save();
+            $rolePermission->role_id       = $role;
+            $rolePermission->permission_id = $permission;
+
+            $rolePermission->save();
+
+            Session::flash('success', 'Uspesno ste dodali dozvolu ulozi!');
+         }
+         
     }
 
     /**

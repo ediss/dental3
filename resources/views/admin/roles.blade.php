@@ -31,7 +31,7 @@
                 </table>
                 <a href = "{{route('admin.role.create')}}" class = "btn btn-success btn-block">Unesi novu ulogu</a>
                 </div>
-                
+
             </div>
 @endsection
 

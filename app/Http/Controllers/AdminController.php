@@ -44,7 +44,10 @@ class AdminController extends Controller
      *
      */
 
-     /**
+
+
+  /* #region get */
+    /**
      * Get the data from appoitments table and passing it to view
      *
      * @return void
@@ -79,13 +82,13 @@ class AdminController extends Controller
     }
 
     public function getPermissions() {
-        return self::response('admin/permissions');
+        return self::response('admin/permissions', ['permissions' => PermissionService::getPermissions()]);
 
         // return view('admin/permissions',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
     }
 
     public function getRolePermission() {
-        return view('admin/add-role-permission',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
+        return self::response('admin/add-role-permission', ['permissions' => PermissionService::getPermissions()]);
     }
 
     public function getDoctorPatients() {
@@ -94,6 +97,9 @@ class AdminController extends Controller
         // return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers(), 'roles' => RoleService::getRoles()]);
     }
 
+  /* #endregion */
+
+
     /**
      *
      * CREATE
@@ -101,10 +107,12 @@ class AdminController extends Controller
      */
 
     public function createRole() {
+        //samo admin moze da kreira uloge
         return self::response('admin/create-role');
     }
 
     public function storeRole(Request $request) {
+        //samo admin moze da kreira uloge
         $name_role = $request->input('name');
 
         RoleService::createRole($name_role);
@@ -115,12 +123,14 @@ class AdminController extends Controller
     }
 
     public function createPermission() {
+        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodavanje dozvole!');
         return self::response('admin/create-permission');
 
     }
 
 
     public function storePermission(Request $request) {
+        //samo admin moze da kreira dozvole
         $name_permission = $request->input('name');
         $description_permission = $request->input('description');
 
@@ -132,12 +142,12 @@ class AdminController extends Controller
     }
 
     public function createRolePermission(Request $request) {
+        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodavanje dozvole!');
+
         $name_permission = $request->input('permissions');
         $role            = $request->input('roles');
 
         RolePermissionService::createRolePermission($name_permission, $role);
-
-        Session::flash('success', 'Uspesno ste dodali dozvolu ulozi!');
 
         return redirect('admin/pocetna');
     }
@@ -155,7 +165,7 @@ class AdminController extends Controller
         $patient = $request->input('patients');
         $doctor  = $request->input('doctors');
 
-        AdminService::assigmentPatient($patient, $doctor);
+        DoctorService::assigmentPatient($patient, $doctor);
 
         Session::flash('success', 'Uspesno ste dodelili pacijenta doktoru!');
 

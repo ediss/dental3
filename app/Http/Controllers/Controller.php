@@ -14,10 +14,10 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public static function response(string $view, array $data = null) {
-        $parms              =   [
-            'data'          =>  $data,
-            'permissions'   =>  PermissionService::getPermissions(),
-            'roles'         =>  RoleService::getRoles(),
+        $parms                  =   [
+            'data'              =>  $data,
+            'readPermissions'   =>  PermissionService::getReadPermissions(),
+            'roles'             =>  RoleService::getRoles(),
         ];
 
         return view($view, $parms);

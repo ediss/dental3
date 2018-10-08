@@ -37,7 +37,7 @@ class AdminService extends ServiceProvider
         $admin->save();
     }
 
-    public static function assigmentPatient($patient, $dr){
+    /*public static function assigmentPatient($patient, $dr){
         $doctor = new DoctorPatient;
 
         $doctor->patient_id = $patient;
@@ -45,7 +45,7 @@ class AdminService extends ServiceProvider
 
         $doctor->save();
 
-    }
+    }*/
 
     /**
      *

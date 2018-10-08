@@ -37,6 +37,31 @@ class PermissionService {
     }
 
     /**
+     * Get's all read permissions
+     *
+     * @return  array
+     */
+    public static function getReadPermissions() {
+        $admin          =   AdminService::getCurrentAdmin();
+        $permissions    =   null;
+
+        if (!empty($admin)) {
+            $permissions =array_column(Permission::
+                join('role_permissions', 'permissions.id_permission', '=', 'role_permissions.permission_id')
+                ->where('role_permissions.role_id', '=', $admin->role_id)
+                ->where('permissions.permission', 'LIKE', "%Read%")
+                ->select('permissions.permission')
+                ->get()
+                ->toArray()
+                ,
+                'permission'
+            );
+        }
+
+        return $permissions;
+    }
+
+    /**
      *
      * CREATE
      *
@@ -53,12 +78,21 @@ class PermissionService {
     }
 
     public static function addPermissionToRole($role_id, $permission_id) {
-        $permission = new RolePermissions;
+        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodeljivanje dozvole!');
+
+        if (RolePermissions::where('role_id', '=', $role_id, 'permission_id', '=', $permission_id)->exists()) {
+            echo "DOZVOLA JE VEC DODELJENA!";
+         }
+
+         else{
+             echo "RADI DALJE!";
+         }
+        /*$permission = new RolePermissions;
 
         $permission->role_id        = $role_id;
         $permission->permission_id  = $permission_id;
 
-        $permission->save();
+        $permission->save();*/
     }
 
     /**

@@ -44,7 +44,19 @@ class RoleDataSeeder extends Seeder
                 ]
             );
         } catch(\Exception $e) {
-            echo "Uloga 'Doktor' vec postoji!";
+            echo "Uloga 'Pacijent' vec postoji!";
+        }
+
+        try{
+            DB::table('roles')
+            ->insert(
+                [
+                    'id_role'   =>  4,
+                    'role'      =>  'Asistent',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Uloga 'Asistent' vec postoji!";
         }
 
         echo "Uspesno ste uneli uloge!";

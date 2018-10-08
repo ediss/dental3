@@ -144,10 +144,12 @@
       <div class="sidebar">
         <nav class="sidebar-nav">
           <ul class="nav">
-            @foreach ($permissions as $permission)
-                {{ $permission->permission }}
+            @foreach ($readPermissions as $permission)
+                {{ $permission }}
                 <br/>
             @endforeach
+
+
             <li class="nav-item">
               <a class="nav-link" href="index.html">
                 <i class="nav-icon icon-speedometer"></i> Dashboard
@@ -162,6 +164,7 @@
 
             </li>
 
+            @if(in_array('userRead', $readPermissions))
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj korisnicima</a>
               <ul class="nav-dropdown-items">
@@ -179,7 +182,9 @@
               </li>
               </ul>
             </li>
+            @endif
 
+            @if(in_array('roleRead', $readPermissions))
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj ulogama</a>
               <ul class="nav-dropdown-items">
@@ -192,6 +197,9 @@
 
               </ul>
             </li>
+            @endif
+
+            @if(in_array('roleRead', $readPermissions))
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj dozvolama</a>
               <ul class="nav-dropdown-items">
@@ -208,18 +216,32 @@
 
               </ul>
             </li>
+            @endif
 
-            <li class="nav-item">
-                <a class = 'nav-link' href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
-            </li>
+            @if(in_array('appointmentRead', $readPermissions))
+              <li class="nav-item">
+                  <a class = 'nav-link' href="{{ route('doktor.pregledi') }}">Uvid u preglede</a>
+              </li>
+            @endif
 
+            @if(in_array('assignmentPatientRead', $readPermissions))
              <li class="nav-item">
                 <a class = 'nav-link' href="{{ route('assignment.patients') }}">Dodeli pacijente</a>
             </li>
+            @endif
 
+            @if(in_array('doctorPatientsRead', $readPermissions))
              <li class="nav-item">
                 <a class = 'nav-link' href="{{ route('doctor.patients') }}">Moji pacijenti</a>
             </li>
+            @endif
+
+            @if(in_array('makeAppointmentRead', $readPermissions))
+              <li class="nav-item">
+                <a class = 'nav-link' href ="{{ route('doctor.make-appointment')}}">Zakazi pregled</a>
+              </li>
+            @endif
+
           </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -247,9 +269,9 @@
         </ol>
         <div class="container-fluid">
           <div class="animated fadeIn">
-            
+
                 @yield('content')
-           
+
           </div>
         </div>
 

@@ -31,7 +31,7 @@
 
                             <div class="col-md-6">
                                 <select name = 'permissions' class = 'form-control'>
-                                    @foreach ($permissions as $permission)
+                                    @foreach ($data['permissions'] as $permission)
                                         <option value = "{{ $permission->id_permission }}" > {{$permission->permission}} </option>
                                     @endforeach
                                 </select>

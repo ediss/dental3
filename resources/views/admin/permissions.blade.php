@@ -25,11 +25,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($permissions as $permission)
+                                    @foreach($data['permissions'] as $permission)
                                         <tr>
                                             <td>{{ $permission->permission }}</td>
                                             <td>{{ $permission->description }}</td>
-                                            <td> <a href="#" class ='btn btn-primary'>Izmeni</a><a href="{{ route('admin.permission.delete', $permission->id_permission) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                            <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal-{{$permission->id_permission}}">Izmeni</a><a href="{{ route('admin.permission.delete', $permission->id_permission) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -44,7 +44,8 @@
 @section('modal')
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($data['permissions'] as $permission)
+<div class="modal fade" id="exampleModal-{{$permission->id_permission}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,5 +80,6 @@
     </div>
   </div>
 </div>
+@endforeach
 @endsection
 

@@ -12,7 +12,7 @@
                 <div class="title m-b-md">
                    <h1>Uvid u preglede</h1>
                 </div>
-                    
+
                 <div class="links">
                 <table class="table  table-dark">
                     <thead>
@@ -40,6 +40,5 @@
                     </tbody>
                 </table>
                 </div>
-                <a href ="{{ route('doctor.make-appointment.submit')}}" class = "btn btn-success"><strong>Zakazi novi pregled</strong></a>
             </div>
 @endsection
