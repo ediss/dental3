@@ -100,6 +100,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('doktor/pregledi',     'AdminController@patientsAppointments')->name('doktor.pregledi');
 
+Route::get('korisnik/profil',     'AdminController@userProfile')->name('user.profile');
+
+//
+Route::post('/doktor/test',  'DoctorController@test');
+//
+
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/user', 'HomeController@user')->name('user');

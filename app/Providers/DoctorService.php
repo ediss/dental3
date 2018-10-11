@@ -18,8 +18,22 @@ class DoctorService
    * READ
    *
    */
+ /* public static function updateDoctor($name, $email, $id) {
+    if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o doktoru!');
+    $doctor = Doctor::find($id);
 
+    $doctor->name  = $name;
+    $doctor->email = $email;
+
+    $doctor->save();
+}*/
+
+
+   public static function test($dosao, $platio, $id) {
+       //
+   }
     public static function getPatients() {
+        //dozvola
        $doctor = self::getCurrentDoctor();
 
        $users = Patients::join('users', 'patient_id', '=', 'users.id')
@@ -32,7 +46,7 @@ class DoctorService
     }
 
     public static function getDoctors() {
-
+        //ne zakucavaj role id
         return  Doctor::where('role_id', '2')->get();
     }
 
@@ -41,7 +55,7 @@ class DoctorService
     }
 
     public static function getpatientMedicalHistory($patient_id){
-        // select * from done_services where patient_id = $patient
+        if(!PermissionService::checkPermission('medicalHistoryRead')) throw new \Exception('Nemate dozvolu za pregled kartona!');
         //probaj da uradis preko belong to (eloquent relationships)
         $patient =  DoneService::find($patient_id)->patient_id;
 
@@ -63,11 +77,12 @@ class DoctorService
     */
 
     public static function createAppointment($patient_id, $doctor_id, $date, $term_id, $service_id) {
+        if(!PermissionService::checkPermission('appointmentModify')) throw new \Exception('Nemate dozvolu za zakazivanje pregleda!');
         return AppointmentService::createAppointment( $patient_id, $doctor_id, $date, $term_id, $service_id);
     }
 
     public static function assigmentPatient($patient, $dr){
-        if(!PermissionService::checkPermission('appointmentModify')) throw new \Exception('Nemate dozbvolu za zakazivanje pregleda!');
+        if(!PermissionService::checkPermission('assignmentPatient')) throw new \Exception('Nemate dozvolu za dodeljivanje pacijenta!');
         $doctor = new Patients;
 
         $doctor->patient_id = $patient;

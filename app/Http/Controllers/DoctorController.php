@@ -17,6 +17,34 @@ class DoctorController extends Controller
      *
      */
 
+    public function test(Request $request) {
+
+        return $request->all();
+        //var_dump($request->podaci);
+        if(request()->ajax()) {
+
+            //return $request->all();
+
+
+            //$inputArray = $request->all();
+            //print_r($inputArray);
+            $response =
+                array (
+                    'status' => 'success',
+                    'msg' => 'radi ajax poziv',
+                    'checkbox' => $request->all(),
+                    'pacijent' => $request->myname,
+                    'hiddenPolje' => $request->patient
+                );
+
+
+            return response ()->json ($response);
+
+        }
+        //DoctorService::test($dosao, $platio, $id);
+        //return self::response('mojpogled');
+    }
+
     public function index() {
         $data = array (
             "patients" => UserService::getUsers(),

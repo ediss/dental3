@@ -27,7 +27,7 @@
                                 <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal">Izmeni</a><a href="{{ route('admin.delete', $admin->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$admin->id}}">Izmeni</a><a href="{{ route('admin.delete', $admin->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach
@@ -40,7 +40,9 @@
 @section('modal')
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($data['admins'] as $admin)
+
+<div class="modal fade" id="exampleModal-{{$admin->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -75,5 +77,6 @@
     </div>
   </div>
 </div>
+@endforeach
 @endsection
 

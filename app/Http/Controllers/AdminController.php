@@ -53,7 +53,7 @@ class AdminController extends Controller
      * @return void
      */
     public function patientsAppointments() {
-        return self::response('appointments', ['appointmets' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
+        return self::response('appointments', ['appointments' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
     }
 
 
@@ -97,6 +97,9 @@ class AdminController extends Controller
         // return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers(), 'roles' => RoleService::getRoles()]);
     }
 
+    public function userProfile() {
+        return self::response('user-profile', ['user' => AdminService::getCurrentAdmin()]);
+    }
   /* #endregion */
 
 

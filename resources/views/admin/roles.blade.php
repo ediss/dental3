@@ -24,7 +24,7 @@
                         @foreach($roles as $role)
                             <tr>
                                 <td>{{ $role->role }}</td>
-                                <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal">Izmeni</a><a href="{{ route('admin.role.delete', $role->id_role) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal-{{$role->id_role}}">Izmeni</a><a href="{{ route('admin.role.delete', $role->id_role) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -38,7 +38,8 @@
 @section('modal')
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($roles as $role)
+<div class="modal fade" id="exampleModal-{{$role->id_role}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,5 +66,5 @@
     </div>
   </div>
 </div>
-
+@endforeach
 @endsection

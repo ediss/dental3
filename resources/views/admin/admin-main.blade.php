@@ -16,6 +16,9 @@
     <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Dental clinic</title>
     <!-- Icons-->
     <link href="../../node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
@@ -113,7 +116,7 @@
             <div class="dropdown-header text-center">
               <strong>Settings</strong>
             </div>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{{ route('user.profile')}}">
               <i class="fa fa-user"></i> Profile</a>
             <a class="dropdown-item" href="#">
               <i class="fa fa-wrench"></i> Settings</a>
@@ -157,9 +160,11 @@
               </a>
             </li>
             <li class="nav-title">Meni</li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
-            </li>
+            @if(in_array('registrationRead', $readPermissions))
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
+              </li>
+            @endif
             <li class="nav-item">
 
             </li>
@@ -586,5 +591,7 @@
     <script src="../../node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="../../node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
     <script src="../../js/main.js"></script>
+    <script src="../../js/script.js"></script>
+
   </body>
 </html>

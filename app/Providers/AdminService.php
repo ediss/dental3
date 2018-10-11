@@ -27,6 +27,7 @@ class AdminService extends ServiceProvider
      * @return void
      */
     public static function createAdmin($name, $email, $password, $role_id){
+        //dozvola
         $admin = new Admin;
 
         $admin->name     = $name;
@@ -37,15 +38,6 @@ class AdminService extends ServiceProvider
         $admin->save();
     }
 
-    /*public static function assigmentPatient($patient, $dr){
-        $doctor = new DoctorPatient;
-
-        $doctor->patient_id = $patient;
-        $doctor->doctor_id  = $dr;
-
-        $doctor->save();
-
-    }*/
 
     /**
      *
@@ -54,6 +46,7 @@ class AdminService extends ServiceProvider
      */
 
     public static function getAdmins() {
+        //ne zakucavaj role id
         return  Admin::where('role_id', '1')->get();
     }
 

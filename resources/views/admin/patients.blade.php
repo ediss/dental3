@@ -28,7 +28,7 @@
                                 <td>{{ $patient->name }}</td>
                                 <td>{{ $patient->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal">Izmeni</a><a href="{{ route('admin.patient.delete', $patient->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$patient->id}}">Izmeni</a><a href="{{ route('admin.patient.delete', $patient->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach
@@ -42,7 +42,9 @@
 @section('modal')
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach($data['patients'] as $patient)
+
+<div class="modal fade" id="exampleModal-{{$patient->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -77,4 +79,5 @@
     </div>
   </div>
 </div>
+@endforeach
 @endsection
