@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     protected $table = 'appoitments';
-    
+
     public $timestamps = false;
+
+    protected $primaryKey = 'id_appoitment';
+
     //protected $dateFormat = 'U';
 
     /*protected $dates = [

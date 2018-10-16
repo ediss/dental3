@@ -22,12 +22,12 @@ $(chb).click(function(){
     var termData    = term.dataset.term;
     var doctorData  = doctor.dataset.doctor;
 
-    console.log(termData);
+
 
     $.ajax({
         url: '/doktor/test',
         type: 'POST',
-        data: {podaci, myname:'edis', patient:patient},
+        data: {podaci, myname:'edis', patient:patientData, termin:termData},
         dataType: 'json',
         beforeSend: function (xhr) {
             // Function needed from Laravel because of the CSRF Middleware

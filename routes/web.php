@@ -103,7 +103,7 @@ Route::get('doktor/pregledi',     'AdminController@patientsAppointments')->name(
 Route::get('korisnik/profil',     'AdminController@userProfile')->name('user.profile');
 
 //
-Route::post('/doktor/test',  'DoctorController@test');
+Route::post('doktor/pregledi/{id}',  'DoctorController@done_appointment')->name('doctor.done-appointment');
 //
 
 Route::get('/logout', 'Auth\LoginController@logout');

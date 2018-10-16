@@ -7,6 +7,7 @@ use App\Providers\UserService;
 use App\Providers\ServiceService;
 use App\Providers\TermsService;
 use App\Providers\DoctorService;
+use App\Providers\PaymentService;
 use Session;
 
 class DoctorController extends Controller
@@ -17,32 +18,27 @@ class DoctorController extends Controller
      *
      */
 
-    public function test(Request $request) {
+    public function done_appointment(Request $request, $id_appointment) {
+        $patient_id     = $request->input('patient-appointment');
+        $service_id     = $request->input('service-appointment');
+        $date           = $request->input('date-appointment');
+        $term_id        = $request->input('term-appointment');
+        $done_service   = $request->input('done-service');
+        $paid_service   = $request->input('paid-service');
 
-        return $request->all();
-        //var_dump($request->podaci);
-        if(request()->ajax()) {
+        //dozvola
+        DoctorService::done_appointment($done_service, $id_appointment);
 
-            //return $request->all();
+        //dozvola
+        //zoves payment service i prosledis mu sve
+        PaymentService::paid($patient_id, $service_id, $date, $term_id, $paid_service);
 
+        //dozvola
+        //zoves DoneService i prosledis mu sve
+        //ili samo iz tabele appointment izvces tamo gde je donesevice = da
 
-            //$inputArray = $request->all();
-            //print_r($inputArray);
-            $response =
-                array (
-                    'status' => 'success',
-                    'msg' => 'radi ajax poziv',
-                    'checkbox' => $request->all(),
-                    'pacijent' => $request->myname,
-                    'hiddenPolje' => $request->patient
-                );
-
-
-            return response ()->json ($response);
-
-        }
-        //DoctorService::test($dosao, $platio, $id);
-        //return self::response('mojpogled');
+        Session::flash('success', 'Uspesno ste dodali informacije o pregledu!');
+        return redirect('doktor/pregledi');
     }
 
     public function index() {

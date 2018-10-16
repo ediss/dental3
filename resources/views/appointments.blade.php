@@ -26,7 +26,6 @@
                             <th scope="col">Termin</th>
                             <th scope="col">Doktor</th>
                             <th scope="col">Obavljen pregled?</th>
-                            <th scope="col">Placeno?</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,33 +34,116 @@
 
                         @foreach($data['appointments'] as $appointment)
                             <tr>
-                                <td id = 'id_patient' data-patientid = "{{ $appointment->patient->id }}">
-                                    {{ $appointment->patient->name }}
-                                </td>
+                                <td>{{ $appointment->patient->name }}</td>
 
-                                <td id = 'id_service' data-serviceid = "{{ $appointment->service->id_service }}">
-                                    {{ $appointment->service->service }}
-                                </td>
+                                <td>{{ $appointment->service->service }}</td>
 
                                 <td>{{ $appointment->service->price }}</td>
                                 <td>{{ date('d-M-Y', strtotime($appointment->date_appoitment))}}</td>
 
-                                <td id = 'id_term' data-term = "{{ $appointment->term->id_term }}">
-                                    {{ $appointment->term->term }}
-                                </td>
+                                <td>{{ $appointment->term->term }}</td>
 
-                                <td id = 'id_doctor' data-doctor = "{{ $appointment->doctor->id }}">
-                                    {{ $appointment->doctor->name }}
-                                </td>
-                                <td><input type='checkbox'  name = 'checkboxvar[]'  value='Da'></td>
-                                <td><input type='checkbox' name='checkboxpaid[]' value='Da'></td>
-                                <td><input type='hidden' name='skriveno' value='{{$appointment->id_appoitment}}'></td>
+                                <td>{{ $appointment->doctor->name }}</td>
+                                <td><a href = "#" class = "btn btn-primary"  data-toggle="modal" data-target="#exampleModal-{{$appointment->id_appoitment}}">Prikazi formular</a> </td>
                             </tr>
                         @endforeach
-                        <button type="submit" class="btn btn-primary">{{ __('Sacuvaj') }}</button>
+
                         </form>
                     </tbody>
                 </table>
                 </div>
             </div>
+@endsection
+@section('modal')
+@foreach($data['appointments'] as $appointment)
+
+<div class="modal fade" id="exampleModal-{{$appointment->id_appoitment}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Zakazivanje pregleda</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form method="post" action="{{ route('doctor.done-appointment', $appointment->id_appoitment)}}">
+        @csrf
+
+            <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Pacijent') }}</label>
+
+                <div class="col-md-6">
+                    <select name = 'patient-appointment' class = 'form-control' readonly>
+                            <option value = "{{ $appointment->patient->id }}" > {{$appointment->patient->name}} </option>
+                    </select>
+                    <!--<input id="name" type="text" class="form-control" name="name" value="" required autofocus>-->
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="service" class="col-md-4 col-form-label text-md-right">{{ __('Usluga') }}</label>
+
+                <div class="col-md-6">
+                    <select  name = 'service-appointment' class = 'form-control' readonly>
+                        <option value = "{{ $appointment->service->id_service }}" > {{$appointment->service->service}} </option>
+                    </select>
+                <!--  <input id="service" type="text" name = "service" class="form-control" required>-->
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="date" class="col-md-4 col-form-label text-md-right">{{ __('Datum') }}</label>
+
+                <div class="col-md-6">
+                    <input readonly type="text" class="form-control" name="date-appointment" value = "{{ $appointment->date_appoitment }}">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="term" class="col-md-4 col-form-label text-md-right">{{ __('Termin') }}</label>
+
+                <div class="col-md-6">
+                    <select name = 'term-appointment' class = 'form-control'readonly >
+                        <option value = "{{ $appointment->term->id_term }}" > {{$appointment->term->term}} </option>
+                    </select>
+
+                <!--  <input id="term" type="text" class="form-control" name="term" required>-->
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="done_service" class="col-md-4 col-form-label text-md-right">{{ __('Obavljeno?') }}</label>
+
+                <div class="col-md-6">
+                    <select name = 'done-service' class = 'form-control'>
+                        <option value = "Da" > Da </option>
+                        <option value = "Ne" > Ne </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="paid" class="col-md-4 col-form-label text-md-right">{{ __('Placeno?') }}</label>
+
+                <div class="col-md-6">
+                    <select name = 'paid-service' class = 'form-control'>
+                        <option value = "1" > Da </option>
+                        <option value = "0" > Ne </option>
+                    </select>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
 @endsection

@@ -19,9 +19,11 @@ class AddTablePayments extends Migration
             $table->tinyInteger('paid')->unsigned();
             $table->integer('patient_id')->unsigned();
             $table->integer('service_id')->unsigned();
+            $table->integer('term_id')->unsigned();
 
             $table->foreign('patient_id')->references('id')->on('users');
             $table->foreign('service_id')->references('id_service')->on('services');
+            $table->foreign('term_id')->references('id_term')->on('terms');
         });
     }
 

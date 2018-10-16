@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Admin as Doctor;
 use App\Models\DoctorPatient as Patients;
 use App\Models\DoneService;
+use App\Models\Appointment;
 
 use App\Providers\PermissionService;
 use App\Providers\AppointmentService;
@@ -18,20 +19,16 @@ class DoctorService
    * READ
    *
    */
- /* public static function updateDoctor($name, $email, $id) {
-    if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o doktoru!');
-    $doctor = Doctor::find($id);
 
-    $doctor->name  = $name;
-    $doctor->email = $email;
+   public static function done_appointment($done_service, $id_appointment) {
+    //dozvola
+    $appoitment = Appointment::find($id_appointment);
 
-    $doctor->save();
-}*/
+    $appoitment->service_done = $done_service;
 
-
-   public static function test($dosao, $platio, $id) {
-       //
+    $appoitment->save();
    }
+
     public static function getPatients() {
         //dozvola
        $doctor = self::getCurrentDoctor();
