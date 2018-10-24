@@ -3,6 +3,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Session;
 class Handler extends ExceptionHandler
 {
     /**
@@ -39,7 +40,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+       /* $route      =   '';
+        $message    =   '';
+
+        if ($exception instanceof \PDOException) {
+            $error_message  =   $exception->getMessage();
+
+            if (strpos($error_message, 'appoitments_date_appoitment_doctor_id_term_id_unique') !== false) {
+                $route      =   'doktor.pregledi';
+                $message    =   Session::flash('error', 'Termin je vec zauzet');
+            }
+        } else {
+            //$route      =   'greska';
+            //$message    =   'nepoznata greska';
+            return redirect()->route($route, [$message]);
+
+        }*/
+
+       // return redirect()->route($route, [$message]);
+
+         return parent::render($request, $exception);
     }
 
 

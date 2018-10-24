@@ -32,4 +32,13 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function doctor() {
+        //return $this->belongsTo('App\Models\Admin', 'doctor_id', 'id');
+        return dd ($this->hasMany('App\Models\User'));
+    }
+
+    public function patient() {
+        return $this->hasOne('App\Models\User', 'doctor_id');
+    }
 }

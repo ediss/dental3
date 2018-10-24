@@ -23,7 +23,9 @@
     <!-- Icons-->
     <link href="../../node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
     <link href="../../node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="../../node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--<link href="../../node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">-->
+    <!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link href="../../node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
     <link href="../../css/style.css" rel="stylesheet">
@@ -93,6 +95,7 @@
           <a href="{{ route('admin.logout') }}">Logout</a>
             @endauth
           @endif
+
           <div class="dropdown-menu dropdown-menu-right">
             <div class="dropdown-header text-center">
               <strong>Account</strong>
@@ -150,10 +153,8 @@
             <li class="nav-item">
               <a class="nav-link" href="index.html">
                 <i class="nav-icon icon-speedometer"></i> Dashboard
-                <span class="badge badge-primary">NEW</span>
               </a>
             </li>
-            <li class="nav-title">Meni</li>
             @if(in_array('registrationRead', $readPermissions))
               <li class="nav-item">
                   <a class="nav-link" href="{{ route('admin.registracija') }}">Registruj novog korisnika</a>
@@ -240,7 +241,6 @@
                 <a class = 'nav-link' href ="{{ route('doctor.make-appointment')}}">Zakazi pregled</a>
               </li>
             @endif
-
           </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

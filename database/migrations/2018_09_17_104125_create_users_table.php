@@ -21,6 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('doctor_id')->nullable()->unsigned();
+
+            $table->foreign('doctor_id')->references('id')->on('admins');
+
+
         });
     }
 

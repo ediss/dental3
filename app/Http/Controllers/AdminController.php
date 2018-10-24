@@ -52,8 +52,30 @@ class AdminController extends Controller
      *
      * @return void
      */
-    public function patientsAppointments() {
-        return self::response('appointments', ['appointments' => AppointmentService::getAppointments(), 'admin' => AdminService::getCurrentAdmin()]);
+    public function patientsAppointments(Request $request) {
+       // $datum = json_encode($request->promenljiva);
+
+        //$date = self::test();
+
+        //$date = response()->json($datum);
+        $date = null;
+        //$date = $request->date;
+
+        return self::response('appointments', ['appointments' => AppointmentService::getAppointments($date), 'admin' => AdminService::getCurrentAdmin()]);
+    }
+
+    /**
+     * Return view with appointment form
+     *
+     * @param Request $request
+     *
+     */
+    public function ajaxAppointmentsForm(Request $request) {
+        $date = $request->varDate;
+
+        return self::response('appointments-table', ['appointments' =>  AppointmentService::getAppointments($date)]);
+
+
     }
 
 
@@ -72,7 +94,7 @@ class AdminController extends Controller
     }
 
     public function getPatients() {
-        return self::response('admin/patients',  ['patients' => UserService::getUsers()]);
+        return self::response('admin/patients',   ['patients' => UserService::getUsers()]);
     }
 
     public function getRoles() {
@@ -92,7 +114,7 @@ class AdminController extends Controller
     }
 
     public function getDoctorPatients() {
-        return self::response('admin/assignment-patient',  ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers()]);
+        return self::response('admin/assignment-patient',  ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUnassignedUsers()]);
 
         // return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers(), 'roles' => RoleService::getRoles()]);
     }
@@ -168,7 +190,7 @@ class AdminController extends Controller
         $patient = $request->input('patients');
         $doctor  = $request->input('doctors');
 
-        DoctorService::assigmentPatient($patient, $doctor);
+        DoctorService::assignmentPatient($patient, $doctor);
 
         Session::flash('success', 'Uspesno ste dodelili pacijenta doktoru!');
 

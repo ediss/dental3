@@ -81,6 +81,22 @@
                 </div>
             </div>
 
+               <div class="form-group row">
+                <label for="service" class="col-md-4 col-form-label text-md-right">{{ __('Zub') }}</label>
+
+                <div class="col-md-6">
+                    <select name = 'teeth' class = 'form-control'>
+                        <option value = "izaberi" > Izaberi </option>
+                        <option value = "1" > 1 </option>
+                        <option value = "2" > 2 </option>
+                        <option value = "3" > 3 </option>
+                        <option value = "4" > 4 </option>
+                        <option value = "5" > 5 </option>
+                    </select>
+                <!--  <input id="service" type="text" name = "service" class="form-control" required>-->
+                </div>
+            </div>
+
             <div class="form-group row">
                 <label for="date" class="col-md-4 col-form-label text-md-right">{{ __('Datum') }}</label>
 
@@ -105,7 +121,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+        <input type="submit" class='btn btn-success' value = "Zakazi">
         </form>
       </div>
     </div>

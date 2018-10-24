@@ -43,7 +43,7 @@ class PermissionService {
      */
     public static function getReadPermissions() {
         $admin          =   AdminService::getCurrentAdmin();
-        $permissions    =   null;
+        $permissions    =   [];
 
         if (!empty($admin)) {
             $permissions =array_column(Permission::

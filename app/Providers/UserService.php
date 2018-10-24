@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Appointment;
 
 class UserService {
 
@@ -45,9 +46,29 @@ class UserService {
 
      public static function getUsers() {
          return User::all();
+         //return User::select('id as patient_id', 'name as patient_name', 'doctor_id')->get();
 
      }
 
+     public static function getUnassignedUsers() {
+         return User::whereNull('doctor_id')->get();
+     }
+
+     /**
+      * Geting doctor of patient
+      *
+      *
+      */
+     public static function getPatientDoctor($id) {
+        $doktor = User::find($id);
+
+        return $doktor->doctor_id;
+     }
+
+    public static function getPatientAppointments($patient_id) {
+        //$patientAppointments = Appointment::find($id);
+        return  Appointment::where('patient_id', $patient_id)->get();
+    }
      /**
       *
       *EDIT

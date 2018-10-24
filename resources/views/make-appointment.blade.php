@@ -1,4 +1,4 @@
-@extends('admin.admin-main')
+@extends('admin/admin-main')
 
 @section('content')
 <div class="container">
@@ -18,7 +18,7 @@
                             <div class="col-md-6">
                                 <select name = 'patients' class = 'form-control'>
                                     @foreach ($data['patients'] as $patient)
-                                        <option value = "{{ $patient->id }}" > {{$patient->name}} </option>
+                                        <option value = "{{ $patient->patient_id }}" > {{$patient->patient_name}} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -52,6 +52,21 @@
                                     @foreach ($data['terms'] as $term)
                                         <option value = "{{ $term->id_term }}" > {{$term->term}} </option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="term" class="col-md-4 col-form-label text-md-right">{{ __('Zub') }}</label>
+
+                            <div class="col-md-6">
+                                <select name = 'teeth' class = 'form-control'>
+                                <option value = "izaberi" > Izaberi </option>
+                                    <option value = "1" > 1 </option>
+                                    <option value = "2" > 2 </option>
+                                    <option value = "3" > 3 </option>
+                                    <option value = "4" > 4 </option>
+                                    <option value = "5" > 5 </option>
                                 </select>
                             </div>
                         </div>

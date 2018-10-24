@@ -22,11 +22,11 @@
                 <tbody>
                     @foreach($data['patientHistories'] as $patientHistory)
                         <tr>
-                            <td>{{ $patientHistory->patient_name }}</td>
-                            <td>{{ $patientHistory->service }}</td>
-                            <td>{{  date('d-M-Y', strtotime($patientHistory->date)) }}</td>
-                            <td>{{ $patientHistory->term }}</td>
-                            <td>{{ $patientHistory->doctor_name }}</td>
+                            <td>{{ $patientHistory->patient->name }}</td>
+                            <td>{{ $patientHistory->service->service }}</td>
+                            <td>{{ $patientHistory->date_appoitment }}</td>
+                            <td>{{ $patientHistory->term->term }}</td>
+                            <td>{{ $patientHistory->doctor->name }}</td>
                             <!--<td> <a href = "#" class = "btn btn-primary"> <strong>Karton</strong></a></td>-->
                         </tr>
                     @endforeach

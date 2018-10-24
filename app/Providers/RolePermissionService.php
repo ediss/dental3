@@ -33,7 +33,7 @@ class RolePermissionService {
 
             Session::flash('success', 'Uspesno ste dodali dozvolu ulozi!');
          }
-         
+
     }
 
     /**

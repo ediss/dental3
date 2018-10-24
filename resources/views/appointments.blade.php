@@ -7,13 +7,40 @@
                     {{Session::get('success')}}
                 </div>
             @endif
-            <div class="content">
 
+            @if (Session::has('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{Session::get('error')}}
+                </div>
+            @endif
+
+            <div class="content">
                 <div class="title m-b-md">
                    <h1>Uvid u preglede</h1>
                 </div>
 
-                <div class="links">
+
+<!--<span class="fas fa-tooth fa-1x">
+  <i class="fas fa-tooth fa-3x"></i>
+  <span  class="fas fa-tooth fa-3x">1</span>
+</span>-->
+            @for ($i = 0; $i < 16; $i++)
+                <span class="fa-stack fa-2x">
+                    <i class="fa fa-tooth  fa-stack-2x"></i>
+                    <span  class="fa fa-stack-1x" style = 'color:white'>1</span>
+                </span>
+            @endfor
+
+
+
+
+                <form method="GET" id="appointmentForms">
+                    @csrf
+
+                    <h5>Izaberi datum</h5>
+                    <input type = 'date' name = 'date-appointment' id = 'date-appointment'>
+                </form>
+                <div class="links" id ="appointments-table">
                     <!--ubacis formu sa rutom prema nekom kontroleru koji ce pozvati provider koji ce uneti u bazu-->
                 <table class="table  table-dark">
                     <thead>
@@ -21,6 +48,7 @@
                            <!-- <th scope="col">#</th>-->
                             <th scope="col">Pacijent</th>
                             <th scope="col">Usluga</th>
+                            <th scope="col">Zub</th>
                             <th scope="col">Cena</th>
                             <th scope="col">Datum</th>
                             <th scope="col">Termin</th>
@@ -37,6 +65,7 @@
                                 <td>{{ $appointment->patient->name }}</td>
 
                                 <td>{{ $appointment->service->service }}</td>
+                                <td>{{ $appointment->tooth }}</td>
 
                                 <td>{{ $appointment->service->price }}</td>
                                 <td>{{ date('d-M-Y', strtotime($appointment->date_appoitment))}}</td>
@@ -88,6 +117,17 @@
                 <div class="col-md-6">
                     <select  name = 'service-appointment' class = 'form-control' readonly>
                         <option value = "{{ $appointment->service->id_service }}" > {{$appointment->service->service}} </option>
+                    </select>
+                <!--  <input id="service" type="text" name = "service" class="form-control" required>-->
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="service" class="col-md-4 col-form-label text-md-right">{{ __('Zub') }}</label>
+
+                <div class="col-md-6">
+                    <select  name = 'tooth-appointment' class = 'form-control' readonly>
+                        <option value = "{{ $appointment->tooth }}" > {{$appointment->tooth}} </option>
                     </select>
                 <!--  <input id="service" type="text" name = "service" class="form-control" required>-->
                 </div>

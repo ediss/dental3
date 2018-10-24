@@ -10,12 +10,16 @@ class DoctorPatient extends Model
 
     protected $table = 'doctor_patients';
 
+    protected $primaryKey = 'id_doctor_patients';
+
+
     public function doctor() {
-        return $this->belongsTo('App\Models\Admin', 'doctor_id', 'id');
+        //return $this->belongsTo('App\Models\Admin', 'doctor_id', 'id');
+        return $this->hasMany('App\Models\User');
     }
 
     public function patient() {
-        return $this->belongsTo('App\Models\USer', 'patient_id', 'id');
+        return $this->hasOne('App\Models\Admin');
     }
 
 }

@@ -74,21 +74,5 @@ class RoleService {
         $role->delete();
 
     }
-     /*   kreiranje uloga
-        dodeljivanje uloga
-        brisanje uloga
-        izmena naziva uloge
-
-        listanje dozvola
-        dodeljivanje dozvola ulozi
-        izmena opisa dozvole
-
-        PermissionService -> metoda checkPermision('ocekuje masinsko ime') u toj metodi dohvatam preko admin servisa trenutno priojavljenog admina(ako je prijavljen),
-                    ako nije prijavljen, bacam exception, ako jeste pisem upit da li admin ima dozvolu za odredjenu akciju('masinsko ime');
-
-     */
-
-
-
 
 }

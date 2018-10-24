@@ -10,6 +10,9 @@ class Appointment extends Model
 
     public $timestamps = false;
 
+   protected $dateFormat = 'U';
+
+
     protected $primaryKey = 'id_appoitment';
 
     //protected $dateFormat = 'U';

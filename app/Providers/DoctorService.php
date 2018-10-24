@@ -3,12 +3,13 @@
 namespace App\Providers;
 
 use App\Models\Admin as Doctor;
-use App\Models\DoctorPatient as Patients;
+use App\Models\User as Patient;
 use App\Models\DoneService;
 use App\Models\Appointment;
 
 use App\Providers\PermissionService;
 use App\Providers\AppointmentService;
+use App\Providers\UserService;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -31,15 +32,21 @@ class DoctorService
 
     public static function getPatients() {
         //dozvola
-       $doctor = self::getCurrentDoctor();
+        $doctor = self::getCurrentDoctor();
+        $role   = self::getCurrentDoctor()->role_id;
 
-       $users = Patients::join('users', 'patient_id', '=', 'users.id')
-                ->join('admins', 'doctor_id', '=', 'admins.id')
-                ->where('doctor_id', $doctor->id)
-                ->select('users.name as patient_name', 'admins.name as doctor_name', 'users.id as patient_id')
-                ->get();
+        if($role == '2') {
+            $query = Patient::join('admins', 'doctor_id', '=', 'admins.id')
+                            ->where('doctor_id', $doctor->id)
+                            ->select('users.name as patient_name', 'admins.name as doctor_name', 'users.id as patient_id')
+                            ->get();
+        }
+        else {
+            $query = UserService::getUsers();
+        }
 
-       return $users;
+        return $query;
+
     }
 
     public static function getDoctors() {
@@ -52,19 +59,17 @@ class DoctorService
     }
 
     public static function getpatientMedicalHistory($patient_id){
-        if(!PermissionService::checkPermission('medicalHistoryRead')) throw new \Exception('Nemate dozvolu za pregled kartona!');
-        //probaj da uradis preko belong to (eloquent relationships)
-        $patient =  DoneService::find($patient_id)->patient_id;
+        //dd($patient_id);
+       //if(!PermissionService::checkPermission('medicalHistoryRead')) throw new \Exception('Nemate dozvolu za pregled kartona!');
 
-        return DoneService::join('users', 'patient_id', '=', 'users.id')
-                ->join('admins',    'doctor_id', '=', 'admins.id')
-                ->join('terms',     'term_id',  '=', 'terms.id_term')
-                ->join('services',  'service_id',  '=', 'services.id_service')
-                ->select('users.name as patient_name', 'date', 'admins.name as doctor_name', 'terms.term as term', 'services.service as service')
-                ->where ('patient_id', $patient)
-                ->get();
+       /* $query = Appointment::where('patient_id', $patient_id)
+                            ->select('service_done')
+                            ->get();
+        dd($query);*/
+        return  Appointment::where('patient_id', $patient_id)
+                            ->where('service_done', 'Da')
+                            ->get();
 
-        //dd($service);
     }
 
    /**
@@ -73,16 +78,15 @@ class DoctorService
     *
     */
 
-    public static function createAppointment($patient_id, $doctor_id, $date, $term_id, $service_id) {
-        if(!PermissionService::checkPermission('appointmentModify')) throw new \Exception('Nemate dozvolu za zakazivanje pregleda!');
-        return AppointmentService::createAppointment( $patient_id, $doctor_id, $date, $term_id, $service_id);
+    public static function createAppointment($patient_id, $doctor_id, $date, $term_id, $service_id, $tooth) {
+    //    / if(!PermissionService::checkPermission('appointmentModify')) throw new \Exception('Nemate dozvolu za zakazivanje pregleda!');
+        return AppointmentService::createAppointment( $patient_id, $doctor_id, $date, $term_id, $service_id, $tooth);
     }
 
-    public static function assigmentPatient($patient, $dr){
+    public static function assignmentPatient($patient, $dr){
         if(!PermissionService::checkPermission('assignmentPatient')) throw new \Exception('Nemate dozvolu za dodeljivanje pacijenta!');
-        $doctor = new Patients;
+        $doctor =  Patient::find($patient);
 
-        $doctor->patient_id = $patient;
         $doctor->doctor_id  = $dr;
 
         $doctor->save();

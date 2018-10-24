@@ -92,22 +92,23 @@ Route::prefix('doktor')->group(function () {
 
     Route::get('/karton/{id}',  'DoctorController@patientMedicalHistory')   ->name('patient.medical.history');
 
+    Route::get('/pregledi',     'AdminController@patientsAppointments')     ->name('doktor.pregledi');
+
+    Route::get('/ajax',         'AdminController@ajaxAppointmentsForm')     ->name('doktor.test');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user', 'UserController@index')->name('user');
 
-Route::get('doktor/pregledi',     'AdminController@patientsAppointments')->name('doktor.pregledi');
+Route::get('/home', 'HomeController@index')                                 ->name('home');
 
-Route::get('korisnik/profil',     'AdminController@userProfile')->name('user.profile');
-
+Route::get('korisnik/profil',     'AdminController@userProfile')            ->name('user.profile');
 //
-Route::post('doktor/pregledi/{id}',  'DoctorController@done_appointment')->name('doctor.done-appointment');
+Route::post('doktor/pregledi/{id}',  'DoctorController@done_appointment')   ->name('doctor.done-appointment');
 //
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::get('/user', 'HomeController@user')->name('user');
 
 

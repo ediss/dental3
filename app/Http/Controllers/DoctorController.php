@@ -21,6 +21,7 @@ class DoctorController extends Controller
     public function done_appointment(Request $request, $id_appointment) {
         $patient_id     = $request->input('patient-appointment');
         $service_id     = $request->input('service-appointment');
+        $tooth          = $request->input('tooth-appointment');
         $date           = $request->input('date-appointment');
         $term_id        = $request->input('term-appointment');
         $done_service   = $request->input('done-service');
@@ -30,12 +31,8 @@ class DoctorController extends Controller
         DoctorService::done_appointment($done_service, $id_appointment);
 
         //dozvola
-        //zoves payment service i prosledis mu sve
-        PaymentService::paid($patient_id, $service_id, $date, $term_id, $paid_service);
+        PaymentService::paid($patient_id, $service_id, $tooth, $date, $term_id, $paid_service);
 
-        //dozvola
-        //zoves DoneService i prosledis mu sve
-        //ili samo iz tabele appointment izvces tamo gde je donesevice = da
 
         Session::flash('success', 'Uspesno ste dodali informacije o pregledu!');
         return redirect('doktor/pregledi');
@@ -43,7 +40,8 @@ class DoctorController extends Controller
 
     public function index() {
         $data = array (
-            "patients" => UserService::getUsers(),
+            //"patients" => UserService::getUsers(),
+            "patients" => DoctorService::getPatients(),
             "services" => ServiceService::getServices(),
             "terms"    => TermsService::getTerms(),
         );
@@ -69,8 +67,8 @@ class DoctorController extends Controller
      *
      *
      */
-    public function patientMedicalHistory($patient_id){
-
+    public function patientMedicalHistory($patient_id) {
+        //dozvola
         return self::response('medical-history', ['patientHistories' => DoctorService::getpatientMedicalHistory($patient_id)]);
     }
 
@@ -81,11 +79,14 @@ class DoctorController extends Controller
         $service    = $request->input('services');
         $date       = $request->input('date');
         $term       = $request->input('terms');
-        $doctor     = DoctorService::getCurrentDoctor()->id;
+        $tooth      = $request->input('teeth');
+        $doctor     = UserService::getPatientDoctor($name);
 
-        DoctorService::createAppointment($name, $doctor, $date, $term, $service);
 
-        Session::flash('success', 'Uspesno ste zakazali pregled!');
+        DoctorService::createAppointment($name, $doctor, $date, $term, $service, $tooth);
+
+        //Session::flash('success', 'Uspesno ste zakazali pregled!');
+
         return redirect('doktor/pregledi');
 
     }

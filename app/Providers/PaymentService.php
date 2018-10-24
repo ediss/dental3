@@ -14,6 +14,7 @@ class PaymentService extends ServiceProvider {
         $payment->patient_id    = $patient_id;
         $payment->service_id    = $service_id;
         $payment->term_id       = $term_id;
+        //ubaciti i zub
 
         $payment->save();
     }
