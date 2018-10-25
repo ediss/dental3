@@ -92,7 +92,7 @@
                         <a href="https://github.com/laravel/laravel">GitHub</a>
 
                     @else
-                        <a href="{{ route('user') }}">User page</a>
+                        <a href="{{ route('patient.appointments') }}">User page</a>
                         <a href="/admin/login">Admin login</a>
                     @endif
                 </div>

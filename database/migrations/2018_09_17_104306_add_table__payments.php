@@ -24,6 +24,9 @@ class AddTablePayments extends Migration
             $table->foreign('patient_id')->references('id')->on('users');
             $table->foreign('service_id')->references('id_service')->on('services');
             $table->foreign('term_id')->references('id_term')->on('terms');
+
+            $table->unique(['date_payment', 'term_id']);
+
         });
     }
 

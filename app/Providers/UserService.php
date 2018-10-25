@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Appointment;
+use App\Models\Payment;
 
 class UserService {
 
@@ -69,6 +70,11 @@ class UserService {
         //$patientAppointments = Appointment::find($id);
         return  Appointment::where('patient_id', $patient_id)->get();
     }
+
+    public static function getPatientPayments($patient_id) {
+        return  Payment::where('patient_id', $patient_id)->get();
+    }
+
      /**
       *
       *EDIT

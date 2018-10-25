@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Permission;
 use App\Models\RolePermissions;
 use App\Providers\AdminService;
+use Illuminate\Support\Facades\Auth;
+
 
 class PermissionService {
 

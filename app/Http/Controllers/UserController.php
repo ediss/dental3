@@ -7,10 +7,29 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Providers\UserService;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
+    /**
+     * 
+     * READ
+     * 
+     */
+    
+
+     /**
+      * Get appointments of patient
+      *
+      * @return void
+      */
     public function index() {
         $user = Auth::user()->id;
-        return self::response('user-home', ['appointments' => UserService::getPatientAppointments($user)]);
+        return self::response('patient.user-home', ['appointments' => UserService::getPatientAppointments($user)]);
     }
+
+    public function getPayments() {
+        $patient_id = Auth::user()->id;
+
+        return self::response('patient.patient-payments', ['payments' => UserService::getPatientPayments($patient_id)]);
+    }
+
+
 }

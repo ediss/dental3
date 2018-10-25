@@ -99,7 +99,12 @@ Route::prefix('doktor')->group(function () {
 
 Auth::routes();
 
-Route::get('/user', 'UserController@index')->name('user');
+Route::prefix('pacijent')->group(function () {
+    Route::get('/pregledi', 'UserController@index')         ->name('patient.appointments');
+
+    Route::get('/placanja', 'UserController@getPayments')   ->name('patient.payments');
+});
+
 
 Route::get('/home', 'HomeController@index')                                 ->name('home');
 

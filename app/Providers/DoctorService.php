@@ -59,13 +59,8 @@ class DoctorService
     }
 
     public static function getpatientMedicalHistory($patient_id){
-        //dd($patient_id);
        //if(!PermissionService::checkPermission('medicalHistoryRead')) throw new \Exception('Nemate dozvolu za pregled kartona!');
 
-       /* $query = Appointment::where('patient_id', $patient_id)
-                            ->select('service_done')
-                            ->get();
-        dd($query);*/
         return  Appointment::where('patient_id', $patient_id)
                             ->where('service_done', 'Da')
                             ->get();

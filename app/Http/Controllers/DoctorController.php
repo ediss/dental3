@@ -19,19 +19,31 @@ class DoctorController extends Controller
      */
 
     public function done_appointment(Request $request, $id_appointment) {
-        $patient_id     = $request->input('patient-appointment');
+
+        $data = [
+            'patient_id'    => $request->input('patient-appointment'),
+            'service_id'    => $request->input('service-appointment'),
+            'tooth'         => $request->input('tooth-appointment'),
+            'date'          => $request->input('date-appointment'),
+            'term_id'       => $request->input('term-appointment'),
+            'done_service'  => $request->input('done-service'),
+            'paid_service'  => $request->input('paid-service'),
+        ];
+
+        /*$patient_id     = $request->input('patient-appointment');
         $service_id     = $request->input('service-appointment');
         $tooth          = $request->input('tooth-appointment');
         $date           = $request->input('date-appointment');
         $term_id        = $request->input('term-appointment');
         $done_service   = $request->input('done-service');
-        $paid_service   = $request->input('paid-service');
+        $paid_service   = $request->input('paid-service');*/
 
         //dozvola
-        DoctorService::done_appointment($done_service, $id_appointment);
+        DoctorService::done_appointment($data['done_service'], $id_appointment);
 
         //dozvola
-        PaymentService::paid($patient_id, $service_id, $tooth, $date, $term_id, $paid_service);
+        //PaymentService::paid($patient_id, $service_id, $date, $term_id, $paid_service);
+        PaymentService::createOrUpdate($data);
 
 
         Session::flash('success', 'Uspesno ste dodali informacije o pregledu!');
