@@ -6,6 +6,23 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Payment;
 class PaymentService extends ServiceProvider {
 
+    /**
+     * 
+     * READ
+     * 
+     */
+
+    /**
+    * Get all payments in clinic for all patients!
+    *
+    * @return Payment
+    */
+    public static function getAllPayments() {
+        return Payment::all();
+    }
+
+
+    //Create or update payment
     public static function createOrUpdate($data, $payment_id = null) {
         $payment = null;
 

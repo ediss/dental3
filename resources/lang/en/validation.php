@@ -125,8 +125,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
+        'patient_files' => [
             'rule-name' => 'custom-message',
+            'required' => 'Morate izabrati fotografiju!',
         ],
     ],
 

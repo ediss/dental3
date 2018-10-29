@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Zakazivanje pregleda') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('doctor.make-appointment.submit') }}">
+                    <form method="POST" action="{{ route('doctor.make-appointment.submit') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -70,7 +70,6 @@
                                 </select>
                             </div>
                         </div>
-
 
 
                         <div class="form-group row mb-0">

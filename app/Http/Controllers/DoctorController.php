@@ -81,7 +81,27 @@ class DoctorController extends Controller
      */
     public function patientMedicalHistory($patient_id) {
         //dozvola
-        return self::response('medical-history', ['patientHistories' => DoctorService::getpatientMedicalHistory($patient_id)]);
+        return self::response('medical-history', [
+            'patientHistories'  =>  DoctorService::getpatientMedicalHistory($patient_id),
+            'patient_id'        =>  $patient_id,
+            'patient_files'     =>  UserService::getPatientFiles($patient_id),
+        ]);
+    }
+
+    public function insertPatientFiles(Request $request, $patient_id) {
+
+        $request->validate([
+            'patient_files' => 'required',
+        ]);
+
+        $file = $request->file('patient_files');
+        $name = time(). '.' . $file->getClientOriginalExtension();
+        $path = $file ? $file->move('PatientsDocuments/'.$patient_id, $name) : null;
+
+        UserService::uploadPatientFile($path, $patient_id);
+
+        return self::patientMedicalHistory($patient_id);
+
     }
 
 
@@ -94,7 +114,6 @@ class DoctorController extends Controller
         $tooth      = $request->input('teeth');
         $doctor     = UserService::getPatientDoctor($name);
 
-
         DoctorService::createAppointment($name, $doctor, $date, $term, $service, $tooth);
 
         //Session::flash('success', 'Uspesno ste zakazali pregled!');
@@ -102,4 +121,6 @@ class DoctorController extends Controller
         return redirect('doktor/pregledi');
 
     }
+
+
 }

@@ -179,7 +179,10 @@
                 </li>
                 <li class="nav-item">
                   <a class = 'nav-link' href="{{ route('admin.users.patients')}}">Pacijenti</a>
-              </li>
+                </li>
+                <li class="nav-item">
+                  <a class = 'nav-link' href="{{ route('admin.users.bookkeepers')}}">Knjigovodje</a>
+                </li>
               </ul>
             </li>
             @endif
@@ -248,6 +251,13 @@
                 <a class = 'nav-link' href="{{ route('doctor.patients') }}">Moji pacijenti</a>
             </li>
             @endif
+
+            @if(in_array('paymentRead', $readPermissions))
+            <li class="nav-item">
+                <a class = 'nav-link' href="{{ route('bookkeeper.payments') }}">Uvid u placanja</a>
+            </li>
+            @endif
+
           </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

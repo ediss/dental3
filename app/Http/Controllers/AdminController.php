@@ -11,6 +11,8 @@ use App\Providers\PermissionService;
 use App\Providers\RolePermissionService;
 use App\Providers\AssistantService;
 use App\Providers\DoctorService;
+use App\Providers\BookkeeperService;
+
 
 use App\Models\User;
 use Session;
@@ -95,6 +97,10 @@ class AdminController extends Controller
 
     public function getPatients() {
         return self::response('admin/patients',   ['patients' => UserService::getUsers()]);
+    }
+
+    public function getBookkeepers() {
+        return self::response('admin/bookkeepers',   ['bookkeepers' => BookkeeperService::getBookkeepers()]);
     }
 
     public function getRoles() {
@@ -287,6 +293,18 @@ class AdminController extends Controller
 
     }
 
+    public function updateBookkeeper(Request $request, $id) {
+        $name   = $request->input('name');
+        $email  = $request->input('email');
+
+        BookkeeperService::updateBookkeeper($name, $email, $id);
+
+        Session::flash('success', 'Uspesno ste izmenili podatke o knjigovodji!');
+
+        return redirect('admin/knjigovodje');
+
+    }
+
 
     /**
      *
@@ -341,6 +359,14 @@ class AdminController extends Controller
         Session::flash('success', 'Uspesno ste izbrisali asistenta!');
 
         return redirect('admin/asistenti');
+    }
+
+    public function deleteBookkeeper($id) {
+        BookkeeperService::deleteBookkeeper($id);
+
+        Session::flash('success', 'Uspesno ste izbrisali knjigovodju!');
+
+        return redirect('admin/knjigovodje');
     }
 
 }

@@ -51,6 +51,11 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/pacijenti/brisanje/{id}',  'AdminController@deleteUser')              ->name('admin.patient.delete');
 
+    Route::get('/knjigovodje',              'AdminController@getBookkeepers')          ->name('admin.users.bookkeepers');
+
+    Route::post('/knjigovodje/{id}',        'AdminController@updateBookkeeper')        ->name('admin.bookkeeper.update.submit');
+    Route::get('/knjigovodje/brisanje/{id}','AdminController@deleteBookkeeper')        ->name('admin.bookkeeper.delete');
+
     Route::get('/dodavanje-uloge',          'AdminController@createRole')              ->name('admin.role.create');
     Route::post('/uloge/nova-uloga',        'AdminController@storeRole')               ->name('admin.role.create.submit');
 
@@ -84,17 +89,19 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('doktor')->group(function () {
 
-    Route::get('/pacijenti',    'DoctorController@getPatients')             ->name('doctor.patients');
+    Route::get('/pacijenti',            'DoctorController@getPatients')             ->name('doctor.patients');
 
-    Route::get('/zakazivanje',  'DoctorController@index')                   ->name('doctor.make-appointment');
+    Route::get('/zakazivanje',          'DoctorController@index')                   ->name('doctor.make-appointment');
 
-    Route::post('/pacijenti',   'DoctorController@createAppointment')       ->name('doctor.make-appointment.submit');
+    Route::post('/pacijenti',           'DoctorController@createAppointment')       ->name('doctor.make-appointment.submit');
 
-    Route::get('/karton/{id}',  'DoctorController@patientMedicalHistory')   ->name('patient.medical.history');
+    Route::get('/karton/{id}',          'DoctorController@patientMedicalHistory')   ->name('patient.medical.history');
 
-    Route::get('/pregledi',     'AdminController@patientsAppointments')     ->name('doktor.pregledi');
+    Route::post('/karton/{id}',         'DoctorController@insertPatientFiles')      ->name('doctor.insert.patient.files');
 
-    Route::get('/ajax',         'AdminController@ajaxAppointmentsForm')     ->name('doktor.test');
+    Route::get('/pregledi',             'AdminController@patientsAppointments')     ->name('doktor.pregledi');
+
+    Route::get('/ajax',                 'AdminController@ajaxAppointmentsForm')     ->name('doktor.test');
 });
 
 Auth::routes();
@@ -105,6 +112,7 @@ Route::prefix('pacijent')->group(function () {
     Route::get('/placanja', 'UserController@getPayments')   ->name('patient.payments');
 });
 
+Route::get('uvid-u-placanja',     'BookkeeperController@getPayments')       ->name('bookkeeper.payments');
 
 Route::get('/home', 'HomeController@index')                                 ->name('home');
 

@@ -4,7 +4,7 @@
 
     <div class="content">
         <div class="title m-b-md">
-            <h1>Uvid u preglede</h1>
+            <h1>Uvid u placanja</h1>
         </div>
 
         <form method="GET" id="paymentForms">

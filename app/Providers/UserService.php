@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Appointment;
 use App\Models\Payment;
+use App\Models\PatientFile;
+
+use Session;
 
 class UserService {
 
@@ -37,6 +40,18 @@ class UserService {
         $id = $user->id;
 
         return $id;
+    }
+
+    public static function uploadPatientFile($file, $patient_id) {
+        $patient_files = new PatientFile;
+
+        $patient_files->img_src     = $file;
+        $patient_files->patient_id  = $patient_id;
+
+        $patient_files->save();
+        
+        return Session::flash('success', 'Uspesno ste dodali dokument za pacijenta!');
+
     }
 
     /**
@@ -73,6 +88,10 @@ class UserService {
 
     public static function getPatientPayments($patient_id) {
         return  Payment::where('patient_id', $patient_id)->get();
+    }
+
+    public static function getPatientFiles($patient_id) {
+        return PatientFile::where('patient_id', $patient_id)->get();
     }
 
      /**
