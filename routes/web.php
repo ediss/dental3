@@ -82,7 +82,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/pacijenti/dodeljivanje',   'AdminController@getDoctorPatients')       ->name('assignment.patients');
     Route::post('/pacijenti/dodeljivanje',  'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
 
-
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
 
@@ -101,7 +100,7 @@ Route::prefix('doktor')->group(function () {
 
     Route::get('/pregledi',             'AdminController@patientsAppointments')     ->name('doktor.pregledi');
 
-    Route::get('/ajax',                 'AdminController@ajaxAppointmentsForm')     ->name('doktor.test');
+
 });
 
 Auth::routes();
@@ -112,16 +111,20 @@ Route::prefix('pacijent')->group(function () {
     Route::get('/placanja', 'UserController@getPayments')   ->name('patient.payments');
 });
 
-Route::get('uvid-u-placanja',     'BookkeeperController@getPayments')       ->name('bookkeeper.payments');
+Route::get('/ajaxAppointments',         'AjaxController@ajaxAppointments');
 
-Route::get('/home', 'HomeController@index')                                 ->name('home');
+Route::get('/ajaxPayments',             'AjaxController@ajaxPayments');
 
-Route::get('korisnik/profil',     'AdminController@userProfile')            ->name('user.profile');
+Route::get('uvid-u-placanja',           'BookkeeperController@getPayments')       ->name('bookkeeper.payments');
+
+Route::get('/home',                     'HomeController@index')                   ->name('home');
+
+Route::get('korisnik/profil',           'AdminController@userProfile')            ->name('user.profile');
 //
-Route::post('doktor/pregledi/{id}',  'DoctorController@done_appointment')   ->name('doctor.done-appointment');
+Route::post('doktor/pregledi/{id}',     'DoctorController@done_appointment')      ->name('doctor.done-appointment');
 //
 
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout',                   'Auth\LoginController@logout');
 
 
 

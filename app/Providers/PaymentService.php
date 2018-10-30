@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
+
 class PaymentService extends ServiceProvider {
 
     /**
-     * 
+     *
      * READ
-     * 
+     *
      */
 
     /**
@@ -17,10 +19,37 @@ class PaymentService extends ServiceProvider {
     *
     * @return Payment
     */
-    public static function getAllPayments() {
-        return Payment::all();
+    public static function getPayments($date) {
+        //return Payment::all();
+        if(Auth::guard('admin')->check()) {
+
+            if(empty($date)) {
+                $query = Payment::all();
+            }
+            else {
+                $query = Payment::where('date_payment', '=', $date)->get();
+            }
+        }
+        else {
+            $patient_id = Auth::user()->id;
+            if($date === NULL || $date === '' || empty($date)) {
+                $query = Payment::where('patient_id', '=', $patient_id)->get();
+            }
+            else {
+
+                $query = Payment::where('date_payment', '=', $date)
+                                    ->where('patient_id', '=', $patient_id)->get();
+            }
+        }
+
+        return $query;
     }
 
+
+
+    public static function getPatientPayments($patient_id) {
+        return  Payment::where('patient_id', $patient_id)->get();
+    }
 
     //Create or update payment
     public static function createOrUpdate($data, $payment_id = null) {

@@ -163,7 +163,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('patient.payments') }}">Uvid u placanja</a>
             </li>
-
+         
           </ul>
         </nav>
         <button class="sidebar-minimizer brand-minimizer" type="button"></button>

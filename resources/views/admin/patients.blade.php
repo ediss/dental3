@@ -27,7 +27,6 @@
                             <tr>
                                 <td>{{ $patient->patient_name }}</td>
                                 <td>{{ $patient->email }}</td>
-
                                 <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}">Izmeni</a><a href="{{ route('admin.patient.delete', $patient->patient_id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>

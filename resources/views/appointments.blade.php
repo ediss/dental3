@@ -20,20 +20,6 @@
                 </div>
 
 
-<!--<span class="fas fa-tooth fa-1x">
-  <i class="fas fa-tooth fa-3x"></i>
-  <span  class="fas fa-tooth fa-3x">1</span>
-</span>-->
-            @for ($i = 0; $i < 16; $i++)
-                <span class="fa-stack fa-2x">
-                    <i class="fa fa-tooth  fa-stack-2x"></i>
-                    <span  class="fa fa-stack-1x" style = 'color:white'>1</span>
-                </span>
-            @endfor
-
-
-
-
                 <form method="GET" id="appointmentForms">
                     @csrf
 

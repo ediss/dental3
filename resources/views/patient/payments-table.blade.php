@@ -1,20 +1,4 @@
-@extends('admin/admin-main')
 
-@section('content')
-
-    <div class="content">
-        <div class="title m-b-md">
-            <h1>Uvid u placanja</h1>
-        </div>
-
-        <form method="GET" id="paymentForms">
-            @csrf
-
-            <h5>Izaberi datum</h5>
-            <input type = 'date' name = 'date-payment' id = 'date-payment'>
-        </form>
-
-        <div class="links" id ="payments-table">
                     <!--ubacis formu sa rutom prema nekom kontroleru koji ce pozvati provider koji ce uneti u bazu-->
             <table class="table  table-dark">
                 <thead>
@@ -55,7 +39,3 @@
                     </form>
                 </tbody>
             </table>
-        </div>
-    </div>
-
-@endsection

@@ -13,8 +13,6 @@ use Session;
 class UserService {
 
 
-    protected $table = 'users';
-
     /**
      *
      * CREATE
@@ -86,9 +84,7 @@ class UserService {
         return  Appointment::where('patient_id', $patient_id)->get();
     }
 
-    public static function getPatientPayments($patient_id) {
-        return  Payment::where('patient_id', $patient_id)->get();
-    }
+  
 
     public static function getPatientFiles($patient_id) {
         return PatientFile::where('patient_id', $patient_id)->get();

@@ -4,29 +4,47 @@ namespace App\Providers;
 
 use App\Models\Appointment;
 use App\Providers\DoctorService;
+use Illuminate\Support\Facades\Auth;
+
 use Session;
 
 class AppointmentService {
 
     public static function getAppointments($date) {
         // samo one pacijente koji pripadaju doktoru koji je ulogovan
-        $doctor = DoctorService::getCurrentDoctor()->id;
-        $role   = DoctorService::getCurrentDoctor()->role_id;
-        //$query = '';
-        //zameni umesto role id da bude masinsko ime uloge
-        if ($role == '2') {
-            if($date === NULL ) {
-                $query = Appointment::where('doctor_id', $doctor)->get();
-            } else {
-                $query = Appointment::where('doctor_id', $doctor)
-                                    ->where('date_appoitment', '=', $date)
-                                    ->get();
+
+        if(Auth::guard('admin')->check()) {
+            $role   = DoctorService::getCurrentDoctor()->role_id;
+
+            //zameni umesto role id da bude masinsko ime uloge
+            if ($role == '2') {
+                $doctor = DoctorService::getCurrentDoctor()->id;
+
+                if($date === NULL ) {
+                    $query = Appointment::where('doctor_id', $doctor)->get();
+                } else {
+                    $query = Appointment::where('doctor_id', $doctor)
+                                        ->where('date_appoitment', '=', $date)
+                                        ->get();
+                }
+
+            }
+            else {
+                ($date === NULL || $date === '' || empty($date))  ? $query = Appointment::all() : $query = Appointment::where ('date_appoitment', '=', $date)->get();
+
+            }
+        }
+        else {
+            $patient_id = Auth::user()->id;
+            if($date === NULL || $date === '' || empty($date)) {
+                $query = Appointment::where('patient_id', '=', $patient_id)->get();
+            }
+            else {
+                $query = Appointment::where('patient_id', '=', $patient_id)->where('date_appoitment', '=', $date)->get();
             }
 
-        } else {
-            ($date === NULL || $date === '' || empty($date))  ? $query = Appointment::all() : $query = Appointment::where ('date_appoitment', '=', $date)->get();
-
         }
+
 
         return $query;
 

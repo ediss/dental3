@@ -10,6 +10,7 @@ use App\Providers\PaymentService;
 class BookkeeperController extends Controller {
 
     public function getPayments() {
-        return self::response('admin.payments', ['payments' => PaymentService::getAllPayments()]);
+        $date = null;
+        return self::response('admin.payments', ['payments' => PaymentService::getPayments($date)]);
     }
 }

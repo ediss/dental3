@@ -202,7 +202,7 @@
             </li>
             @endif
 
-            @if(in_array('roleRead', $readPermissions))
+            @if(in_array('permissionRead', $readPermissions))
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj dozvolama</a>
               <ul class="nav-dropdown-items">
@@ -255,6 +255,16 @@
             @if(in_array('paymentRead', $readPermissions))
             <li class="nav-item">
                 <a class = 'nav-link' href="{{ route('bookkeeper.payments') }}">Uvid u placanja</a>
+            </li>
+            @endif
+
+          @if(Auth::guard('web')->check())
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('patient.appointments') }}">Moji pregledi</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('patient.payments') }}">Uvid u placanja</a>
             </li>
             @endif
 

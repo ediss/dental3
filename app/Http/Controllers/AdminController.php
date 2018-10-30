@@ -55,31 +55,10 @@ class AdminController extends Controller
      * @return void
      */
     public function patientsAppointments(Request $request) {
-       // $datum = json_encode($request->promenljiva);
-
-        //$date = self::test();
-
-        //$date = response()->json($datum);
         $date = null;
-        //$date = $request->date;
 
         return self::response('appointments', ['appointments' => AppointmentService::getAppointments($date), 'admin' => AdminService::getCurrentAdmin()]);
     }
-
-    /**
-     * Return view with appointment form
-     *
-     * @param Request $request
-     *
-     */
-    public function ajaxAppointmentsForm(Request $request) {
-        $date = $request->varDate;
-
-        return self::response('appointments-table', ['appointments' =>  AppointmentService::getAppointments($date)]);
-
-
-    }
-
 
     public function getAdmins() {
         return self::response('admin/admins', ['admins' => AdminService::getAdmins()]);
