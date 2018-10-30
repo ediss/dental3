@@ -10,6 +10,6 @@ use App\Providers\PaymentService;
 class BookkeeperController extends Controller {
 
     public function getPayments() {
-        return self::response('patient.patient-payments', ['payments' => PaymentService::getAllPayments()]);
+        return self::response('admin.payments', ['payments' => PaymentService::getAllPayments()]);
     }
 }

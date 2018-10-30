@@ -125,6 +125,10 @@ class AdminController extends Controller
         // return view('admin/assignment-patient',    ['doctors' => DoctorService::getDoctors(), 'patients' => UserService::getUsers(), 'roles' => RoleService::getRoles()]);
     }
 
+    public function getPayments() {
+        return self::response('admin.payments', ['payments' => PaymentService::getAllPayments()]);
+    }
+
     public function userProfile() {
         return self::response('user-profile', ['user' => AdminService::getCurrentAdmin()]);
     }
