@@ -18,6 +18,11 @@ class DoctorController extends Controller
      *
      */
 
+    public function __construct() {
+        $this->middleware('auth:admin');
+    }
+
+
     public function done_appointment(Request $request, $id_appointment) {
 
         $data = [

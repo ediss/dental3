@@ -15,7 +15,10 @@ class UserController extends Controller {
      * READ
      *
      */
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
      /**
       * Get appointments of patient
