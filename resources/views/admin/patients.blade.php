@@ -25,10 +25,10 @@
                     <tbody>
                         @foreach($data['patients'] as $patient)
                             <tr>
-                                <td>{{ $patient->name }}</td>
+                                <td>{{ $patient->patient_name }}</td>
                                 <td>{{ $patient->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$patient->id}}">Izmeni</a><a href="{{ route('admin.patient.delete', $patient->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}">Izmeni</a><a href="{{ route('admin.patient.delete', $patient->patient_id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach
@@ -44,7 +44,7 @@
 <!-- Modal -->
 @foreach($data['patients'] as $patient)
 
-<div class="modal fade" id="exampleModal-{{$patient->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal-{{$patient->patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -55,7 +55,7 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('admin.patient.update', $patient->id)}}">
+        <form method="post" action="{{ route('admin.patient.update', $patient->patient_id)}}">
             {{ csrf_field() }}
 
 

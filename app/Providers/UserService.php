@@ -49,7 +49,7 @@ class UserService {
         $patient_files->patient_id  = $patient_id;
 
         $patient_files->save();
-        
+
         return Session::flash('success', 'Uspesno ste dodali dokument za pacijenta!');
 
     }
@@ -61,8 +61,8 @@ class UserService {
      */
 
      public static function getUsers() {
-         return User::all();
-         //return User::select('id as patient_id', 'name as patient_name', 'doctor_id')->get();
+        // return User::all();
+         return User::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->get();
 
      }
 
