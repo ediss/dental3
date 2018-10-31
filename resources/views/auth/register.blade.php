@@ -66,9 +66,14 @@
 
                             <div class="col-md-6">
                                 <select name = 'role' class = 'form-control'>
-                                @foreach ($roles as $role)
-                                    <option value = "{{ $role->id_role }}" > {{$role->role}} </option>
-                                @endforeach
+                                    @if($data['role'] === 4)
+                                        <option value = "3">Pacijent</option>
+                                    
+                                    @else
+                                        @foreach ($roles as $role)
+                                            <option value = "{{ $role->id_role }}" > {{$role->role}} </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>

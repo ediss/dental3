@@ -37,7 +37,7 @@ class Register extends Controller
         trosenje ram memorije zbog pravljenja vise promenljivih
         */
 
-        return self::response('auth.register');
+        return self::response('auth.register', ['role' => AdminService::getCurrentAdmin()->role_id]);
     }
 
     /**
