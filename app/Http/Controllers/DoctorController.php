@@ -35,6 +35,10 @@ class DoctorController extends Controller
             'paid_service'  => $request->input('paid-service'),
         ];
 
+        $request->validate( [
+            'tooth-appointment'  =>  'required|numeric|nullable',
+        ]);
+
         /*$patient_id     = $request->input('patient-appointment');
         $service_id     = $request->input('service-appointment');
         $tooth          = $request->input('tooth-appointment');
@@ -119,9 +123,15 @@ class DoctorController extends Controller
         $tooth      = $request->input('teeth');
         $doctor     = UserService::getPatientDoctor($name);
 
+        ($tooth === 'izaberi') ? $tooth = null : $tooth = $request->input('teeth');
+
+        $request->validate( [
+            'teeth'  =>  'nullable',
+        ]);
+
         DoctorService::createAppointment($name, $doctor, $date, $term, $service, $tooth);
 
-        //Session::flash('success', 'Uspesno ste zakazali pregled!');
+        Session::flash('success', 'Uspesno ste zakazali pregled!');
 
         return redirect('doktor/pregledi');
 

@@ -22,7 +22,7 @@ class AddTableAppoitments extends Migration
             $table->integer('service_id')->unsigned();
             $table->string('service_done')->nullable();
 
-            $table->smallInteger('tooth')->unsigned();
+            $table->smallInteger('tooth')->nullable()->unsigned();
 
             $table->foreign('patient_id')->references('id')->on('users');
             $table->foreign('doctor_id')->references('id')->on('admins');

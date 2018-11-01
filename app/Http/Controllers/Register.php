@@ -54,7 +54,16 @@ class Register extends Controller
         $password   = Hash::make($request->input('password'));
         $role       = $request->input('role');
 
+        $request->validate( [
+            'name'                  =>  'required',
+            'email'                 =>  'required|unique:users,email|unique:admins,email|email',
+            'rbgender'              =>  'required_if:role,3',
+            'date_of_birth'         =>  'required_if:role,3',
+            'password_confirmation' => 'same:password'
+        ]);
+
         if ($role == 3) {
+
             $id = UserService::createUser($name, $email, $password, $gender, $birthday);
             FolderService::createFolder($id, FolderService::$patien_document_route);
         } else {

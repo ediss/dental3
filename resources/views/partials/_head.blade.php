@@ -1,4 +1,3 @@
-<head>
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,4 +33,3 @@
       // Bootstrap ID
       gtag('config', 'UA-118965717-5');
     </script>
-  </head>

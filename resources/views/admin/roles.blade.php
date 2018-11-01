@@ -6,6 +6,16 @@
                         {{Session::get('success')}}
                     </div>
                 @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <div class="content">
                 <div class="title">
                    <h1>Rad sa ulogama</h1>
@@ -55,7 +65,7 @@
 
 
             <label>Naziv uloge:</label>
-            <input type="text" name="name"   class = 'form-control'  value="{{$role->role}}" />
+            <input type="text" name="role"   class = 'form-control'  value="{{$role->role}}" />
 
       </div>
       <div class="modal-footer">

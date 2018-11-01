@@ -15,7 +15,7 @@ class AddTablePermissions extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id_permission');
-            $table->string('permission', 31);
+            $table->string('permission', 31)->unique();
             $table->string('description', 127);
 
 //            $table->index('permission');

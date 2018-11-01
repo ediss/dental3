@@ -2,49 +2,56 @@
 
 @section('content')
 
-                @if (Session::has('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{Session::get('success')}}
-                    </div>
-                @endif
-            <div class="content">
+    @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{Session::get('success')}}
+        </div>
+    @endif
 
-                <div class="title m-b-md">
-                   <h1>Uvid u pacijente</h1>
-                </div>
+       @if (Session::has('error'))
+        <div class="alert alert-danger" role="alert">
+            {{Session::get('error')}}
+        </div>
+    @endif
 
-                <div class="links">
-                <table class="table  table-dark">
-                    <thead>
+    <div class="content">
+
+        <div class="title m-b-md">
+            <h1>Uvid u pacijente</h1>
+        </div>
+
+        <div class="links">
+            <table class="table  table-dark">
+                <thead>
+                    <tr>
+                        <!-- <th scope="col">#</th>-->
+                        <th scope="col">Informacije o pacijentu</th>
+                        <th scope="col">Kontakt informacije</th>
+                        <th scope="col">Dodaj dokument</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['patients'] as $patient)
                         <tr>
-                           <!-- <th scope="col">#</th>-->
-                            <th scope="col">Informacije o pacijentu</th>
-                            <th scope="col">Kontakt informacije</th>
-                            <th scope="col">Dodaj dokument</th>
-                            <th></th>
-                            <th></th>
+                            <td>
+                                ime: {{ $patient->patient_name }}<br/>
+                                pol: {{ ($patient->gender === 'male') ? 'Muški' : 'Ženski'}}<br/>
+                                datum rodjenja: {{ date('d-m-Y', strtotime($patient->date_of_birth))}}<br/>
+                                doktor: {{$patient->doctor_name}}
+                            </td>
+                            <td>{{ $patient->patient_email }}</td>
+                            <td> <a href = "#"  data-toggle="modal" data-target="#addFilesModal-{{$patient->patient_id}}"> <i class="fas fa-plus-circle"></i></a></td>
+                            <td> <a href = "#" class = "btn btn-success"  data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}"><strong>Zakazi pregled</strong></a> <a href = "{{ route('patient.medical.history', $patient->patient_id) }}" class = "btn btn-primary"> <strong>Karton</strong></a></td>
+                            <!--<td> <a href = "#" class = "btn btn-primary"> <strong>Karton</strong></a></td>-->
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($data['patients'] as $patient)
-                            <tr>
-                                <td >
-                                    {{ $patient->patient_name }}<br/>
-                                    {{ ($patient->gender === 'male') ? 'Muško' : 'Žensko'}}<br/>
-                                    {{ date('d-m-Y', strtotime($patient->date_of_birth))}}<br/>
-                                    doktor: {{$patient->doctor_name}}
-                                </td>
-                                <td>{{ $patient->patient_email }}</td>
-                                <td> <a href = "#"  data-toggle="modal" data-target="#addFilesModal-{{$patient->patient_id}}"> <i class="fas fa-plus-circle"></i></a></td>
-                                <td> <a href = "#" class = "btn btn-success"  data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}"><strong>Zakazi pregled</strong></a> <a href = "{{ route('patient.medical.history', $patient->patient_id) }}" class = "btn btn-primary"> <strong>Karton</strong></a></td>
-                                <!--<td> <a href = "#" class = "btn btn-primary"> <strong>Karton</strong></a></td>-->
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-                <!--<a href ="{{ route('doctor.make-appointment.submit')}}" class = "btn btn-success"><strong>Zakazi novi pregled</strong></a>-->
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    </div>
 @endsection
 
 @section('modal')

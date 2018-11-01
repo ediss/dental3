@@ -93,14 +93,14 @@ return [
     'numeric'              => 'The :attribute must be a number.',
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'The :attribute format is invalid.',
-    'required'             => 'The :attribute field is required.',
-    'required_if'          => 'The :attribute field is required when :other is :value.',
+    'required'             => 'Polje :attribute je obavezno.',
+    'required_if'          => 'Polje :attribute je obavezno kada je :other  :value.',
     'required_unless'      => 'The :attribute field is required unless :other is in :values.',
     'required_with'        => 'The :attribute field is required when :values is present.',
     'required_with_all'    => 'The :attribute field is required when :values is present.',
     'required_without'     => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same'                 => 'The :attribute and :other must match.',
+    'same'                 => 'Polja :attribute i :other se ne podudaraju.',
     'size'                 => [
         'numeric' => 'The :attribute must be :size.',
         'file'    => 'The :attribute must be :size kilobytes.',
@@ -109,7 +109,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
+    'unique'               => 'Vrednost polja :attribute već postoji.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
@@ -127,8 +127,14 @@ return [
     'custom' => [
         'patient_files' => [
             'rule-name' => 'custom-message',
-            'required' => 'Morate izabrati fotografiju!',
+            'required'  => 'Morate izabrati fotografiju!',
         ],
+        'rbgender'      => [
+            'required_if' => 'Polje :attribute je obavezno kada je :other  korisnika \'Pacijent\'.'
+        ],
+        'date_of_birth' => [
+            'required_if' => 'Polje :attribute je obavezno kada je :other  korisnika \'Pacijent\'.'
+        ]
     ],
 
     /*
@@ -142,6 +148,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'rbgender'              =>  'Pol',
+        'date_of_birth'         =>  'Datum rođenja',
+        'role'                  =>  'Uloga',
+        'password'              =>  'Lozinka',
+        'password_confirmation' =>  'Potvrdi lozinku',
+        'permission_name'       =>  'Naziv dozvole'
+
+    ],
 
 ];

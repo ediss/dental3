@@ -127,7 +127,11 @@ class AdminController extends Controller
 
     public function storeRole(Request $request) {
         //samo admin moze da kreira uloge
-        $name_role = $request->input('name');
+        $name_role = $request->input('role');
+
+        $request->validate( [
+            'role'  =>  'required|unique:roles,role',
+        ]);
 
         RoleService::createRole($name_role);
 
@@ -145,14 +149,18 @@ class AdminController extends Controller
 
     public function storePermission(Request $request) {
         //samo admin moze da kreira dozvole
-        $name_permission = $request->input('name');
+        $name_permission = $request->input('permission_name');
         $description_permission = $request->input('description');
+
+        $request->validate( [
+            'permission_name'  =>  'required|unique:permissions,permission',
+        ]);
 
         PermissionService::createPermission($name_permission, $description_permission);
 
         Session::flash('success', 'Uspesno ste dodali novu dozvolu!');
 
-        return redirect('admin/pocetna');
+        return redirect('admin/dozvole');
     }
 
     public function createRolePermission(Request $request) {
@@ -213,6 +221,10 @@ class AdminController extends Controller
     public function updateRole(Request $request, $id_role) {
         $role  = $request->input('name');
 
+        $request->validate( [
+            'role'  =>  'required|unique:roles,role',
+        ]);
+
         RoleService::updateRole($role, $id_role);
 
         Session::flash('success', 'Uspesno ste izmenili naziv uloge!');
@@ -229,8 +241,13 @@ class AdminController extends Controller
     }*/
 
     public function updatePermission(Request $request, $id_permission) {
-        $permission   = $request->input('name');
+        $permission   = $request->input('permission_name');
         $description  = $request->input('description');
+
+        $request->validate( [
+            'permission_name'  =>  'required|unique:permissions,permission',
+        ]);
+
 
         PermissionService::updatePermission($permission, $description, $id_permission);
 
@@ -244,6 +261,11 @@ class AdminController extends Controller
         $name   = $request->input('name');
         $email  = $request->input('email');
 
+        $request->validate( [
+            'name'  =>  'required',
+            'email' =>  'required|unique:admins,email|email',
+        ]);
+
         DoctorService::updateDoctor($name, $email, $id);
 
         Session::flash('success', 'Uspesno ste izmenili podatke o doktoru!');
@@ -255,6 +277,11 @@ class AdminController extends Controller
     public function updateAdmin(Request $request, $id) {
         $name   = $request->input('name');
         $email  = $request->input('email');
+
+        $request->validate( [
+            'name'  =>  'required',
+            'email' =>  'required|unique:admins,email|email',
+        ]);
 
         AdminService::updateAdmin($name, $email, $id);
 
@@ -268,6 +295,11 @@ class AdminController extends Controller
         $name   = $request->input('name');
         $email  = $request->input('email');
 
+        $request->validate( [
+            'name'  =>  'required',
+            'email' =>  'required|unique:admins,email|email',
+        ]);
+
         AssistantService::updateAssistant($name, $email, $id);
 
         Session::flash('success', 'Uspesno ste izmenili podatke o asistentu!');
@@ -279,6 +311,11 @@ class AdminController extends Controller
     public function updateBookkeeper(Request $request, $id) {
         $name   = $request->input('name');
         $email  = $request->input('email');
+
+        $request->validate( [
+            'name'  =>  'required',
+            'email' =>  'required|unique:admins,email|email',
+        ]);
 
         BookkeeperService::updateBookkeeper($name, $email, $id);
 

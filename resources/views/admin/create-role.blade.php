@@ -2,6 +2,16 @@
 
 @section('content')
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="col-md-4">
             <div class="card">
 
@@ -15,7 +25,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Naziv uloge:') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
+                                <input id="name" type="text" class="form-control" name="role" value="" required autofocus>
                             </div>
                         </div>
 
@@ -30,6 +40,6 @@
                 </div>
             </div>
         </div>
-    
+
 
 @endsection

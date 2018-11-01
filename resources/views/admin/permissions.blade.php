@@ -7,6 +7,16 @@
                         {{Session::get('success')}}
                     </div>
                 @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <div class="content" style = 'width:100%;'>
 
                 <div class = 'row'>
@@ -61,7 +71,7 @@
 
 
             <label>Naziv dozvole:</label>
-            <input type="text" name="name" class = 'form-control'  value="{{$permission->permission}}" />
+            <input type="text" name="permission_name" class = 'form-control'  value="{{$permission->permission}}" />
 
             <label>Opis dozvole:</label>
             <input type="text" name="description" class = 'form-control'  value="{{$permission->description}}" />

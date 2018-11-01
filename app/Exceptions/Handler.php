@@ -59,6 +59,14 @@ class Handler extends ExceptionHandler
 
        // return redirect()->route($route, [$message]);
 
+       if ($exception instanceof \Illuminate\Database\QueryException) {
+
+            if ($exception->getMessage()) {
+                Session::flash('error', $exception->getMessage());
+                return back();
+            }
+       }
+
          return parent::render($request, $exception);
     }
 

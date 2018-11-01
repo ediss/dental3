@@ -2,6 +2,21 @@
 
 @section('content')
 <div class="container">
+    @if (Session::has('error'))
+        <div class="alert alert-danger" role="alert">
+            {{Session::get('error')}}
+        </div>
+    @endif
+
+      @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -61,7 +76,7 @@
 
                             <div class="col-md-6">
                                 <select name = 'teeth' class = 'form-control'>
-                                <option value = "izaberi" > Izaberi </option>
+                                <option value = "null" > Izaberi </option>
                                     <option value = "1" > 1 </option>
                                     <option value = "2" > 2 </option>
                                     <option value = "3" > 3 </option>
