@@ -38,7 +38,7 @@ class DoctorService
         if($role == '2') {
             $query = Patient::join('admins', 'doctor_id', '=', 'admins.id')
                             ->where('doctor_id', $doctor->id)
-                            ->select('users.name as patient_name', 'admins.name as doctor_name', 'users.id as patient_id')
+                            ->select('users.name as patient_name', 'admins.name as doctor_name', 'users.id as patient_id', 'gender', 'date_of_birth', 'users.email as patient_email')
                             ->get();
         }
         else {

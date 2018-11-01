@@ -92,7 +92,11 @@
             @auth
               welcome {{ Auth::user()->name }} <span class="caret"></span>
           </a>
-          <a href="{{ route('admin.logout') }}">Logout</a>
+              @if(Auth::guard('web')->check())
+                <a href="{{ route('logout') }}">Logout</a>
+              @else
+                <a href="{{ route('admin.logout') }}">Logout</a>
+              @endif
             @endauth
           @endif
 

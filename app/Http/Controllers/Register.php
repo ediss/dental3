@@ -49,11 +49,13 @@ class Register extends Controller
     public static function register(Request $request){
         $name       = $request->input('name');
         $email      = $request->input('email');
+        $gender     = $request->input('rbgender');
+        $birthday   = $request->input('date_of_birth');
         $password   = Hash::make($request->input('password'));
         $role       = $request->input('role');
 
         if ($role == 3) {
-            $id = UserService::createUser($name, $email, $password);
+            $id = UserService::createUser($name, $email, $password, $gender, $birthday);
             FolderService::createFolder($id, FolderService::$patien_document_route);
         } else {
             AdminService::createAdmin($name, $email, $password, $role);

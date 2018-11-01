@@ -124,7 +124,7 @@ Route::get('korisnik/profil',           'AdminController@userProfile')          
 Route::post('doktor/pregledi/{id}',     'DoctorController@done_appointment')      ->name('doctor.done-appointment');
 //
 
-Route::get('/logout',                   'Auth\LoginController@logout');
+Route::get('/logout',                   'Auth\LoginController@logout')            ->name('logout');
 
 
 

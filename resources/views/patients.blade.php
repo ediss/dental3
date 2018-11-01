@@ -18,8 +18,8 @@
                     <thead>
                         <tr>
                            <!-- <th scope="col">#</th>-->
-                            <th scope="col">Pacijent</th>
-                            <th scope="col">Doktor</th>
+                            <th scope="col">Informacije o pacijentu</th>
+                            <th scope="col">Kontakt informacije</th>
                             <th scope="col">Dodaj dokument</th>
                             <th></th>
                             <th></th>
@@ -28,8 +28,13 @@
                     <tbody>
                         @foreach($data['patients'] as $patient)
                             <tr>
-                                <td >{{ $patient->patient_name }}</td>
-                                <td>{{ $patient->doctor_name }}</td>
+                                <td >
+                                    {{ $patient->patient_name }}<br/>
+                                    {{ ($patient->gender === 'male') ? 'Muško' : 'Žensko'}}<br/>
+                                    {{ date('d-m-Y', strtotime($patient->date_of_birth))}}<br/>
+                                    doktor: {{$patient->doctor_name}}
+                                </td>
+                                <td>{{ $patient->patient_email }}</td>
                                 <td> <a href = "#"  data-toggle="modal" data-target="#addFilesModal-{{$patient->patient_id}}"> <i class="fas fa-plus-circle"></i></a></td>
                                 <td> <a href = "#" class = "btn btn-success"  data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}"><strong>Zakazi pregled</strong></a> <a href = "{{ route('patient.medical.history', $patient->patient_id) }}" class = "btn btn-primary"> <strong>Karton</strong></a></td>
                                 <!--<td> <a href = "#" class = "btn btn-primary"> <strong>Karton</strong></a></td>-->

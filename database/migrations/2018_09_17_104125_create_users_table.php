@@ -22,8 +22,11 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->integer('doctor_id')->nullable()->unsigned();
+            $table->string('gender');
+            $table->date('date_of_birth');
 
             $table->foreign('doctor_id')->references('id')->on('admins');
+            $table->charset = 'utf8';
 
 
         });

@@ -26,6 +26,23 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Pol') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="radio"  name="rbgender" value = 'male'>Muški<br/>
+                                <input type="radio"  name="rbgender" value = 'female'>Ženski
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="date-of-birth" class="col-md-4 col-form-label text-md-right">{{ __('Datum rođenja') }}</label>
+
+                            <div class="col-md-6">
+                                <input type="date"  name="date_of_birth">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Adresa') }}</label>
 
                             <div class="col-md-6">
@@ -68,7 +85,6 @@
                                 <select name = 'role' class = 'form-control'>
                                     @if($data['role'] === 4)
                                         <option value = "3">Pacijent</option>
-                                    
                                     @else
                                         @foreach ($roles as $role)
                                             <option value = "{{ $role->id_role }}" > {{$role->role}} </option>

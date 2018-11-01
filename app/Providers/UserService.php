@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use App\Models\User as Patient;
 use App\Models\Appointment;
 use App\Models\Payment;
 use App\Models\PatientFile;
@@ -27,15 +27,17 @@ class UserService {
      * @param string    $password   user password
      * @return void
      */
-    public static function createUser($name, $email, $password){
-        $user = new User;
+    public static function createUser($name, $email, $password, $gender, $birthday){
+        $patient = new Patient;
 
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = $password;
+        $patient->name          = $name;
+        $patient->email         = $email;
+        $patient->password      = $password;
+        $patient->gender        = $gender;
+        $patient->date_of_birth = $birthday;
 
-        $user->save();
-        $id = $user->id;
+        $patient->save();
+        $id = $patient->id;
 
         return $id;
     }
@@ -60,12 +62,12 @@ class UserService {
 
      public static function getUsers() {
         // return User::all();
-         return User::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->get();
+         return Patient::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->get();
 
      }
 
      public static function getUnassignedUsers() {
-         return User::whereNull('doctor_id')->get();
+         return Patient::whereNull('doctor_id')->get();
      }
 
      /**
@@ -74,7 +76,7 @@ class UserService {
       *
       */
      public static function getPatientDoctor($id) {
-        $doktor = User::find($id);
+        $doktor = Patient::find($id);
 
         return $doktor->doctor_id;
      }
@@ -97,17 +99,17 @@ class UserService {
       */
 
     public static function editUser($id) {
-        return  User::find($id);
+        return  Patient::find($id);
     }
 
     public static function updateUser($name, $email, $id) {
         if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o pacijentu!');
-        $user = User::find($id);
+        $patient = Patient::find($id);
 
-        $user->name  = $name;
-        $user->email = $email;
+        $patient->name  = $name;
+        $patient->email = $email;
 
-        $user->save();
+        $patient->save();
     }
 
 
@@ -118,9 +120,9 @@ class UserService {
      */
 
     public static function deleteUser($id) {
-        $user =  User::find($id);
+        $patient =  Patient::find($id);
 
-        $user->delete();
+        $patient->delete();
     }
 
 }
