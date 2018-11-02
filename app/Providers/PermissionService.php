@@ -36,7 +36,7 @@ class PermissionService {
      */
 
     public static function getPermissions($select = null) {
-        return !empty($select) ? array_column(Permission::select($select)->get()->toArray(), 'permission') : Permission::all();
+        return !empty($select) ? array_column(Permission::select($select)->get()->toArray(), 'permission') : Permission::paginate(5);
     }
 
     /**

@@ -43,6 +43,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="text-center">
+                    {!!$data['patients']->links();!!}
+                </div>
                 </div>
             </div>
 @endsection

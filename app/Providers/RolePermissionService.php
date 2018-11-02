@@ -42,6 +42,10 @@ class RolePermissionService {
      *
      */
 
+    public static function getAllRolePerimission() {
+        RolePermissions::all();
+    }
+
     /**
      *
      * UPDATE

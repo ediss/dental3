@@ -12,5 +12,7 @@ class Permission extends Model
 
     protected $primaryKey = 'id_permission';
 
-
+    public function permissionsRoles() {
+        return $this->belongsToMany('App\Models\Role', 'role_permissions', 'permission_id', 'role_id');
+    }
 }

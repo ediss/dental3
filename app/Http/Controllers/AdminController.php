@@ -208,9 +208,10 @@ class AdminController extends Controller
         $name  = $request->input('user-name');
         $email = $request->input('email');
 
+
         $request->validate( [
             'user-name'  =>  'required',
-            'email'      =>  'required|unique:users, email,' . $id,
+            'email' =>  'required|unique:users,email,'.$id.'|email',
         ]);
 
         UserService::updateUser($name, $email, $id);

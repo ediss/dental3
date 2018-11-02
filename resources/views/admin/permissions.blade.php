@@ -35,6 +35,7 @@
                                     <!-- <th scope="col">#</th>-->
                                         <th scope="col">Naziv dozvole</th>
                                         <th scope="col">Opis dozvole</th>
+                                        <th scope="col">Uloge kojima pripada dozvola</th>
                                         <th scope="col">Akcije</th>
                                     </tr>
                                 </thead>
@@ -43,11 +44,19 @@
                                         <tr>
                                             <td>{{ $permission->permission }}</td>
                                             <td>{{ $permission->description }}</td>
+                                            <td>
+                                                @foreach($permission->permissionsRoles as $role)
+                                                    {{ $role->role }}<br/>
+                                                @endforeach
+                                            </td>
                                             <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal-{{$permission->id_permission}}">Izmeni</a><a href="{{ route('admin.permission.delete', $permission->id_permission) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="text-center">
+                                {!!$data['permissions']->links();!!}
+                            </div>
                         </div>
                         <a href = "{{route('admin.permission.create')}}" class = "btn btn-success btn-block">Unesi novu dozvolu</a>
                     </div>
