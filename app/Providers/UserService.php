@@ -65,7 +65,7 @@ class UserService {
 
      public static function getUsers() {
         // return User::all();
-         return Patient::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->paginate(2);
+         return Patient::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->paginate(5);
 
      }
 
