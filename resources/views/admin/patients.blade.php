@@ -69,7 +69,7 @@
 
 
             <label>Ime:</label>
-            <input type="text" name="name"   class = 'form-control'  value="{{$patient->name}}" />
+            <input type="text" name="user-name"   class = 'form-control'  value="{{$patient->patient_name}}" />
 
             <label>E-mail adresa:</label>
             <input type="email" name="email" class = 'form-control'  value="{{$patient->email}}" />

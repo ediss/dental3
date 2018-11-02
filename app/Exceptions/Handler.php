@@ -61,7 +61,20 @@ class Handler extends ExceptionHandler
 
        if ($exception instanceof \Illuminate\Database\QueryException) {
 
+
+            if($exception->errorInfo[1] == 1062) {
+                Session::flash('error', 'Termin je već zauzet');
+                return back();
+            }
             if ($exception->getMessage()) {
+                Session::flash('error', $exception->getMessage());
+                return back();
+            }
+       }
+
+
+       if ($exception instanceof  \App\Exceptions\CustomException) {
+            if($exception->getMessage()) {
                 Session::flash('error', $exception->getMessage());
                 return back();
             }

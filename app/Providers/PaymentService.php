@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\CustomException;
 
 class PaymentService extends ServiceProvider {
 
@@ -53,6 +54,7 @@ class PaymentService extends ServiceProvider {
 
     //Create or update payment
     public static function createOrUpdate($data, $payment_id = null) {
+        if(!PermissionService::checkPermission('paid_appointment')) throw new CustomException ('Nemate dozvolu za dodavanje informacija o pregledu!');
         $payment = null;
 
         if (!empty($patient_id)) {
@@ -87,7 +89,7 @@ class PaymentService extends ServiceProvider {
     public static function update($data, $payment_id) {
         $payment = Payment::find($payment_id);
 
-        $payment->paid          = $data['paid_service'];
+        $payment->paid = $data['paid_service'];
         //ubaciti i zub
 
         $payment->save();

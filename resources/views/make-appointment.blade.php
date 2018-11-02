@@ -76,7 +76,7 @@
 
                             <div class="col-md-6">
                                 <select name = 'teeth' class = 'form-control'>
-                                <option value = "null" > Izaberi </option>
+                                <option value = "izaberi" > Izaberi </option>
                                     <option value = "1" > 1 </option>
                                     <option value = "2" > 2 </option>
                                     <option value = "3" > 3 </option>

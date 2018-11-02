@@ -126,7 +126,7 @@ class DoctorController extends Controller
         ($tooth === 'izaberi') ? $tooth = null : $tooth = $request->input('teeth');
 
         $request->validate( [
-            'teeth'  =>  'nullable',
+            'teeth'  =>  'integer|nullable',
         ]);
 
         DoctorService::createAppointment($name, $doctor, $date, $term, $service, $tooth);

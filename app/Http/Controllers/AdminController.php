@@ -13,8 +13,11 @@ use App\Providers\AssistantService;
 use App\Providers\DoctorService;
 use App\Providers\BookkeeperService;
 
-
+use App\Models\Permission;
 use App\Models\User;
+
+use App\Exceptions\CustomException;
+
 use Session;
 
 class AdminController extends Controller
@@ -57,30 +60,30 @@ class AdminController extends Controller
     public function patientsAppointments(Request $request) {
         $date = null;
 
-        return self::response('appointments', ['appointments' => AppointmentService::getAppointments($date), 'admin' => AdminService::getCurrentAdmin()]);
+        return self::response('appointments',       ['appointments' => AppointmentService::getAppointments($date), 'admin' => AdminService::getCurrentAdmin()]);
     }
 
     public function getAdmins() {
-        return self::response('admin/admins', ['admins' => AdminService::getAdmins()]);
-
-        //return view('admin/admins',     ['admins' => AdminService::getAdmins(), 'roles' => RoleService::getRoles()]);
+        return self::response('admin/admins',       ['admins' => AdminService::getAdmins()]);
     }
 
     public function getAssistants() {
-        return self::response('admin/assistants', ['assistants' => AssistantService::getAssistants()]);
+        return self::response('admin/assistants',   ['assistants' => AssistantService::getAssistants()]);
     }
 
     public function getDoctors() {
-        return self::response('admin/doctors',    ['doctors' => DoctorService::getDoctors(), 'id'=>DoctorService::getCurrentDoctor()]);
-    }
-
-    public function getPatients() {
-        return self::response('admin/patients',   ['patients' => UserService::getUsers()]);
+        return self::response('admin/doctors',      ['doctors' => DoctorService::getDoctors(), 'id'=>DoctorService::getCurrentDoctor()]);
     }
 
     public function getBookkeepers() {
-        return self::response('admin/bookkeepers',   ['bookkeepers' => BookkeeperService::getBookkeepers()]);
+        return self::response('admin/bookkeepers',  ['bookkeepers' => BookkeeperService::getBookkeepers()]);
     }
+
+    public function getPatients() {
+        return self::response('admin/patients',     ['patients' => UserService::getUsers()]);
+    }
+
+
 
     public function getRoles() {
         return self::response('admin/roles');
@@ -89,9 +92,8 @@ class AdminController extends Controller
     }
 
     public function getPermissions() {
-        return self::response('admin/permissions', ['permissions' => PermissionService::getPermissions()]);
+        return self::response('admin/permissions',  ['permissions' => PermissionService::getPermissions()]);
 
-        // return view('admin/permissions',    ['roles' => RoleService::getRoles(), 'permissions' => PermissionService::getPermissions()]);
     }
 
     public function getRolePermission() {
@@ -141,7 +143,7 @@ class AdminController extends Controller
     }
 
     public function createPermission() {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodavanje dozvole!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException('Nemate dozvolu za dodavanje dozvole!');
         return self::response('admin/create-permission');
 
     }
@@ -164,7 +166,7 @@ class AdminController extends Controller
     }
 
     public function createRolePermission(Request $request) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodavanje dozvole!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za dodavanje dozvole!');
 
         $name_permission = $request->input('permissions');
         $role            = $request->input('roles');
@@ -182,7 +184,7 @@ class AdminController extends Controller
      * @return void
      */
     public function assigmentPatient(Request $request) {
-        if(!PermissionService::checkPermission('assignmentPatient')) throw new \Exception('Nemate dozvolu da dodelite pacijenta!');
+        if(!PermissionService::checkPermission('assignmentPatient')) throw new CustomException ('Nemate dozvolu da dodelite pacijenta!');
 
         $patient = $request->input('patients');
         $doctor  = $request->input('doctors');
@@ -203,8 +205,13 @@ class AdminController extends Controller
     */
 
     public function updatePatient(Request $request, $id) {
-        $name  = $request->input('name');
+        $name  = $request->input('user-name');
         $email = $request->input('email');
+
+        $request->validate( [
+            'user-name'  =>  'required',
+            'email'      =>  'required|unique:users, email,' . $id,
+        ]);
 
         UserService::updateUser($name, $email, $id);
 
@@ -234,18 +241,14 @@ class AdminController extends Controller
     }
 
 
-    /*public function editPermission($id_permission) {
-        return self::response('admin/permission-edit',  ['permission'=>PermissionService::editPermission($id_permission)]);
-
-        //return view('admin/permission-edit', ['permission'=>PermissionService::editPermission($id_permission)]);
-    }*/
-
     public function updatePermission(Request $request, $id_permission) {
         $permission   = $request->input('permission_name');
         $description  = $request->input('description');
 
         $request->validate( [
-            'permission_name'  =>  'required|unique:permissions,permission',
+            'permission_name'  =>  'required|unique:permissions,permission,'. $id_permission.',id_permission',
+
+            'description'      =>  'required'
         ]);
 
 
@@ -253,7 +256,7 @@ class AdminController extends Controller
 
         Session::flash('success', 'Uspesno ste izmenili dozvolu!');
 
-        return self::response('admin/permissions');
+        return self::getPermissions();
 
     }
 
@@ -263,7 +266,7 @@ class AdminController extends Controller
 
         $request->validate( [
             'name'  =>  'required',
-            'email' =>  'required|unique:admins,email|email',
+            'email' =>  'required|unique:admins,email,'.$id.'|email',
         ]);
 
         DoctorService::updateDoctor($name, $email, $id);
@@ -280,7 +283,7 @@ class AdminController extends Controller
 
         $request->validate( [
             'name'  =>  'required',
-            'email' =>  'required|unique:admins,email|email',
+            'email' =>  'required|unique:admins,email,'.$id.'|email',
         ]);
 
         AdminService::updateAdmin($name, $email, $id);
@@ -297,7 +300,7 @@ class AdminController extends Controller
 
         $request->validate( [
             'name'  =>  'required',
-            'email' =>  'required|unique:admins,email|email',
+            'email' =>  'required|unique:admins,email,'.$id.'|email',
         ]);
 
         AssistantService::updateAssistant($name, $email, $id);
@@ -314,7 +317,7 @@ class AdminController extends Controller
 
         $request->validate( [
             'name'  =>  'required',
-            'email' =>  'required|unique:admins,email|email',
+            'email' =>  'required|unique:admins,email,'.$id.'|email',
         ]);
 
         BookkeeperService::updateBookkeeper($name, $email, $id);

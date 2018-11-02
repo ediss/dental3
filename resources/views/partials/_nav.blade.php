@@ -57,7 +57,6 @@
               <a class="nav-link nav-dropdown-toggle" href="#"> Upravljaj dozvolama</a>
               <ul class="nav-dropdown-items">
                 <li class="nav-item">
-                  <a class="nav-link" href="buttons/buttons.html">
                     <a class="nav-link" href="{{ route('admin.permissions')}}">Pregled dozvola</a>
                 </li>
                 <li class="nav-item">

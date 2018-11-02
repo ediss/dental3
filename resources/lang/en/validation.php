@@ -154,7 +154,9 @@ return [
         'role'                  =>  'Uloga',
         'password'              =>  'Lozinka',
         'password_confirmation' =>  'Potvrdi lozinku',
-        'permission_name'       =>  'Naziv dozvole'
+        'permission_name'       =>  'Naziv dozvole',
+        'description'           =>  'Opis dozvole',
+        'user_name'             =>  'Ime',
 
     ],
 

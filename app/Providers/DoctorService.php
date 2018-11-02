@@ -10,6 +10,7 @@ use App\Models\Appointment;
 use App\Providers\PermissionService;
 use App\Providers\AppointmentService;
 use App\Providers\UserService;
+use App\Exceptions\CustomException;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -22,7 +23,8 @@ class DoctorService
    */
 
    public static function done_appointment($done_service, $id_appointment) {
-    //dozvola
+    if(!PermissionService::checkPermission('done_appointment')) throw new CustomException('Nemate dozvolu za dodavanje informacija o pregledu!');
+
     $appoitment = Appointment::find($id_appointment);
 
     $appoitment->service_done = $done_service;
@@ -59,7 +61,7 @@ class DoctorService
     }
 
     public static function getpatientMedicalHistory($patient_id){
-       //if(!PermissionService::checkPermission('medicalHistoryRead')) throw new \Exception('Nemate dozvolu za pregled kartona!');
+       if(!PermissionService::checkPermission('medicalHistoryRead')) throw new CustomException('Nemate dozvolu za pregled kartona!');
 
         return  Appointment::where('patient_id', $patient_id)
                             ->where('service_done', 'Da')
@@ -74,12 +76,12 @@ class DoctorService
     */
 
     public static function createAppointment($patient_id, $doctor_id, $date, $term_id, $service_id, $tooth) {
-    //    / if(!PermissionService::checkPermission('appointmentModify')) throw new \Exception('Nemate dozvolu za zakazivanje pregleda!');
+        if(!PermissionService::checkPermission('appointmentModify')) throw new CustomException ('Nemate dozvolu za zakazivanje pregleda!');
         return AppointmentService::createAppointment( $patient_id, $doctor_id, $date, $term_id, $service_id, $tooth);
     }
 
     public static function assignmentPatient($patient, $dr){
-        if(!PermissionService::checkPermission('assignmentPatient')) throw new \Exception('Nemate dozvolu za dodeljivanje pacijenta!');
+        if(!PermissionService::checkPermission('assignmentPatient')) throw new CustomException ('Nemate dozvolu za dodeljivanje pacijenta!');
         $doctor =  Patient::find($patient);
 
         $doctor->doctor_id  = $dr;
@@ -95,7 +97,7 @@ class DoctorService
      */
 
     public static function updateDoctor($name, $email, $id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o doktoru!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o doktoru!');
         $doctor = Doctor::find($id);
 
         $doctor->name  = $name;
@@ -111,7 +113,7 @@ class DoctorService
      */
 
     public static function deleteDoctor($id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izbrisete doktora!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izbrisete doktora!');
         $doctor =  Doctor::find($id);
 
         $doctor->delete();

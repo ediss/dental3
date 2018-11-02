@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use App\Models\DoctorPatient;
+use App\Exceptions\CustomException;
 use Illuminate\Support\Facades\Auth;
 
 class AdminService extends ServiceProvider
@@ -26,8 +27,8 @@ class AdminService extends ServiceProvider
      * @param string    $password   admin password
      * @return void
      */
-    public static function createAdmin($name, $email, $password, $role_id){
-        //dozvola
+    public static function createAdmin($name, $email, $password, $role_id) {
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da registgrujete novog korisnika!');
         $admin = new Admin;
 
         $admin->name     = $name;
@@ -67,7 +68,7 @@ class AdminService extends ServiceProvider
      */
 
     public static function updateAdmin($name, $email, $id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o adminu!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o adminu!');
 
         $admin = Admin::find($id);
 
@@ -84,7 +85,7 @@ class AdminService extends ServiceProvider
      */
 
     public static function deleteAdmin($id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izbrisete admina!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izbrisete admina!');
 
         $admin =  Admin::find($id);
 

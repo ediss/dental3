@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Role;
+use App\Exceptions\CustomException;
 
 class RoleService {
 
@@ -14,7 +15,7 @@ class RoleService {
      */
 
     public static function createRole($name_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za dodavanje uloge!');
+        if(!PermissionService::checkPermission('roleModify')) throw new CustomException ('Nemate dozvolu za dodavanje uloge!');
 
         $role = new Role;
 
@@ -40,14 +41,14 @@ class RoleService {
 
 
     public static function editRole($id_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
+        if(!PermissionService::checkPermission('roleModify')) throw new CustomException ('Nemate dozvolu za izmenu uloge!');
 
         return  Role::where('id_role', $id_role)->first();
     }
 
 
     public static function updateRole($role_name, $id_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu za izmenu uloge!');
+        if(!PermissionService::checkPermission('roleModify')) throw new CustomException('Nemate dozvolu za izmenu uloge!');
 
         $role = Role::find($id_role);
 
@@ -67,7 +68,7 @@ class RoleService {
      */
 
     public static function deleteRole($id_role) {
-        if(!PermissionService::checkPermission('roleModify')) throw new \Exception('Nemate dozvolu da izbrisete ulogu!');
+        if(!PermissionService::checkPermission('roleModify')) throw new CustomException ('Nemate dozvolu da izbrisete ulogu!');
 
         $role = Role::find($id_role);
 

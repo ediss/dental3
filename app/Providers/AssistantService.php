@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Admin as Assistant;
+use App\Exceptions\CustomException;
 
 class AssistantService extends ServiceProvider
 {
@@ -25,7 +26,7 @@ class AssistantService extends ServiceProvider
      */
 
     public static function updateAssistant($name, $email, $id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o  asistentu!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o  asistentu!');
         $assistant = Assistant::find($id);
 
         $assistant->name  = $name;
@@ -41,7 +42,7 @@ class AssistantService extends ServiceProvider
      */
 
     public static function deleteAssistant($id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izbrisete asistenta!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izbrisete asistenta!');
 
         $assistant =  Assistant::find($id);
 

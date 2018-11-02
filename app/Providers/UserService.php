@@ -7,6 +7,7 @@ use App\Models\User as Patient;
 use App\Models\Appointment;
 use App\Models\Payment;
 use App\Models\PatientFile;
+use App\Exceptions\CustomException;
 
 use Session;
 
@@ -27,7 +28,9 @@ class UserService {
      * @param string    $password   user password
      * @return void
      */
-    public static function createUser($name, $email, $password, $gender, $birthday){
+    public static function createUser($name, $email, $password, $gender, $birthday) {
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da dodate pacijenta!');
+
         $patient = new Patient;
 
         $patient->name          = $name;
@@ -86,8 +89,6 @@ class UserService {
         return  Appointment::where('patient_id', $patient_id)->get();
     }
 
-  
-
     public static function getPatientFiles($patient_id) {
         return PatientFile::where('patient_id', $patient_id)->get();
     }
@@ -103,7 +104,7 @@ class UserService {
     }
 
     public static function updateUser($name, $email, $id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o pacijentu!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o pacijentu!');
         $patient = Patient::find($id);
 
         $patient->name  = $name;
@@ -120,6 +121,8 @@ class UserService {
      */
 
     public static function deleteUser($id) {
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da obrisete pacijenta!');
+
         $patient =  Patient::find($id);
 
         $patient->delete();

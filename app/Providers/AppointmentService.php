@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Appointment;
 use App\Providers\DoctorService;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\CustomException;
 
 use Session;
 
@@ -31,7 +32,6 @@ class AppointmentService {
             }
             else {
                 ($date === NULL || $date === '' || empty($date))  ? $query = Appointment::all() : $query = Appointment::where ('date_appoitment', '=', $date)->get();
-
             }
         }
         else {
@@ -45,13 +45,11 @@ class AppointmentService {
 
         }
 
-
         return $query;
-
     }
 
     public static function createAppointment($patient_id, $doctor_id, $date, $term_id, $service_id, $tooth) {
-       // if(!PermissionService::checkPermission('appointmentModify')) throw new \Exception('Nemate dozvolu za zakazivanje pregleda!');
+        if(!PermissionService::checkPermission('appointmentModify')) throw new CustomException ('Nemate dozvolu za zakazivanje pregleda!');
 
 
         $appointmenmt = new Appointment;

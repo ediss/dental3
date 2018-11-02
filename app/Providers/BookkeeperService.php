@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Admin as Bookkeeper;
+use App\Exceptions\CustomException;
 
 class BookkeeperService extends ServiceProvider
 {
@@ -26,7 +27,7 @@ class BookkeeperService extends ServiceProvider
      */
 
     public static function updateBookkeeper($name, $email, $id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o  asistentu!');
+        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izmenite podatke o knjigovodji!');
         $bookkeeper = Bookkeeper::find($id);
 
         $bookkeeper->name  = $name;
@@ -42,7 +43,7 @@ class BookkeeperService extends ServiceProvider
      */
 
     public static function deleteBookkeeper($id) {
-        if(!PermissionService::checkPermission('userModify')) throw new \Exception('Nemate dozvolu da izbrisete asistenta!');
+        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izbrisete knjigovodju!');
 
         $bookkeeper =  Bookkeeper::find($id);
 

@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\RolePermissions;
 use App\Providers\AdminService;
 use Illuminate\Support\Facades\Auth;
+use App\Exceptions\CustomException;
 
 
 class PermissionService {
@@ -70,7 +71,7 @@ class PermissionService {
      */
 
     public static function createPermission($name, $description) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodavanje dozvole!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za dodavanje dozvole!');
         $permission = new Permission;
 
         $permission->permission  = $name;
@@ -80,7 +81,7 @@ class PermissionService {
     }
 
     public static function addPermissionToRole($role_id, $permission_id) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za dodeljivanje dozvole!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za dodeljivanje dozvole!');
 
         if (RolePermissions::where('role_id', '=', $role_id, 'permission_id', '=', $permission_id)->exists()) {
             echo "DOZVOLA JE VEC DODELJENA!";
@@ -104,7 +105,7 @@ class PermissionService {
      */
 
     public static function editPermission($id_permission) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za izmenu dozvole!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za izmenu dozvole!');
 
         return  Permission::find($id_permission);
 
@@ -113,7 +114,7 @@ class PermissionService {
 
 
     public static function updatePermission($permission_name, $description, $id_permission) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu za izmenu dozvole!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za izmenu dozvole!');
 
         $permission = Permission::find($id_permission);
 
@@ -132,7 +133,7 @@ class PermissionService {
      */
 
     public static function deletePermission($id_permission) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new \Exception('Nemate dozvolu da izbrisete dozvolu!');
+        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu da izbrisete dozvolu!');
 
         $permission = Permission::find($id_permission);
 
