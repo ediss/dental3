@@ -22,14 +22,15 @@
                     </div>
                 @endif
             <div class="content" style = 'width:100%;'>
-
+<div id = "proba">
+</div>
                 <div class = 'row'>
                     <div class = 'col-md-8' style = "margin-left:45px;">
                     <div class="title m-b-md">
                         <h1>Dozvole</h1>
                     </div>
                         <div class="links">
-                            <table class="table  table-dark">
+                            <table class="table  table-dark" id ="permission_table">
                                 <thead>
                                     <tr>
                                     <!-- <th scope="col">#</th>-->
@@ -42,14 +43,14 @@
                                 <tbody>
                                     @foreach($data['permissions'] as $permission)
                                         <tr>
-                                            <td>{{ $permission->permission }}</td>
+                                            <td class='permission_table_td'>{{ $permission->permission }}</td>
                                             <td>{{ $permission->description }}</td>
                                             <td>
                                                 @foreach($permission->permissionsRoles as $role)
                                                     {{ $role->role }}<br/>
                                                 @endforeach
                                             </td>
-                                            <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal-{{$permission->id_permission}}">Izmeni</a><a href="{{ route('admin.permission.delete', $permission->id_permission) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                            <td><a href="#" class ='btn btn-primary openModal'  data-toggle="modal" data-id = "{{$permission->id_permission}}" data-target="#exampleModal-{{$permission->id_permission}}">Izmeni</a><a href="{{ route('admin.permission.delete', $permission->id_permission) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -72,37 +73,33 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Izmena admina</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Izmena dozvole</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('admin.permission.update', $permission->id_permission)}}">
+        <form method = "POST">
             {{ csrf_field() }}
 
 
             <label>Naziv dozvole:</label>
-            <input type="text" name="permission_name" class = 'form-control'  value="{{$permission->permission}}" />
+            <input type="text"    id = "permisssion_name_{{$permission->id_permission}}"  name="permission_name" class = 'form-control'  value="{{$permission->permission}}" />
 
             <label>Opis dozvole:</label>
-            <input type="text" name="description" class = 'form-control'  value="{{$permission->description}}" />
-
-            <!-- <label>Lozinka:</label>
-            <input type="password" name="password" class = 'form-control' />-->
-
-
+            <input type="text"    id = "description_{{$permission->id_permission}}"       name="description"     class = 'form-control'  value="{{$permission->description}}" />
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+        <button type="submit" class='btn btn-success' name = "update-permission">Sačuvaj</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 @endforeach
+
 @endsection
 

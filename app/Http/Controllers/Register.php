@@ -70,7 +70,7 @@ class Register extends Controller
             AdminService::createAdmin($name, $email, $password, $role);
         }
 
-        Session::flash('success', 'Uspesno ste registrovali novog korisnika!');
+        Session::flash('success', 'Uspešno ste registrovali novog korisnika!');
 
         return self::response('admin/admin-home');
 

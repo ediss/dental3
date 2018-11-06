@@ -63,7 +63,7 @@ class AppointmentService {
 
         $appointmenmt->save();
 
-        Session::flash('success', 'Uspesno ste zakazali pregled!');
+        Session::flash('success', 'Uspešno ste zakazali pregled!');
 
 
     }

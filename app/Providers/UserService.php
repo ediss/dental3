@@ -53,7 +53,7 @@ class UserService {
 
         $patient_files->save();
 
-        return Session::flash('success', 'Uspesno ste dodali dokument za pacijenta!');
+        return Session::flash('success', 'Uspešno ste dodali dokument za pacijenta!');
 
     }
 

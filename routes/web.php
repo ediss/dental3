@@ -68,11 +68,14 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/dozvole',                  'AdminController@getPermissions')          ->name('admin.permissions');
 
+    Route::post('/dozvole/update',          'AjaxController@ajaxPermissionUpdate');
+
     Route::get('/dozvole/dodavanje',        'AdminController@createPermission')        ->name('admin.permission.create');
     Route::post('/dozvole/dodavanje',       'AdminController@storePermission')         ->name('admin.permission.create.submit');
 
-    Route::get('/dozvole-izmena/{id}',      'AdminController@editPermission')          ->name('admin.permission.edit');
-    Route::post('/dozvole-izmena/{id}',     'AdminController@updatePermission')        ->name('admin.permission.update');
+    //Route::post('/dozvole-izmena/{id}',     'AdminController@updatePermission')        ->name('admin.permission.update');
+
+    Route::post('/ajaxPermissionUpdate','AjaxController@ajaxPermissionUpdate');
 
     Route::get('/dozvole/brisanje/{id}',    'AdminController@deletePermission')        ->name('admin.permission.delete');
 
@@ -84,6 +87,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/logout',                   'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
+
+
 
 
 Route::prefix('doktor')->group(function () {
@@ -111,6 +116,14 @@ Route::prefix('pacijent')->group(function () {
     Route::get('/placanja', 'UserController@getPayments')   ->name('patient.payments');
 });
 
+
+
+
+
+
+
+
+
 Route::get('/ajaxAppointments',         'AjaxController@ajaxAppointments');
 
 Route::get('/ajaxPayments',             'AjaxController@ajaxPayments');
@@ -123,6 +136,7 @@ Route::get('korisnik/profil',           'AdminController@userProfile')          
 //
 Route::post('doktor/pregledi/{id}',     'DoctorController@done_appointment')      ->name('doctor.done-appointment');
 //
+
 
 Route::get('/logout',                   'Auth\LoginController@logout')            ->name('logout');
 

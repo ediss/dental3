@@ -137,7 +137,7 @@ class AdminController extends Controller
 
         RoleService::createRole($name_role);
 
-        Session::flash('success', 'Uspesno ste dodali novu ulogu!');
+        Session::flash('success', 'Uspešno ste dodali novu ulogu!');
 
         return redirect('admin/pocetna');
     }
@@ -160,7 +160,7 @@ class AdminController extends Controller
 
         PermissionService::createPermission($name_permission, $description_permission);
 
-        Session::flash('success', 'Uspesno ste dodali novu dozvolu!');
+        Session::flash('success', 'Uspešno ste dodali novu dozvolu!');
 
         return redirect('admin/dozvole');
     }
@@ -191,7 +191,7 @@ class AdminController extends Controller
 
         DoctorService::assignmentPatient($patient, $doctor);
 
-        Session::flash('success', 'Uspesno ste dodelili pacijenta doktoru!');
+        Session::flash('success', 'Uspešno ste dodelili pacijenta doktoru!');
 
         return redirect('admin/pacijenti/dodeljivanje');
         //
@@ -216,7 +216,7 @@ class AdminController extends Controller
 
         UserService::updateUser($name, $email, $id);
 
-        Session::flash('success', 'Uspesno ste izmenili podatke o pacijentu!');
+        Session::flash('success', 'Uspešno ste izmenili podatke o pacijentu!');
 
         return redirect('admin/pacijenti');
 
@@ -235,31 +235,12 @@ class AdminController extends Controller
 
         RoleService::updateRole($role, $id_role);
 
-        Session::flash('success', 'Uspesno ste izmenili naziv uloge!');
+        Session::flash('success', 'Uspešno ste izmenili naziv uloge!');
 
         return self::response('admin/roles');
 
     }
 
-
-    public function updatePermission(Request $request, $id_permission) {
-        $permission   = $request->input('permission_name');
-        $description  = $request->input('description');
-
-        $request->validate( [
-            'permission_name'  =>  'required|unique:permissions,permission,'. $id_permission.',id_permission',
-
-            'description'      =>  'required'
-        ]);
-
-
-        PermissionService::updatePermission($permission, $description, $id_permission);
-
-        Session::flash('success', 'Uspesno ste izmenili dozvolu!');
-
-        return self::getPermissions();
-
-    }
 
     public function updateDoctor(Request $request, $id) {
         $name   = $request->input('name');
@@ -272,7 +253,7 @@ class AdminController extends Controller
 
         DoctorService::updateDoctor($name, $email, $id);
 
-        Session::flash('success', 'Uspesno ste izmenili podatke o doktoru!');
+        Session::flash('success', 'Uspešno ste izmenili podatke o doktoru!');
 
         return redirect('admin/doktori');
 
@@ -289,7 +270,7 @@ class AdminController extends Controller
 
         AdminService::updateAdmin($name, $email, $id);
 
-        Session::flash('success', 'Uspesno ste izmenili podatke o adminu!');
+        Session::flash('success', 'Uspešno ste izmenili podatke o adminu!');
 
         return redirect('admin/admini');
 
@@ -306,7 +287,7 @@ class AdminController extends Controller
 
         AssistantService::updateAssistant($name, $email, $id);
 
-        Session::flash('success', 'Uspesno ste izmenili podatke o asistentu!');
+        Session::flash('success', 'Uspešno ste izmenili podatke o asistentu!');
 
         return redirect('admin/asistenti');
 
@@ -323,7 +304,7 @@ class AdminController extends Controller
 
         BookkeeperService::updateBookkeeper($name, $email, $id);
 
-        Session::flash('success', 'Uspesno ste izmenili podatke o knjigovodji!');
+        Session::flash('success', 'Uspešno ste izmenili podatke o knjigovodji!');
 
         return redirect('admin/knjigovodje');
 
@@ -339,7 +320,7 @@ class AdminController extends Controller
     public function deleteUser($id) {
         UserService::deleteUser($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali pacijenta!');
+        Session::flash('success', 'Uspešno ste izbrisali pacijenta!');
 
         return redirect('admin/pacijenti');
     }
@@ -348,7 +329,7 @@ class AdminController extends Controller
     public function deleteRole($id) {
         RoleService::deleteRole($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali ulogu!');
+        Session::flash('success', 'Uspešno ste izbrisali ulogu!');
 
         return redirect('admin/pocetna');
     }
@@ -356,7 +337,7 @@ class AdminController extends Controller
     public function deletePermission($id) {
         PermissionService::deletePermission($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali dozvolu!');
+        Session::flash('success', 'Uspešno ste izbrisali dozvolu!');
 
         return redirect('admin/pocetna');
     }
@@ -364,7 +345,7 @@ class AdminController extends Controller
     public function deleteDoctor($id) {
         DoctorService::deleteDoctor($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali doktora!');
+        Session::flash('success', 'Uspešno ste izbrisali doktora!');
 
         return redirect('admin/doktori');
     }
@@ -372,7 +353,7 @@ class AdminController extends Controller
     public function deleteAdmin($id) {
         AdminService::deleteAdmin($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali admina!');
+        Session::flash('success', 'Uspešno ste izbrisali admina!');
 
         return redirect('admin/admini');
     }
@@ -380,7 +361,7 @@ class AdminController extends Controller
     public function deleteAssistant($id) {
         AssistantService::deleteAssistant($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali asistenta!');
+        Session::flash('success', 'Uspešno ste izbrisali asistenta!');
 
         return redirect('admin/asistenti');
     }
@@ -388,7 +369,7 @@ class AdminController extends Controller
     public function deleteBookkeeper($id) {
         BookkeeperService::deleteBookkeeper($id);
 
-        Session::flash('success', 'Uspesno ste izbrisali knjigovodju!');
+        Session::flash('success', 'Uspešno ste izbrisali knjigovodju!');
 
         return redirect('admin/knjigovodje');
     }

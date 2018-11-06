@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Providers\AppointmentService;
 use App\Providers\PaymentService;
-
+use App\Providers\PermissionService;
+use Session;
 
 class AjaxController extends Controller
 {
@@ -35,4 +36,16 @@ class AjaxController extends Controller
         return self::response('patient.payments-table', ['payments' =>  PaymentService::getPayments($date)]);
 
     }
+
+    public function ajaxPermissionUpdate(Request $request) {
+        $permission   = $request->varPermission;
+        $description  = $request->varDescription;
+        $hidden       = $request->varHiddenId;
+
+        return PermissionService::updatePermission($permission, $description, $hidden);
+
+        //Session::flash('success', 'Uspesno ste izmenili dozvolu!');
+
+    }
+
 }

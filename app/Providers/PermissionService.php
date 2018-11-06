@@ -7,7 +7,7 @@ use App\Models\RolePermissions;
 use App\Providers\AdminService;
 use Illuminate\Support\Facades\Auth;
 use App\Exceptions\CustomException;
-
+use Session;
 
 class PermissionService {
 
@@ -104,25 +104,29 @@ class PermissionService {
      *
      */
 
-    public static function editPermission($id_permission) {
+   /* public static function editPermission($id_permission) {
         if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za izmenu dozvole!');
 
         return  Permission::find($id_permission);
 
     }
-
+*/
 
 
     public static function updatePermission($permission_name, $description, $id_permission) {
-        if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za izmenu dozvole!');
+       // if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za izmenu dozvole!');
 
         $permission = Permission::find($id_permission);
+
 
         $permission->permission   = $permission_name;
         $permission->description  = $description;
 
-
         $permission->save();
+        return $permission;
+        //$dozvole = Permission::all();
+        //return $dozvole;
+        //return json_encode($permission);
     }
 
 

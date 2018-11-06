@@ -48,7 +48,7 @@
         </div>
 
       </main>
-     
+
     </div>
 
     @yield('modal')
@@ -75,6 +75,5 @@
     <script src="../../node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
     <script src="../../js/main.js"></script>
     <script src="../../js/script.js"></script>
-
   </body>
 </html>

@@ -31,7 +31,7 @@ class RolePermissionService {
 
             $rolePermission->save();
 
-            Session::flash('success', 'Uspesno ste dodali dozvolu ulozi!');
+            Session::flash('success', 'Uspešno ste dodali dozvolu ulozi!');
          }
 
     }

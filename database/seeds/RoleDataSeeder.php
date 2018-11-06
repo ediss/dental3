@@ -59,6 +59,6 @@ class RoleDataSeeder extends Seeder
             echo "Uloga 'Asistent' vec postoji!";
         }
 
-        echo "Uspesno ste uneli uloge!";
+        echo "Uspešno ste uneli uloge!";
     }
 }

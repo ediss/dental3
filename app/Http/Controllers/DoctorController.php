@@ -55,7 +55,7 @@ class DoctorController extends Controller
         PaymentService::createOrUpdate($data);
 
 
-        Session::flash('success', 'Uspesno ste dodali informacije o pregledu!');
+        Session::flash('success', 'Uspešno ste dodali informacije o pregledu!');
         return redirect('doktor/pregledi');
     }
 
@@ -131,7 +131,7 @@ class DoctorController extends Controller
 
         DoctorService::createAppointment($name, $doctor, $date, $term, $service, $tooth);
 
-        Session::flash('success', 'Uspesno ste zakazali pregled!');
+        Session::flash('success', 'Uspešno ste zakazali pregled!');
 
         return redirect('doktor/pregledi');
 
