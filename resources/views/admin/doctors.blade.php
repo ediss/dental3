@@ -8,7 +8,6 @@
                 </div>
             @endif
 
-            ovde ide id: <strong>{{$data['id']->id}}</strong>
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -39,12 +38,15 @@
                                 <td>{{ $doctor->name }}</td>
                                 <td>{{ $doctor->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$doctor->id}}">Izmeni</a><a href="{{ route('admin.doctor.delete', $doctor->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$doctor->id}}" data-toggle="modal" data-target="#exampleModal-{{$doctor->id}}">Izmeni</a><a href="{{ route('admin.delete', [$doctor->id, 'doktori']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="text-center">
+                                {!!$data['doctors']->links();!!}
+                            </div>
                 </div>
             </div>
 @endsection
@@ -65,25 +67,20 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('admin.doctor.update.submit', $doctor->id)}}">
+        <form method="POST">
             {{ csrf_field() }}
 
 
             <label>Ime:</label>
-            <input type="text" name="name"   class = 'form-control'  value="{{$doctor->name}}" />
+            <input type="text"  id = "username_{{$doctor->id}}" name="name"     class = 'form-control'  value="{{$doctor->name}}" />
 
             <label>E-mail adresa:</label>
-            <input type="email" name="email" class = 'form-control'  value="{{$doctor->email}}" />
-
-            <!-- <label>Lozinka:</label>
-            <input type="password" name="password" class = 'form-control' />-->
-
-
+            <input type="email" id = "email_{{$doctor->id}}"    name="email"    class = 'form-control'  value="{{$doctor->email}}" />
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+        <button type="submit" class='btn btn-success' name = "admin_update" >Sačuvaj izmene</button>
         </form>
       </div>
     </div>

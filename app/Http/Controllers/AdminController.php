@@ -204,28 +204,6 @@ class AdminController extends Controller
      *
     */
 
-    public function updatePatient(Request $request, $id) {
-        $name  = $request->input('user-name');
-        $email = $request->input('email');
-
-
-        $request->validate( [
-            'user-name'  =>  'required',
-            'email' =>  'required|unique:users,email,'.$id.'|email',
-        ]);
-
-        UserService::updateUser($name, $email, $id);
-
-        Session::flash('success', 'Uspešno ste izmenili podatke o pacijentu!');
-
-        return redirect('admin/pacijenti');
-
-    }
-
-    /*public function editRole($id) {
-        return self::response('admin/role-edit', ['role'=>RoleService::editRole($id)]);
-    }*/
-
     public function updateRole(Request $request, $id_role) {
         $role  = $request->input('name');
 
@@ -242,80 +220,21 @@ class AdminController extends Controller
     }
 
 
-    public function updateDoctor(Request $request, $id) {
-        $name   = $request->input('name');
-        $email  = $request->input('email');
-
-        $request->validate( [
-            'name'  =>  'required',
-            'email' =>  'required|unique:admins,email,'.$id.'|email',
-        ]);
-
-        DoctorService::updateDoctor($name, $email, $id);
-
-        Session::flash('success', 'Uspešno ste izmenili podatke o doktoru!');
-
-        return redirect('admin/doktori');
-
-    }
-
-    public function updateAdmin(Request $request, $id) {
-        $name   = $request->input('name');
-        $email  = $request->input('email');
-
-        $request->validate( [
-            'name'  =>  'required',
-            'email' =>  'required|unique:admins,email,'.$id.'|email',
-        ]);
-
-        AdminService::updateAdmin($name, $email, $id);
-
-        Session::flash('success', 'Uspešno ste izmenili podatke o adminu!');
-
-        return redirect('admin/admini');
-
-    }
-
-    public function updateAssistant(Request $request, $id) {
-        $name   = $request->input('name');
-        $email  = $request->input('email');
-
-        $request->validate( [
-            'name'  =>  'required',
-            'email' =>  'required|unique:admins,email,'.$id.'|email',
-        ]);
-
-        AssistantService::updateAssistant($name, $email, $id);
-
-        Session::flash('success', 'Uspešno ste izmenili podatke o asistentu!');
-
-        return redirect('admin/asistenti');
-
-    }
-
-    public function updateBookkeeper(Request $request, $id) {
-        $name   = $request->input('name');
-        $email  = $request->input('email');
-
-        $request->validate( [
-            'name'  =>  'required',
-            'email' =>  'required|unique:admins,email,'.$id.'|email',
-        ]);
-
-        BookkeeperService::updateBookkeeper($name, $email, $id);
-
-        Session::flash('success', 'Uspešno ste izmenili podatke o knjigovodji!');
-
-        return redirect('admin/knjigovodje');
-
-    }
-
 
     /**
      *
      * DELETE
      *
      */
+
+
+    public function deleteAdmin($id, $role) {
+        AdminService::deleteAdmin($id);
+
+        Session::flash('success', 'Uspešno ste izbrisali korisnika!');
+
+        return redirect('admin/'.$role);
+    }
 
     public function deleteUser($id) {
         UserService::deleteUser($id);
@@ -340,38 +259,6 @@ class AdminController extends Controller
         Session::flash('success', 'Uspešno ste izbrisali dozvolu!');
 
         return redirect('admin/pocetna');
-    }
-
-    public function deleteDoctor($id) {
-        DoctorService::deleteDoctor($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali doktora!');
-
-        return redirect('admin/doktori');
-    }
-
-    public function deleteAdmin($id) {
-        AdminService::deleteAdmin($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali admina!');
-
-        return redirect('admin/admini');
-    }
-
-    public function deleteAssistant($id) {
-        AssistantService::deleteAssistant($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali asistenta!');
-
-        return redirect('admin/asistenti');
-    }
-
-    public function deleteBookkeeper($id) {
-        BookkeeperService::deleteBookkeeper($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali knjigovodju!');
-
-        return redirect('admin/knjigovodje');
     }
 
 }

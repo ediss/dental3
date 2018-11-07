@@ -16,7 +16,7 @@ class AssistantService extends ServiceProvider
 
 
     public static function getAssistants() {
-        return  Assistant::where('role_id', '4')->get();
+        return  Assistant::where('role_id', '4')->paginate(5);
     }
 
     /**

@@ -21,6 +21,9 @@
                         </ul>
                     </div>
                 @endif
+                <div class="alert alert-success" role="alert">
+
+                </div>
             <div class="content" style = 'width:100%;'>
 <div id = "proba">
 </div>

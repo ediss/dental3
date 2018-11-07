@@ -39,7 +39,7 @@
                                 <td>{{ $bookkeeper->name }}</td>
                                 <td>{{ $bookkeeper->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a><a href="{{ route('admin.bookkeeper.delete', $bookkeeper->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a><a href="{{ route('admin.delete', [$bookkeeper->id, 'knjigovodje']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach
@@ -65,7 +65,7 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('admin.bookkeeper.update.submit', $bookkeeper->id)}}">
+        <form method="post" action="{{ route('admin.update.submit', [$bookkeeper->id, 'knjigovodje'])}}">
             {{ csrf_field() }}
 
 

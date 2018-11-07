@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use App\Providers\AppointmentService;
 use App\Providers\PaymentService;
 use App\Providers\PermissionService;
+use App\Providers\UserService;
+use App\Providers\AdminService;
+
 use Session;
+
 
 class AjaxController extends Controller
 {
@@ -45,6 +49,33 @@ class AjaxController extends Controller
         return PermissionService::updatePermission($permission, $description, $hidden);
 
         //Session::flash('success', 'Uspesno ste izmenili dozvolu!');
+
+    }
+
+    public function ajaxPatientUpdate(Request $request) {
+        $patient_name   = $request->varPatientName;
+        $patient_email  = $request->varPatientEmail;
+        $hidden       = $request->varHiddenId;
+
+        return  UserService::updateUser($patient_name, $patient_email, $hidden);
+
+
+        //Session::flash('success', 'Uspesno ste izmenili podatke o pacijentu!');
+
+    }
+
+    public function ajaxAdminUpdate(Request $request) {
+        $admin_name   = $request->varAdminName;
+        $admin_email  = $request->varAdminEmail;
+        $hidden       = $request->varHiddenId;
+
+       /* $request->validate( [
+            'proba'  =>  'required',
+            'email' =>  'required|unique:admins,email,'.$hidden.'|email',
+        ]);*/
+        return  AdminService::updateAdmin($admin_name, $admin_email, $hidden);
+
+        //Session::flash('success', 'Uspesno ste izmenili podatke o adminu!');
 
     }
 

@@ -104,13 +104,15 @@ class UserService {
     }
 
     public static function updateUser($name, $email, $id) {
-        if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o pacijentu!');
+       // if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o pacijentu!');
         $patient = Patient::find($id);
 
         $patient->name  = $name;
         $patient->email = $email;
 
         $patient->save();
+
+        return $patient;
     }
 
 

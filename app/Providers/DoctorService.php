@@ -53,7 +53,7 @@ class DoctorService
 
     public static function getDoctors() {
         //ne zakucavaj role id
-        return  Doctor::where('role_id', '2')->get();
+        return  Doctor::where('role_id', '2')->paginate(5);
     }
 
     public static function getCurrentDoctor() {

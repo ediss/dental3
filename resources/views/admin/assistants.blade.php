@@ -28,12 +28,15 @@
                                 <td>{{ $assistant->name }}</td>
                                 <td>{{ $assistant->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$assistant->id}}">Izmeni</a><a href="{{ route('admin.assistant.delete', $assistant->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$assistant->id}}" data-toggle="modal" data-target="#exampleModal-{{$assistant->id}}">Izmeni</a><a href="{{ route('admin.delete', [$assistant->id, 'asistenti']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="text-center">
+                    {!!$data['assistants']->links();!!}
+                </div>
                 </div>
             </div>
 @endsection
@@ -53,15 +56,15 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('admin.assistant.update', $assistant->id)}}">
+        <form method="POST">
             {{ csrf_field() }}
 
 
             <label>Ime:</label>
-            <input type="text" name="name"   class = 'form-control'  value="{{$assistant->name}}" />
+            <input type="text"  id = "username_{{$assistant->id}}"      name="name"  class = 'form-control'  value="{{$assistant->name}}" />
 
             <label>E-mail adresa:</label>
-            <input type="email" name="email" class = 'form-control'  value="{{$assistant->email}}" />
+            <input type="email" id = "email_{{$assistant->id}}"         name="email" class = 'form-control'  value="{{$assistant->email}}" />
 
             <!-- <label>Lozinka:</label>
             <input type="password" name="password" class = 'form-control' />-->
@@ -71,7 +74,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+        <button type="submit" class='btn btn-success' name = "admin_update">Sačuvaj izmene</button>
         </form>
       </div>
     </div>

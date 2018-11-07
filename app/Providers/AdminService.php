@@ -48,7 +48,7 @@ class AdminService extends ServiceProvider
 
     public static function getAdmins() {
         //ne zakucavaj role id
-        return  Admin::where('role_id', '1')->get();
+        return  Admin::where('role_id', '1')->paginate(5);
     }
 
     /**
@@ -76,6 +76,8 @@ class AdminService extends ServiceProvider
         $admin->email = $email;
 
         $admin->save();
+
+        return $admin;
     }
 
     /**
