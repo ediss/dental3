@@ -39,6 +39,10 @@ class PermissionService {
         return !empty($select) ? array_column(Permission::select($select)->get()->toArray(), 'permission') : Permission::paginate(5);
     }
 
+    public static function getAllPermissions() {
+        return Permission::all();
+    }
+
     /**
      * Get's all read permissions
      *
@@ -142,6 +146,8 @@ class PermissionService {
         $permission = Permission::find($id_permission);
 
         $permission->delete();
+
+        return $permission;
 
      }
 

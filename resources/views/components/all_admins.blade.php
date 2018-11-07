@@ -17,7 +17,7 @@
                                 <td>{{ $role->name }}</td>
                                 <td>{{ $role->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$role->id}}">Izmeni</a><a href="{{ route('admin.assistant.delete', $role->id) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$role->id}}">Izmeni</a><a href="{{ route('admin.assistant.delete', $role->id) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach

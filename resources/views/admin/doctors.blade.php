@@ -17,6 +17,8 @@
                     </ul>
                 </div>
             @endif
+
+            <div class="alert alert-success" id = "success-messages" role="alert"></div>
             <div class="content">
                 <div class="title m-b-md">
                    <h1>Doktori</h1>
@@ -38,7 +40,7 @@
                                 <td>{{ $doctor->name }}</td>
                                 <td>{{ $doctor->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$doctor->id}}" data-toggle="modal" data-target="#exampleModal-{{$doctor->id}}">Izmeni</a><a href="{{ route('admin.delete', [$doctor->id, 'doktori']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$doctor->id}}" data-toggle="modal" data-target="#exampleModal-{{$doctor->id}}">Izmeni</a><a href="{{ route('admin.delete', [$doctor->id, 'doktori']) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach

@@ -1,8 +1,10 @@
 var dateAppointment     = document.getElementsByName("date-appointment");
 var datePayment         = document.getElementsByName("date-payment");
 var updatePermission    = document.getElementsByName("update-permission");
+var deletePermission    = document.getElementsByName("delete-permission");
 var updatePatient       = document.getElementsByName("update-patient");
 var updateAdmin         = document.getElementsByName("admin_update");
+
 
 
 //AJAX UPDATE PERMISSIONS
@@ -34,7 +36,8 @@ $(document).on("click", ".openModal", function () {
             },
             success: function(response) {
                 console.log(response);
-                $('.alert-success').html("Uspešno ste promenili naziv dozvole "+response.permission);
+                document.getElementById("success-messages").style.display = "block";
+                $('#success-messages').html('Uspešno ste promenili informacije o dozvoli '+response.permission);
             },
             error: function(response) {
                 console.log('Error', response);
@@ -80,6 +83,8 @@ $(document).on("click", ".openModal", function () {
             },
             success: function(response) {
                 console.log(response);
+                document.getElementById("success-messages").style.display = "block";
+                $('#success-messages').html('Uspešno ste promenili informacije o korisniku');
             },
             error: function(response) {
                 console.log('Error', response);
@@ -107,13 +112,8 @@ $(document).on("click", ".openModal", function () {
             }
         });
 
-        console.log(id);
-
         var admin_name    = document.getElementById('username_'+id).value;
         var admin_email   = document.getElementById('email_'+id).value;
-
-        console.log(admin_name);
-        console.log(admin_email);
 
         $.ajax({
             method      :   'POST',
@@ -128,12 +128,14 @@ $(document).on("click", ".openModal", function () {
             },
             success: function(response) {
                 console.log(response);
+                document.getElementById("success-messages").style.display = "block";
+                $('#success-messages').html('Uspešno ste promenili informacije o korisniku');
 
             },
             error: function (xhr) {
                 $('#error_message').html('');
                 $.each(xhr.responseJSON.errors, function(key,value) {
-                  $('#error_message').append('<div class="alert alert-danger">'+value+'</div');
+                  $('#error_message').append('<div class="alert alert-danger">'+value+'</div>');
               });
              },
 
@@ -144,6 +146,54 @@ $(document).on("click", ".openModal", function () {
 
 });
 //END AJAX UPDATE ADMINS
+
+
+//AJAX DELETE PERMISSIONS
+$(document).on("click", ".openModal", function () {
+    var id = $(this).data('id');
+
+    $(deletePermission).click(function(e) {
+
+        alert('radi');
+        $('#confirm-delete-'+id).modal('hide');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method      :   'POST',
+            url         :   'dozvole/brisanje',
+            data        :   {varHiddenId:id},
+            beforeSend  :   function (xhr) {
+                // Function needed from Laravel because of the CSRF Middleware
+                var token = $('meta[name="csrf_token"]').attr('content');
+                if (token) {
+                    return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                }
+            },
+            success: function(response) {
+                console.log(response);
+                document.getElementById("success-messages").style.display = "block";
+                $('#success-messages').html('Uspešno ste izbrisali dozvolu '+response.permission);
+
+            },
+            error: function (xhr) {
+                $('#error_message').html('');
+                $.each(xhr.responseJSON.errors, function(key,value) {
+                  $('#error_message').append('<div class="alert alert-danger">'+value+'</div>');
+              });
+             },
+
+        })
+
+        e.preventDefault();
+    });
+
+});
+//END AJAX DELETE PERMISSIONS
 
     $(dateAppointment).change(function(){
         $.ajaxSetup({

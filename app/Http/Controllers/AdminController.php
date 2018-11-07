@@ -97,7 +97,7 @@ class AdminController extends Controller
     }
 
     public function getRolePermission() {
-        return self::response('admin/add-role-permission', ['permissions' => PermissionService::getPermissions()]);
+        return self::response('admin/add-role-permission', ['permissions' => PermissionService::getAllPermissions()]);
     }
 
     public function getDoctorPatients() {
@@ -253,12 +253,5 @@ class AdminController extends Controller
         return redirect('admin/pocetna');
     }
 
-    public function deletePermission($id) {
-        PermissionService::deletePermission($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali dozvolu!');
-
-        return redirect('admin/pocetna');
-    }
 
 }

@@ -28,7 +28,7 @@
                                 <td>{{ $assistant->name }}</td>
                                 <td>{{ $assistant->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$assistant->id}}" data-toggle="modal" data-target="#exampleModal-{{$assistant->id}}">Izmeni</a><a href="{{ route('admin.delete', [$assistant->id, 'asistenti']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$assistant->id}}" data-toggle="modal" data-target="#exampleModal-{{$assistant->id}}">Izmeni</a><a href="{{ route('admin.delete', [$assistant->id, 'asistenti']) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach

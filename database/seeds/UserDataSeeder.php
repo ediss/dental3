@@ -26,5 +26,6 @@ class UserDataSeeder extends Seeder
 
         }
 
+
     }
 }

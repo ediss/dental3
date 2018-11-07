@@ -79,4 +79,16 @@ class AjaxController extends Controller
 
     }
 
+    /**
+     *
+     * DELETE
+     *
+     */
+
+    public function ajaxDeletePermission(Request $request) {
+        $permission_id = $request->varHiddenId;
+
+        return PermissionService::deletePermission($permission_id);
+    }
+
 }

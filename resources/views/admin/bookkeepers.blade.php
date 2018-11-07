@@ -39,7 +39,7 @@
                                 <td>{{ $bookkeeper->name }}</td>
                                 <td>{{ $bookkeeper->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a><a href="{{ route('admin.delete', [$bookkeeper->id, 'knjigovodje']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a><a href="{{ route('admin.delete', [$bookkeeper->id, 'knjigovodje']) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach

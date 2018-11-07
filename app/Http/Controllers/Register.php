@@ -72,7 +72,7 @@ class Register extends Controller
 
         Session::flash('success', 'Uspešno ste registrovali novog korisnika!');
 
-        return self::response('admin/admin-home');
+        return self::response('auth/register');
 
     }
 }

@@ -40,7 +40,7 @@
                                 <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->email }}</td>
 
-                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$admin->id}}" data-toggle="modal" data-target="#exampleModal-{{$admin->id}}">Izmeni</a><a href="{{ route('admin.delete', [$admin->id, 'admini']) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$admin->id}}" data-toggle="modal" data-target="#exampleModal-{{$admin->id}}">Izmeni</a><a href="{{ route('admin.delete', [$admin->id, 'admini']) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
                                 <td> </td>
                             </tr>
                         @endforeach

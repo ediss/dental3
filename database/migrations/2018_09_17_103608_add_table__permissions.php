@@ -18,6 +18,8 @@ class AddTablePermissions extends Migration
             $table->string('permission', 31)->unique();
             $table->string('description', 127);
 
+            $table->softDeletes();
+
 //            $table->index('permission');
         });
     }

@@ -152,7 +152,7 @@ class PermissionDataSeeder extends Seeder
                 ]
             );
         } catch(\Exception $e) {
-            echo "Dozvola 'assignmentPatientRead' vec postoji!";
+            echo "Dozvola 'assignmentPatientRead' već postoji!";
         }
 
         try{
@@ -165,7 +165,7 @@ class PermissionDataSeeder extends Seeder
                 ]
             );
         } catch(\Exception $e) {
-            echo "Dozvola 'assignmentPatientRead' vec postoji!";
+            echo "Dozvola 'assignmentPatientRead' već postoji!";
         }
 
         try{
@@ -174,11 +174,11 @@ class PermissionDataSeeder extends Seeder
                 [
                     'id_permission'   =>  13,
                     'permission'      => 'makeAppointmentRead',
-                    'description'     => 'Prikaz stavke "Zakazi pregled" u meniju',
+                    'description'     => 'Prikaz stavke "Zakaži pregled" u meniju',
                 ]
             );
         } catch(\Exception $e) {
-            echo "Dozvola 'makeAppointmentRead' vec postoji!";
+            echo "Dozvola 'makeAppointmentRead' već postoji!";
         }
 
         try{
@@ -191,7 +191,7 @@ class PermissionDataSeeder extends Seeder
                 ]
             );
         } catch(\Exception $e) {
-            echo "Dozvola 'rolePermissionModify' vec postoji!";
+            echo "Dozvola 'rolePermissionModify' već postoji!";
         }
 
         try{
@@ -204,7 +204,60 @@ class PermissionDataSeeder extends Seeder
                 ]
             );
         } catch(\Exception $e) {
-            echo "Dozvola 'assignmentPatient' vec postoji!";
+            echo "Dozvola 'assignmentPatient' već postoji!";
+        }
+
+        try{
+            DB::table('permissions')
+            ->insert(
+                [
+                    'id_permission'   =>  16,
+                    'permission'      => 'paymentRead',
+                    'description'     => 'Prikaz stavke u meniju "Uvid u plaćanja" namenjeno knjigovođi',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Dozvola 'paymentRead' već postoji!";
+        }
+
+        try{
+            DB::table('permissions')
+            ->insert(
+                [
+                    'id_permission'   =>  17,
+                    'permission'      => 'medicalHistoryRead',
+                    'description'     => 'Uvid u karton pacijenta',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Dozvola 'medicalHistoryRead' već postoji!";
+        }
+
+
+        try{
+            DB::table('permissions')
+            ->insert(
+                [
+                    'id_permission'   =>  18,
+                    'permission'      => 'done_appointment',
+                    'description'     => 'Dodavanje informacija o dolasku pacijenta na pregled',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Dozvola 'done_appointment' već postoji!";
+        }
+
+        try{
+            DB::table('permissions')
+            ->insert(
+                [
+                    'id_permission'   =>  19,
+                    'permission'      => 'paid_appointment',
+                    'description'     => 'Dodavanje informacije da li je pacijent platio pregled',
+                ]
+            );
+        } catch(\Exception $e) {
+            echo "Dozvola 'paid_appointment' već postoji!";
         }
     }
 }

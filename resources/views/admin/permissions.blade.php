@@ -21,9 +21,8 @@
                         </ul>
                     </div>
                 @endif
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success" id = "success-messages" role="alert"></div>
 
-                </div>
             <div class="content" style = 'width:100%;'>
 <div id = "proba">
 </div>
@@ -53,7 +52,10 @@
                                                     {{ $role->role }}<br/>
                                                 @endforeach
                                             </td>
-                                            <td><a href="#" class ='btn btn-primary openModal'  data-toggle="modal" data-id = "{{$permission->id_permission}}" data-target="#exampleModal-{{$permission->id_permission}}">Izmeni</a><a href="{{ route('admin.permission.delete', $permission->id_permission) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                            <td>
+                                                <a href="#" class = 'btn btn-primary openModal'     data-toggle="modal" data-id = "{{$permission->id_permission}}" data-target="#exampleModal-{{$permission->id_permission}}">Izmeni</a>
+                                                <a href="#" class = 'btn btn-danger ml-1 openModal' data-toggle="modal" data-id = "{{$permission->id_permission}}" data-target="#confirm-delete-{{$permission->id_permission}}">Izbriši</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -70,7 +72,7 @@
 @endsection
 @section('modal')
 
-<!-- Modal -->
+<!-- Modal for change info about permissions -->
 @foreach($data['permissions'] as $permission)
 <div class="modal fade" id="exampleModal-{{$permission->id_permission}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -101,6 +103,25 @@
       </div>
     </div>
   </div>
+</div>
+<!--end of modal for change-->
+
+<!-- Modal for delete permissions -->
+<div class="modal fade" id="confirm-delete-{{$permission->id_permission}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                POTVRDA
+            </div>
+            <div class="modal-body">
+                <p>Da li ste sigurni da želite da izbrišete dozvolu "{{$permission->permission}}"?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+                <a class="btn btn-danger btn-ok" name = "delete-permission">Izbriši</a>
+            </div>
+        </div>
+    </div>
 </div>
 @endforeach
 

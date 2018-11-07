@@ -34,7 +34,7 @@
                         @foreach($roles as $role)
                             <tr>
                                 <td>{{ $role->role }}</td>
-                                <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal-{{$role->id_role}}">Izmeni</a><a href="{{ route('admin.role.delete', $role->id_role) }}" class = "btn btn-danger ml-1">Izbrisi</a></td>
+                                <td> <a href="#" class ='btn btn-primary'  data-toggle="modal" data-target="#exampleModal-{{$role->id_role}}">Izmeni</a><a href="{{ route('admin.role.delete', $role->id_role) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
                             </tr>
                         @endforeach
                     </tbody>

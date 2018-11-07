@@ -63,7 +63,7 @@ Route::prefix('admin')->group(function () {
 
     Route::post('/ajaxPermissionUpdate',        'AjaxController@ajaxPermissionUpdate');
 
-    Route::get('/dozvole/brisanje/{id}',        'AdminController@deletePermission')        ->name('admin.permission.delete');
+    Route::post('/dozvole/brisanje',            'AjaxController@ajaxDeletePermission');
 
     Route::get('/dozvole/dodeljivanje',         'AdminController@getRolePermission')       ->name('admin.role-permission.create');
     Route::post('/dozvole/dodeljivanje',        'AdminController@createRolePermission')    ->name('admin.role-permission.create.submit');
