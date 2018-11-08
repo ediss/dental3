@@ -25,9 +25,9 @@
                     </thead>
                     <tbody>
                         @foreach($data['doctors'] as $doctor)
-                            <tr>
-                                <td>{{ $doctor->name }}</td>
-                                <td>{{ $doctor->email }}</td>
+                            <tr id = "admin_row_{{$doctor->id}}">
+                                <td id = "admin_name_{{$doctor->id}}">{{ $doctor->name }}</td>
+                                <td id = "admin_email_{{$doctor->id}}">{{ $doctor->email }}</td>
 
                                 <td>
                                     <a href="#" class = "btn btn-primary openModal"     data-id = "{{$doctor->id}}" data-toggle="modal" data-target="#exampleModal-{{$doctor->id}}">Izmeni</a>

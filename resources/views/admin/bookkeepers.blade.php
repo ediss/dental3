@@ -25,9 +25,10 @@
                 </thead>
                 <tbody>
                     @foreach($data['bookkeepers'] as $bookkeeper)
-                        <tr>
-                            <td>{{ $bookkeeper->name }}</td>
-                            <td>{{ $bookkeeper->email }}</td>
+                        <tr id = "admin_row_{{$bookkeeper->id}}">
+
+                            <td id = "admin_name_{{$bookkeeper->id}}">{{ $bookkeeper->name }}</td>
+                            <td id = "admin_email_{{$bookkeeper->id}}">{{ $bookkeeper->email }}</td>
                             <td>
                                 <a href="#" class ='btn btn-primary openModal'      data-id = "{{$bookkeeper->id}}" data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a>
                                 <a href="#" class = 'btn btn-danger ml-1 openModal' data-id = "{{$bookkeeper->id}}" data-toggle="modal" data-target="#confirm-delete-{{$bookkeeper->id}}">Izbriši</a>

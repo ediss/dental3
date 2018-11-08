@@ -24,9 +24,9 @@
                 </thead>
                 <tbody>
                     @foreach($data['assistants'] as $assistant)
-                        <tr>
-                            <td>{{ $assistant->name }}</td>
-                            <td>{{ $assistant->email }}</td>
+                        <tr id = "admin_row_{{$assistant->id}}">
+                            <td id = "admin_name_{{$assistant->id}}">{{ $assistant->name }}</td>
+                            <td id = "admin_email_{{$assistant->id}}">{{ $assistant->email }}</td>
                             <td>
                                 <a href="#" class ='btn btn-primary openModal'      data-id = "{{$assistant->id}}" data-toggle="modal" data-target="#exampleModal-{{$assistant->id}}">Izmeni</a>
                                 <a href="#" class = 'btn btn-danger ml-1 openModal' data-id = "{{$assistant->id}}" data-toggle="modal" data-target="#confirm-delete-{{$assistant->id}}">Izbriši</a>

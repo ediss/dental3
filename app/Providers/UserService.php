@@ -112,6 +112,7 @@ class UserService {
 
         $patient->save();
 
+        //return self::getUsers();
         return $patient;
     }
 

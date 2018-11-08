@@ -85,6 +85,9 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
+                document.getElementById("patient_row_"+id).style.border = "3px solid salmon";
+                document.getElementById("patient_name_"+id).innerHTML = response.name;
+                document.getElementById("patient_email_"+id).innerHTML = response.email;
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste promenili informacije o korisniku '+response.name);
             },
@@ -130,6 +133,9 @@ $(document).on("click", ".openModal", function () {
             },
 
             success: function(response) {
+                document.getElementById("admin_row_"+id).style.border = "3px solid salmon";
+                document.getElementById("admin_name_"+id).innerHTML = response.name;
+                document.getElementById("admin_email_"+id).innerHTML = response.email;
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste promenili informacije o korisniku');
 
