@@ -1,3 +1,7 @@
 #success-messages {
     display:none;
 }
+
+#error-messages {
+    display:none;
+}

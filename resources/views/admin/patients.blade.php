@@ -2,29 +2,17 @@
 
 @section('content')
 
-            @if (Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{Session::get('success')}}
-                </div>
-            @endif
+@include('components.messages')
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="alert alert-success" id = "success-messages" role="alert"></div>
+    <div class="alert alert-success" id = "success-messages" role="alert"></div>
+    <div class="alert alert-danger"  id = "error-messages" role="alert"></div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                   <h1>Uvid u pacijente</h1>
-                </div>
+    <div class="content">
+        <div class="title m-b-md">
+            <h1>Uvid u pacijente</h1>
+        </div>
 
-                <div class="links">
+            <div class="links">
                 <table class="table  table-dark">
                     <thead>
                         <tr>
@@ -39,17 +27,20 @@
                             <tr>
                                 <td>{{ $patient->patient_name }}</td>
                                 <td>{{ $patient->email }}</td>
-                                <td> <a href="#" class ='btn btn-primary openModal' data-id = "{{$patient->patient_id}}" data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}">Izmeni</a><a href="{{ route('admin.patient.delete', $patient->patient_id) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
+                                <td>
+                                    <a href="#" class = 'btn btn-primary openModal'     data-id = "{{$patient->patient_id}}" data-toggle="modal" data-target="#exampleModal-{{$patient->patient_id}}">Izmeni</a>
+                                    <a href="#" class = 'btn btn-danger ml-1 openModal' data-id = "{{$patient->patient_id}}" data-toggle="modal" data-target="#confirm-delete-{{$patient->patient_id}}">Izbriši</a>
+                                </td>
                                 <td> </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <div class="text-center">
-                    {!!$data['patients']->links();!!}
-                </div>
-                </div>
+                    <div class="text-center">
+                        {!!$data['patients']->links();!!}
+                    </div>
             </div>
+    </div>
 @endsection
 
 
@@ -93,6 +84,28 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal for delete permissions -->
+<div class="modal fade" id="confirm-delete-{{$patient->patient_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                POTVRDA
+            </div>
+            <div class="modal-body">
+                <p>Da li ste sigurni da želite da izbrišete pacijenta "{{$patient->patient_name}}"?</p>
+            </div>
+            <div class="modal-footer">
+                <form method = "POST">
+                    {{ csrf_field() }}
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+                    <button type="submit" class="btn btn-danger btn-ok" name = "delete-patient">Izbriši</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endforeach
 @endsection

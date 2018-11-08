@@ -122,12 +122,14 @@ class UserService {
      *
      */
 
-    public static function deleteUser($id) {
+    public static function deletePatient($id) {
         if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da obrisete pacijenta!');
 
         $patient =  Patient::find($id);
 
         $patient->delete();
+
+        return $patient;
     }
 
 }

@@ -3,7 +3,10 @@ var datePayment         = document.getElementsByName("date-payment");
 var updatePermission    = document.getElementsByName("update-permission");
 var deletePermission    = document.getElementsByName("delete-permission");
 var updatePatient       = document.getElementsByName("update-patient");
+var deletePatient       = document.getElementsByName("delete-patient");
 var updateAdmin         = document.getElementsByName("admin_update");
+var deleteAdmin         = document.getElementsByName("delete-admin");
+
 
 
 
@@ -82,13 +85,15 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
-                console.log(response);
                 document.getElementById("success-messages").style.display = "block";
-                $('#success-messages').html('Uspešno ste promenili informacije o korisniku');
+                $('#success-messages').html('Uspešno ste promenili informacije o korisniku '+response.name);
             },
-            error: function(response) {
-                console.log('Error', response);
-            }
+            error: function (xhr) {
+                document.getElementById("error-messages").style.display = "block";
+                $.each(xhr.responseJSON.errors, function(key,value) {
+                    $('#error-messages').html(value);
+              });
+            },
 
         })
 
@@ -118,26 +123,23 @@ $(document).on("click", ".openModal", function () {
         $.ajax({
             method      :   'POST',
             url         :   'admini/update',
-            data        :   {varAdminName:admin_name, varAdminEmail:admin_email, varHiddenId:id},
-            beforeSend  :   function (xhr) {
-                // Function needed from Laravel because of the CSRF Middleware
-                var token = $('meta[name="csrf_token"]').attr('content');
-                if (token) {
-                    return xhr.setRequestHeader('X-CSRF-TOKEN', token);
-                }
+            data        :   {
+                varAdminName    :   admin_name,
+                varAdminEmail   :   admin_email,
+                varHiddenId     :   id
             },
+
             success: function(response) {
-                console.log(response);
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste promenili informacije o korisniku');
 
             },
             error: function (xhr) {
-                $('#error_message').html('');
+                document.getElementById("error-messages").style.display = "block";
                 $.each(xhr.responseJSON.errors, function(key,value) {
-                  $('#error_message').append('<div class="alert alert-danger">'+value+'</div>');
+                    $('#error-messages').html(value);
               });
-             },
+            },
 
         })
 
@@ -181,11 +183,13 @@ $(document).on("click", ".openModal", function () {
 
             },
             error: function (xhr) {
-                $('#error_message').html('');
+                console.log(xhr);
+                document.getElementById("error-messages").style.display = "block";
+
                 $.each(xhr.responseJSON.errors, function(key,value) {
-                  $('#error_message').append('<div class="alert alert-danger">'+value+'</div>');
+                    $('#error-messages').html(value+" Trenutno nije moguce");
               });
-             },
+            },
 
         })
 
@@ -194,6 +198,99 @@ $(document).on("click", ".openModal", function () {
 
 });
 //END AJAX DELETE PERMISSIONS
+
+
+//AJAX DELETE PATIENT
+$(document).on("click", ".openModal", function () {
+    var id = $(this).data('id');
+
+    $(deletePatient).click(function(e) {
+
+        $('#confirm-delete-'+id).modal('hide');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method      :   'POST',
+            url         :   'pacijenti/brisanje',
+            data        :   {varHiddenId:id},
+            beforeSend  :   function (xhr) {
+                // Function needed from Laravel because of the CSRF Middleware
+                var token = $('meta[name="csrf_token"]').attr('content');
+                if (token) {
+                    return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                }
+            },
+            success: function(response) {
+                console.log(response);
+                document.getElementById("success-messages").style.display = "block";
+                $('#success-messages').html('Uspešno ste izbrisali pacijenta '+response.name);
+
+            },
+            error: function (response) {
+                console.log(response);
+                document.getElementById("error-messages").style.display = "block";
+                $('#error-messages').html(response.responseJSON.message+" Trenutno nije moguce");
+
+             },
+
+        })
+
+        e.preventDefault();
+    });
+
+});
+//END AJAX DELETE PATIENT
+
+//AJAX DELETE ADMIN
+$(document).on("click", ".openModal", function () {
+    var id = $(this).data('id');
+
+    $(deleteAdmin).click(function(e) {
+
+        $('#confirm-delete-'+id).modal('hide');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method      :   'POST',
+            url         :   'admini/brisanje',
+            data        :   {varHiddenId:id},
+            beforeSend  :   function (xhr) {
+                // Function needed from Laravel because of the CSRF Middleware
+                var token = $('meta[name="csrf_token"]').attr('content');
+                if (token) {
+                    return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                }
+            },
+            success: function(response) {
+                console.log(response);
+                document.getElementById("success-messages").style.display = "block";
+                $('#success-messages').html('Uspešno ste izbrisali pacijenta '+response.name);
+
+            },
+            error: function (response) {
+                console.log(response);
+                document.getElementById("error-messages").style.display = "block";
+                $('#error-messages').html(response.responseJSON.message+" Trenutno nije moguce");
+
+             },
+
+        })
+
+        e.preventDefault();
+    });
+
+});
+//END AJAX DELETE ADMIN
 
     $(dateAppointment).change(function(){
         $.ajaxSetup({

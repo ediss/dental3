@@ -57,6 +57,12 @@ class AjaxController extends Controller
         $patient_email  = $request->varPatientEmail;
         $hidden       = $request->varHiddenId;
 
+        $this->validate($request, array(
+            'varPatientEmail' =>  'unique:users,email,'.$hidden.'|email',
+            'varPatientName'  =>  'required|max:100',
+        ));
+
+
         return  UserService::updateUser($patient_name, $patient_email, $hidden);
 
 
@@ -69,10 +75,11 @@ class AjaxController extends Controller
         $admin_email  = $request->varAdminEmail;
         $hidden       = $request->varHiddenId;
 
-       /* $request->validate( [
-            'proba'  =>  'required',
-            'email' =>  'required|unique:admins,email,'.$hidden.'|email',
-        ]);*/
+        $this->validate($request, array(
+            'varAdminEmail' =>  'unique:admins,email,'.$hidden.'|email',
+            'varAdminName'  =>  'required|max:100',
+        ));
+
         return  AdminService::updateAdmin($admin_name, $admin_email, $hidden);
 
         //Session::flash('success', 'Uspesno ste izmenili podatke o adminu!');
@@ -89,6 +96,22 @@ class AjaxController extends Controller
         $permission_id = $request->varHiddenId;
 
         return PermissionService::deletePermission($permission_id);
+    }
+
+    public function ajaxPatientDelete(Request $request) {
+
+        $patient_id = $request->varHiddenId;
+
+        return UserService::deletePatient($patient_id);
+
+    }
+
+    public function ajaxAdminDelete(Request $request) {
+
+        $admin_id = $request->varHiddenId;
+
+        return AdminService::deleteAdmin($admin_id);
+
     }
 
 }

@@ -1,11 +1,9 @@
 @extends ('admin.admin-main')
 
 @section ('content')
-    @if (Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{Session::get('success')}}
-        </div>
-    @endif
+
+@include('components.messages')
+
     <div class = 'col-md-4'>
         <div class="title">
             <h1>Dodeljivanje pacijenata</h1>

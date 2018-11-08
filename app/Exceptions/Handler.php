@@ -66,6 +66,10 @@ class Handler extends ExceptionHandler
                 Session::flash('error', 'Termin je već zauzet');
                 return back();
             }
+
+            if($exception->errorInfo[1] == 1451) {
+                return $exception->getMessage();
+            }
             if ($exception->getMessage()) {
                 Session::flash('error', $exception->getMessage());
                 return back();

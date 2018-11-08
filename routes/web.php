@@ -36,13 +36,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/knjigovodje',                  'AdminController@getBookkeepers')          ->name('admin.users.bookkeepers');
 
     Route::post('/admini/update',               'AjaxController@ajaxAdminUpdate');
-    Route::get('/admini/brisanje/{id}/{role}',  'AdminController@deleteAdmin')             ->name('admin.delete');
+    Route::post('/admini/brisanje',             'AjaxController@ajaxAdminDelete');
 
     Route::get('/pacijenti',                    'AdminController@getPatients')             ->name('admin.users.patients');
 
     Route::post('/pacijenti/update',            'AjaxController@ajaxPatientUpdate');
 
-    Route::get('/pacijenti/brisanje/{id}',      'AdminController@deleteUser')              ->name('admin.patient.delete');
+    Route::post('/pacijenti/brisanje',          'AjaxController@ajaxPatientDelete');
 
     Route::get('/dodavanje-uloge',              'AdminController@createRole')              ->name('admin.role.create');
     Route::post('/uloge/nova-uloga',            'AdminController@storeRole')               ->name('admin.role.create.submit');

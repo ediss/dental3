@@ -109,7 +109,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'Vrednost polja :attribute već postoji.',
+    'unique'               => 'Vrednost polja :attribute je zauzeto.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
 
@@ -157,6 +157,10 @@ return [
         'permission_name'       =>  'Naziv dozvole',
         'description'           =>  'Opis dozvole',
         'user_name'             =>  'Ime',
+        'varAdminEmail'         =>  'E-mail',
+        'varAdminName'          =>  'Ime',
+        'varPatientEmail'       =>  'E-mail',
+        'varPatientName'        =>  'Ime',
 
     ],
 

@@ -92,6 +92,8 @@ class AdminService extends ServiceProvider
         $admin =  Admin::find($id);
 
         $admin->delete();
+
+        return $admin;
     }
 
 }

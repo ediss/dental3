@@ -228,23 +228,6 @@ class AdminController extends Controller
      */
 
 
-    public function deleteAdmin($id, $role) {
-        AdminService::deleteAdmin($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali korisnika!');
-
-        return redirect('admin/'.$role);
-    }
-
-    public function deleteUser($id) {
-        UserService::deleteUser($id);
-
-        Session::flash('success', 'Uspešno ste izbrisali pacijenta!');
-
-        return redirect('admin/pacijenti');
-    }
-
-
     public function deleteRole($id) {
         RoleService::deleteRole($id);
 

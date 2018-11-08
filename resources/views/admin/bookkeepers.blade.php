@@ -2,51 +2,43 @@
 
 @section('content')
 
-            @if (Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{Session::get('success')}}
-                </div>
-            @endif
+@include('components.messages')
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+    <div class="alert alert-success" id = "success-messages" role="alert"></div>
+    <div class="alert alert-danger"  id = "error-messages" role="alert"></div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                   <h1>Knjigovodje</h1>
-                </div>
 
-                <div class="links">
-                <table class="table  table-dark">
-                    <thead>
+    <div class="content">
+        <div class="title m-b-md">
+           <h1>Knjigovodje</h1>
+        </div>
+
+        <div class="links">
+            <table class="table  table-dark">
+                <thead>
+                    <tr>
+                    <!-- <th scope="col">#</th>-->
+                        <th scope="col">Ime</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Akcije</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data['bookkeepers'] as $bookkeeper)
                         <tr>
-                           <!-- <th scope="col">#</th>-->
-                            <th scope="col">Ime</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Akcije</th>
+                            <td>{{ $bookkeeper->name }}</td>
+                            <td>{{ $bookkeeper->email }}</td>
+                            <td>
+                                <a href="#" class ='btn btn-primary openModal'      data-id = "{{$bookkeeper->id}}" data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a>
+                                <a href="#" class = 'btn btn-danger ml-1 openModal' data-id = "{{$bookkeeper->id}}" data-toggle="modal" data-target="#confirm-delete-{{$bookkeeper->id}}">Izbriši</a>
+                            </td>
+                            <td> </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($data['bookkeepers'] as $bookkeeper)
-                            <tr>
-                                <td>{{ $bookkeeper->name }}</td>
-                                <td>{{ $bookkeeper->email }}</td>
-
-                                <td> <a href="#" class ='btn btn-primary' data-toggle="modal" data-target="#exampleModal-{{$bookkeeper->id}}">Izmeni</a><a href="{{ route('admin.delete', [$bookkeeper->id, 'knjigovodje']) }}" class = "btn btn-danger ml-1">Izbriši</a></td>
-                                <td> </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 
 @section('modal')
@@ -65,29 +57,48 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('admin.update.submit', [$bookkeeper->id, 'knjigovodje'])}}">
+        <form method="POST">
             {{ csrf_field() }}
 
 
             <label>Ime:</label>
-            <input type="text" name="name"   class = 'form-control'  value="{{$bookkeeper->name}}" />
+            <input type="text" id = "username_{{$bookkeeper->id}}"  name="name"   class = 'form-control'  value="{{$bookkeeper->name}}" />
 
             <label>E-mail adresa:</label>
-            <input type="email" name="email" class = 'form-control'  value="{{$bookkeeper->email}}" />
-
-            <!-- <label>Lozinka:</label>
-            <input type="password" name="password" class = 'form-control' />-->
-
+            <input type="email" id = "email_{{$bookkeeper->id}}"    name="email"  class = 'form-control'  value="{{$bookkeeper->email}}" />
 
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-        <input type="submit" class='btn btn-success' value = "Savucaj izmene">
+        <button type="submit" class='btn btn-success' name = "admin_update">Sačuvaj izmene</button>
         </form>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal for delete bookkeper -->
+
+<div class="modal fade" id="confirm-delete-{{$bookkeeper->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                POTVRDA
+            </div>
+            <div class="modal-body">
+                <p>Da li ste sigurni da želite da izbrišete knjigovođu "{{$bookkeeper->name}}"?</p>
+            </div>
+            <div class="modal-footer">
+                <form method = "POST">
+                    {{ csrf_field() }}
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+                    <button type="submit" class="btn btn-danger btn-ok" name = "delete-admin">Izbriši</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endforeach
 @endsection

@@ -2,72 +2,56 @@
 
 @section('content')
 
-            @if (Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{Session::get('success')}}
-                </div>
-            @endif
+@include('components.messages')
 
-            @if (Session::has('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{Session::get('error')}}
-                </div>
-            @endif
+    <div class="content">
+        <div class="title m-b-md">
+           <h1>Uvid u preglede</h1>
+        </div>
+        <form method="GET" id="appointmentForms">
+            @csrf
 
-            <div class="content">
-                <div class="title m-b-md">
-                   <h1>Uvid u preglede</h1>
-                </div>
+            <h5>Izaberi datum</h5>
+            <input type = 'date' name = 'date-appointment' id = 'date-appointment'>
 
+        </form>
 
-                <form method="GET" id="appointmentForms">
-                    @csrf
-
-                    <h5>Izaberi datum</h5>
-                    <input type = 'date' name = 'date-appointment' id = 'date-appointment'>
-                </form>
-                <div class="links" id ="appointments-table">
-                    <!--ubacis formu sa rutom prema nekom kontroleru koji ce pozvati provider koji ce uneti u bazu-->
-                <table class="table  table-dark">
-                    <thead>
-                        <tr>
-                           <!-- <th scope="col">#</th>-->
-                            <th scope="col">Pacijent</th>
-                            <th scope="col">Usluga</th>
-                            <th scope="col">Zub</th>
-                            <th scope="col">Cena</th>
-                            <th scope="col">Datum</th>
-                            <th scope="col">Termin</th>
-                            <th scope="col">Doktor</th>
-                            <th scope="col">Obavljen pregled?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <div class="links" id ="appointments-table">
+            <!--ubacis formu sa rutom prema nekom kontroleru koji ce pozvati provider koji ce uneti u bazu-->
+            <table class="table  table-dark">
+                <thead>
+                    <tr>
+                    <!-- <th scope="col">#</th>-->
+                        <th scope="col">Pacijent</th>
+                        <th scope="col">Usluga</th>
+                        <th scope="col">Zub</th>
+                        <th scope="col">Cena</th>
+                        <th scope="col">Datum</th>
+                        <th scope="col">Termin</th>
+                        <th scope="col">Doktor</th>
+                        <th scope="col">Obavljen pregled?</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <form method="POST" id="appointmentForm">
-                    @csrf
-
+                        @csrf
                         @foreach($data['appointments'] as $appointment)
                             <tr>
                                 <td>{{ $appointment->patient->name }}</td>
-
                                 <td>{{ $appointment->service->service }}</td>
                                 <td>{{ ($appointment->tooth === null) ? 'Nije odabrano' :  $appointment->tooth }}</td>
-
                                 <td>{{ $appointment->service->price }}</td>
                                 <td>{{ date('d-M-Y', strtotime($appointment->date_appoitment))}}</td>
-
                                 <td>{{ $appointment->term->term }}</td>
-
                                 <td>{{ $appointment->doctor->name }}</td>
                                 <td><a href = "#" class = "btn btn-primary"  data-toggle="modal" data-target="#exampleModal-{{$appointment->id_appoitment}}">Prikazi formular</a> </td>
                             </tr>
                         @endforeach
-
-                        </form>
-                    </tbody>
-                </table>
-                </div>
-            </div>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 @section('modal')
 @foreach($data['appointments'] as $appointment)
