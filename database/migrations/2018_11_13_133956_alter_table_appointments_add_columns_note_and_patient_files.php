@@ -15,7 +15,7 @@ class AlterTableAppointmentsAddColumnsNoteAndPatientFiles extends Migration
     {
         Schema::table('appoitments', function (Blueprint $table) {
             $table->text('note');
-            $table->string('patient_file', 127)->nullable()->change();
+            $table->string('patient_file', 127)->nullable();
         });
     }
 

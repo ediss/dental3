@@ -66,7 +66,7 @@
                             <td>{{ $patientHistory->date_appoitment }}</td>
                             <td>{{ $patientHistory->term->term }}</td>
                             <td>{{ $patientHistory->note }}</td>
-                            <td><img src ="{{URL::to( $patientHistory->patient_file )}}"></td>
+                            <td><img src ="{{URL::to( $patientHistory->patient_file )}}" width="50px" height="40px"></td>
 
                             <!--<td> <a href = "#" class = "btn btn-primary"> <strong>Karton</strong></a></td>-->
                         </tr>
