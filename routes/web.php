@@ -39,6 +39,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/admini/brisanje',             'AjaxController@ajaxAdminDelete');
 
     Route::get('/pacijenti',                    'AdminController@getPatients')             ->name('admin.users.patients');
+    Route::get('/pacijenti/ajax',               'AjaxController@ajaxGetPatients');
 
     Route::post('/pacijenti/update',            'AjaxController@ajaxPatientUpdate');
 
@@ -71,6 +72,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/pacijenti/dodeljivanje',       'AdminController@getDoctorPatients')       ->name('assignment.patients');
     Route::post('/pacijenti/dodeljivanje',      'AdminController@assigmentPatient')        ->name('admin.assigngment-patient.submit');
 
+    Route::get('/pacijent-profil/{id}',         'AdminController@userProfile')             ->name('user.profile');
     Route::get('/logout',                       'Auth\AdminLoginController@logout')        ->name('admin.logout');
 });
 
@@ -118,7 +120,6 @@ Route::get('uvid-u-placanja',           'BookkeeperController@getPayments')     
 
 Route::get('/home',                     'HomeController@index')                   ->name('home');
 
-Route::get('korisnik/profil',           'AdminController@userProfile')            ->name('user.profile');
 //
 Route::post('doktor/pregledi/{id}',     'DoctorController@done_appointment')      ->name('doctor.done-appointment');
 //

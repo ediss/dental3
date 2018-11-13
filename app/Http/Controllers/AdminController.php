@@ -110,8 +110,8 @@ class AdminController extends Controller
         return self::response('admin.payments', ['payments' => PaymentService::getAllPayments()]);
     }
 
-    public function userProfile() {
-        return self::response('user-profile', ['user' => AdminService::getCurrentAdmin()]);
+    public function userProfile($id) {
+        return self::response('patient.user-profile', ['user' => UserService::getUser($id), 'doctors' => DoctorService::getDoctors()]);
     }
   /* #endregion */
 

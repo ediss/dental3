@@ -16,21 +16,21 @@
                     <h1>Dozvole</h1>
                 </div>
                 <div class="links">
+                <input type="search" id="search_table" type="text" placeholder="Search..">
+
                     <table class="table  table-dark" id ="permission_table">
                         <thead>
                             <tr>
                                 <!-- <th scope="col">#</th>-->
-                                <th scope="col">Naziv dozvole</th>
-                                <th scope="col">Opis dozvole</th>
+                                <th scope="col">Dozvola</th>
                                 <th scope="col">Uloge kojima pripada dozvola</th>
                                 <th scope="col">Akcije</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id = "myTable">
                             @foreach($data['permissions'] as $permission)
                                 <tr>
-                                    <td class='permission_table_td'>{{ $permission->permission }}</td>
-                                    <td>{{ $permission->description }}</td>
+                                    <td id = "permission_{{$permission->id_permission}}">{{ $permission->description }}</td>
                                     <td>
                                         @foreach($permission->permissionsRoles as $role)
                                             {{ $role->role }}<br/>
@@ -73,11 +73,7 @@
         <form method = "POST">
             {{ csrf_field() }}
 
-
-            <label>Naziv dozvole:</label>
-            <input type="text"    id = "permisssion_name_{{$permission->id_permission}}"  name="permission_name" class = 'form-control'  value="{{$permission->permission}}" />
-
-            <label>Opis dozvole:</label>
+            <label> Dozvola:</label>
             <input type="text"    id = "description_{{$permission->id_permission}}"       name="description"     class = 'form-control'  value="{{$permission->description}}" />
 
       </div>

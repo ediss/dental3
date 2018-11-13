@@ -32,7 +32,7 @@
                             <div class="col-md-6">
                                 <select name = 'permissions' class = 'form-control'>
                                     @foreach ($data['permissions'] as $permission)
-                                        <option value = "{{ $permission->id_permission }}" > {{$permission->permission}} </option>
+                                        <option value = "{{ $permission->id_permission }}" > {{$permission->description}} </option>
                                     @endforeach
                                 </select>
                             </div>

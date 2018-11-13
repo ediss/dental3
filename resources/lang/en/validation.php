@@ -161,6 +161,8 @@ return [
         'varAdminName'          =>  'Ime',
         'varPatientEmail'       =>  'E-mail',
         'varPatientName'        =>  'Ime',
+        'varPasswordRepeat'     =>  'Potvrdi lozinku',
+        'varPassword'           =>  'Lozinka',
 
     ],
 

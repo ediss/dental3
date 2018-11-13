@@ -73,6 +73,18 @@ class UserService {
          return Patient::whereNull('doctor_id')->get();
      }
 
+
+     public static function searchPatient($email) {
+        return Patient::where("email", "LIKE", $email."%" )->get();
+
+    }
+
+    public static function getUser($id) {
+        $patient = Patient::findOrFail($id);
+
+        return $patient;
+    }
+
      /**
       * Geting doctor of patient
       *
@@ -103,12 +115,18 @@ class UserService {
         return  Patient::find($id);
     }
 
-    public static function updateUser($name, $email, $id) {
+    public static function updateUser($name, $email, $id, $gender, $birthday, $password) {
        // if(!PermissionService::checkPermission('userModify')) throw new CustomException ('Nemate dozvolu da izmenite podatke o pacijentu!');
         $patient = Patient::find($id);
 
-        $patient->name  = $name;
-        $patient->email = $email;
+        $patient->name          = $name;
+        $patient->email         = $email;
+        $patient->gender        = $gender;
+        $patient->date_of_birth = $birthday;
+        if($password != '') {
+            $patient->password      = Hash::make($password);
+        }
+
 
         $patient->save();
 

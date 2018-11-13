@@ -117,20 +117,16 @@ class PermissionService {
 */
 
 
-    public static function updatePermission($permission_name, $description, $id_permission) {
+    public static function updatePermission($description, $id_permission) {
        // if(!PermissionService::checkPermission('permissionModify')) throw new CustomException ('Nemate dozvolu za izmenu dozvole!');
 
         $permission = Permission::find($id_permission);
 
-
-        $permission->permission   = $permission_name;
         $permission->description  = $description;
 
         $permission->save();
         return $permission;
-        //$dozvole = Permission::all();
-        //return $dozvole;
-        //return json_encode($permission);
+
     }
 
 

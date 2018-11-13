@@ -44,7 +44,7 @@
                                 <td>{{ date('d-M-Y', strtotime($appointment->date_appoitment))}}</td>
                                 <td>{{ $appointment->term->term }}</td>
                                 <td>{{ $appointment->doctor->name }}</td>
-                                <td><a href = "#" class = "btn btn-primary"  data-toggle="modal" data-target="#exampleModal-{{$appointment->id_appoitment}}">Prikazi formular</a> </td>
+                                <td><a href = "#" class = "btn btn-primary openModal" data-id = "{{$appointment->id_appoitment}}" data-toggle="modal" data-target="#exampleModal-{{$appointment->id_appoitment}}">Prikazi formular</a> </td>
                             </tr>
                         @endforeach
                     </form>
@@ -67,7 +67,7 @@
       </div>
       <div class="modal-body">
 
-        <form method="post" action="{{ route('doctor.done-appointment', $appointment->id_appoitment)}}">
+        <form method="post" action="{{ route('doctor.done-appointment', $appointment->id_appoitment)}}" enctype="multipart/form-data">
         @csrf
 
             <div class="form-group row">
@@ -123,15 +123,34 @@
                 </div>
             </div>
 
-
             <div class="form-group row">
                 <label for="done_service" class="col-md-4 col-form-label text-md-right">{{ __('Obavljeno?') }}</label>
 
                 <div class="col-md-6">
-                    <select name = 'done-service' class = 'form-control'>
+                    <select name = 'done-service' id = "done-service_{{$appointment->id_appoitment}}" class = 'form-control'>
+                        <option value = "Izaberi" > Izaberi </option>
                         <option value = "Da" > Da </option>
                         <option value = "Ne" > Ne </option>
                     </select>
+                </div>
+            </div>
+
+
+            <div class="form-group row notes" id = "notes_{{$appointment->id_appoitment}}">
+                <label for="term" class="col-md-4 col-form-label text-md-right">{{ __('Beleške') }}</label>
+
+                <div class="col-md-6">
+                   <textarea name = "note">
+                        {{$appointment->note}}
+                   </textarea>
+                </div>
+            </div>
+
+            <div class="form-group row files" id = "files_{{$appointment->id_appoitment}}">
+                <label for="term" class="col-md-4 col-form-label text-md-right">{{ __('Dokument') }}</label>
+
+                <div class="col-md-6">
+                    <input type="file" name="patient_files" >
                 </div>
             </div>
 

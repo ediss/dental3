@@ -14,6 +14,8 @@
         </div>
 
             <div class="links">
+            <input type="search" id="search_table" type="text" placeholder="Search..">
+
                 <table class="table  table-dark">
                     <thead>
                         <tr>
@@ -23,7 +25,7 @@
                             <th scope="col">Akcije</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id = "myTable">
                         @foreach($data['doctors'] as $doctor)
                             <tr id = "admin_row_{{$doctor->id}}">
                                 <td id = "admin_name_{{$doctor->id}}">{{ $doctor->name }}</td>

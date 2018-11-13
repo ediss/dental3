@@ -19,6 +19,10 @@
     <!-- Main styles for this application-->
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../css/alert-messages.css" rel="stylesheet">
+    <link href="../../css/font-awesome-custom.css" rel="stylesheet">
+    <link href="../../css/custom.css" rel="stylesheet">
+
+
 
    <!-- <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">-->
     <!-- Global site tag (gtag.js) - Google Analytics-->

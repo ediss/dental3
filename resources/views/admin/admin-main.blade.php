@@ -75,5 +75,18 @@
     <script src="../../node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
     <script src="../../js/main.js"></script>
     <script src="../../js/script.js"></script>
+
+    <!-- <script>
+      $(document).ready(function(){
+        $("#search_table").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script> -->
+
+
   </body>
 </html>

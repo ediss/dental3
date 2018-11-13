@@ -33,6 +33,7 @@ class DoctorController extends Controller
             'term_id'       => $request->input('term-appointment'),
             'done_service'  => $request->input('done-service'),
             'paid_service'  => $request->input('paid-service'),
+            'note'          => $request->input('note'),
         ];
 
         $request->validate( [
@@ -48,7 +49,13 @@ class DoctorController extends Controller
         $paid_service   = $request->input('paid-service');*/
 
         //dozvola
-        DoctorService::done_appointment($data['done_service'], $id_appointment);
+        $file = $request->file('patient_files');
+
+        $name = time(). '.' . $file->getClientOriginalExtension();
+        $path = $file ? $file->move('PatientsDocuments/'.$id_appointment, $name) : null;
+
+
+        DoctorService::done_appointment($data['done_service'], $data['note'], $path, $id_appointment);
 
         //dozvola
         //PaymentService::paid($patient_id, $service_id, $date, $term_id, $paid_service);
@@ -94,6 +101,7 @@ class DoctorController extends Controller
             'patientHistories'  =>  DoctorService::getpatientMedicalHistory($patient_id),
             'patient_id'        =>  $patient_id,
             'patient_files'     =>  UserService::getPatientFiles($patient_id),
+            'user' => UserService::getUser($patient_id),
         ]);
     }
 

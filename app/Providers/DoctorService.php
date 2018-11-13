@@ -22,12 +22,15 @@ class DoctorService
    *
    */
 
-   public static function done_appointment($done_service, $id_appointment) {
+   public static function done_appointment($done_service, $note, $document, $id_appointment) {
     if(!PermissionService::checkPermission('done_appointment')) throw new CustomException('Nemate dozvolu za dodavanje informacija o pregledu!');
 
     $appoitment = Appointment::find($id_appointment);
 
-    $appoitment->service_done = $done_service;
+    $appoitment->service_done   = $done_service;
+    $appoitment->note           = $note;
+    $appoitment->patient_file   = $document;
+
 
     $appoitment->save();
    }
@@ -65,7 +68,7 @@ class DoctorService
 
         return  Appointment::where('patient_id', $patient_id)
                             ->where('service_done', 'Da')
-                            ->get();
+                            ->paginate(10);
 
     }
 

@@ -42,31 +42,34 @@ class AjaxController extends Controller
     }
 
     public function ajaxPermissionUpdate(Request $request) {
-        $permission   = $request->varPermission;
         $description  = $request->varDescription;
         $hidden       = $request->varHiddenId;
 
-        return PermissionService::updatePermission($permission, $description, $hidden);
+        return PermissionService::updatePermission($description, $hidden);
 
         //Session::flash('success', 'Uspesno ste izmenili dozvolu!');
 
     }
 
     public function ajaxPatientUpdate(Request $request) {
-        $patient_name   = $request->varPatientName;
-        $patient_email  = $request->varPatientEmail;
-        $hidden       = $request->varHiddenId;
+        $patient_name       = $request->varPatientName;
+        $patient_email      = $request->varPatientEmail;
+        $hidden             = $request->varHiddenId;
+        $gender             = $request->varGender;
+        $birthday           = $request->varBirthday;
+        $password           = $request->varPassword;
+        $password_confirm   = $request->varPasswordRepeat;
 
         $this->validate($request, array(
             'varPatientEmail' =>  'unique:users,email,'.$hidden.'|email',
             'varPatientName'  =>  'required|max:100',
+            'varPasswordRepeat' => 'same:varPassword'
+
         ));
 
 
-        return  UserService::updateUser($patient_name, $patient_email, $hidden);
+        return  UserService::updateUser($patient_name, $patient_email, $hidden, $gender, $birthday, $password);
 
-
-        //Session::flash('success', 'Uspesno ste izmenili podatke o pacijentu!');
 
     }
 
@@ -112,6 +115,13 @@ class AjaxController extends Controller
 
         return AdminService::deleteAdmin($admin_id);
 
+    }
+
+    public function ajaxGetPatients(Request $request) {
+
+        $search = $request->varSearch;
+
+        return UserService::searchPatient($search);
     }
 
 }

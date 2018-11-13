@@ -6,7 +6,28 @@ var updatePatient       = document.getElementsByName("update-patient");
 var deletePatient       = document.getElementsByName("delete-patient");
 var updateAdmin         = document.getElementsByName("admin_update");
 var deleteAdmin         = document.getElementsByName("delete-admin");
+var doneService         = document.getElementsByName("done-service");
 
+$(document).on("click", ".openModal", function () {
+    var id = $(this).data('id');
+
+    $(doneService).change(function(){
+        var service = document.getElementById("done-service_"+id).value;
+
+        if(service == 'Da') {
+            document.getElementById("notes_"+id).style.visibility= "visible";
+            document.getElementById("files_"+id).style.visibility= "visible";
+
+        }
+        else {
+            document.getElementById("notes_"+id).style.visibility = "hidden";
+            document.getElementById("files_"+id).style.visibility = "hidden";
+
+        }
+
+
+    });
+});
 
 
 
@@ -24,12 +45,11 @@ $(document).on("click", ".openModal", function () {
         });
 
         var description = document.getElementById('description_'+id).value;
-        var permission  = document.getElementById('permisssion_name_'+id).value;
 
         $.ajax({
             method      :   'POST',
             url         :   'dozvole/update',
-            data        :   {varPermission:permission, varDescription:description, varHiddenId:id},
+            data        :   {varDescription:description, varHiddenId:id},
             beforeSend  :   function (xhr) {
                 // Function needed from Laravel because of the CSRF Middleware
                 var token = $('meta[name="csrf_token"]').attr('content');
@@ -38,9 +58,14 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
-                console.log(response);
+                document.getElementById("permission_"+id).innerHTML = response.description;
                 document.getElementById("success-messages").style.display = "block";
-                $('#success-messages').html('Uspešno ste promenili informacije o dozvoli '+response.permission);
+
+                $('#success-messages').html('Uspešno ste promenili informacije o dozvoli ');
+
+                $("#success-messages").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-messages").slideUp(500);
+                });
             },
             error: function(response) {
                 console.log('Error', response);
@@ -56,13 +81,10 @@ $(document).on("click", ".openModal", function () {
 
 
 //AJAX UPDATE PATIENTS
-$(document).on("click", ".openModal", function () {
-    var id = $(this).data('id');
+
+
 
     $(updatePatient).click(function(e) {
-
-        $('#exampleModal-'+id).modal('hide');
-
 
         $.ajaxSetup({
             headers: {
@@ -70,13 +92,33 @@ $(document).on("click", ".openModal", function () {
             }
         });
 
-        var patient_name    = document.getElementById('username_'+id).value;
-        var patient_email   = document.getElementById('email_'+id).value;
+        var id              = document.getElementById('hiddenId').value;
+        var patient_name    = document.getElementById('patient_name').value;
+        var gender          = document.querySelector('input[name="rbgender"]:checked').value
+        var birthday        = document.getElementById('date_of_birth').value;
+        var patient_email   = document.getElementById('email').value;
+        if(document.getElementById('password').value != '') {
+            var password        = document.getElementById('password').value;
+        }
+
+        if(document.getElementById('password_confirmation').value != '' && document.getElementById('password_confirmation').value != null) {
+            var password_repeat = document.getElementById('password_confirmation').value;
+        }
 
         $.ajax({
             method      :   'POST',
-            url         :   'pacijenti/update',
-            data        :   {varPatientName:patient_name, varPatientEmail:patient_email, varHiddenId:id},
+            url         :   '/admin/pacijenti/update',
+            data        :
+                            {
+                                varHiddenId         :   id,
+                                varPatientName      :   patient_name,
+                                varGender           :   gender,
+                                varBirthday         :   birthday,
+                                varPatientEmail     :   patient_email,
+                                varPassword         :   password,
+                                varPasswordRepeat   :   password_repeat,
+
+                            },
             beforeSend  :   function (xhr) {
                 // Function needed from Laravel because of the CSRF Middleware
                 var token = $('meta[name="csrf_token"]').attr('content');
@@ -85,9 +127,10 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
-                document.getElementById("patient_row_"+id).style.border = "3px solid salmon";
-                document.getElementById("patient_name_"+id).innerHTML = response.name;
-                document.getElementById("patient_email_"+id).innerHTML = response.email;
+
+                $("#success-messages").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-messages").slideUp(500);
+                });
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste promenili informacije o korisniku '+response.name);
             },
@@ -103,7 +146,6 @@ $(document).on("click", ".openModal", function () {
         e.preventDefault();
     });
 
-});
 //END AJAX UPDATE PATIENTS
 
 //AJAX UPDATE ADMINS
@@ -139,6 +181,10 @@ $(document).on("click", ".openModal", function () {
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste promenili informacije o korisniku');
 
+                $("#success-messages").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-messages").slideUp(500);
+                });
+
             },
             error: function (xhr) {
                 document.getElementById("error-messages").style.display = "block";
@@ -162,7 +208,6 @@ $(document).on("click", ".openModal", function () {
 
     $(deletePermission).click(function(e) {
 
-        alert('radi');
         $('#confirm-delete-'+id).modal('hide');
 
         $.ajaxSetup({
@@ -183,17 +228,18 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
-                console.log(response);
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste izbrisali dozvolu '+response.permission);
+                $("#success-messages").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-messages").slideUp(500);
+                });
 
             },
             error: function (xhr) {
-                console.log(xhr);
                 document.getElementById("error-messages").style.display = "block";
 
                 $.each(xhr.responseJSON.errors, function(key,value) {
-                    $('#error-messages').html(value+" Trenutno nije moguce");
+                    $('#error-messages').html(value);
               });
             },
 
@@ -232,13 +278,15 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
-                console.log(response);
+                $("#patient_row_"+id).remove();
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste izbrisali pacijenta '+response.name);
+                $("#success-messages").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-messages").slideUp(500);
+                });
 
             },
             error: function (response) {
-                console.log(response);
                 document.getElementById("error-messages").style.display = "block";
                 $('#error-messages').html(response.responseJSON.message+" Trenutno nije moguce");
 
@@ -278,9 +326,12 @@ $(document).on("click", ".openModal", function () {
                 }
             },
             success: function(response) {
-                console.log(response);
+                $("#patient_row_"+id).remove();
                 document.getElementById("success-messages").style.display = "block";
                 $('#success-messages').html('Uspešno ste izbrisali pacijenta '+response.name);
+                $("#success-messages").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#success-messages").slideUp(500);
+                });
 
             },
             error: function (response) {
@@ -359,3 +410,31 @@ $(document).on("click", ".openModal", function () {
         })
     });
 
+//AJAX SEARCH PATIENTS
+document.getElementById("search_table").addEventListener("keyup", liveSearch);
+    function liveSearch() {
+        var search = document.getElementById("search_table").value;
+
+        if(search != '') {
+            $.ajax({
+                url: 'pacijenti/ajax',
+                type: 'GET',
+                data: {varSearch:search},
+                dataType:"json",
+
+                success: function(response) {
+
+                    response.forEach(function(element) {
+                        var name = element.name;
+                        console.log(element.name);
+                        $('#testDiv').html(name);
+
+                    });
+                },
+                error: function(response) {
+                    console.log('Error', response);
+                }
+            })
+        }
+
+    }
