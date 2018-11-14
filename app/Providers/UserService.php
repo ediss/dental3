@@ -63,20 +63,23 @@ class UserService {
      *
      */
 
-     public static function getUsers() {
+    public static function getUsers() {
         // return User::all();
-         return Patient::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->paginate(5);
+         return Patient::select('id as patient_id', 'name as patient_name', 'doctor_id', 'email')->paginate(2);
+    }
 
-     }
+
+    public static function getAllUsers() {
+        return Patient::all();
+    }
 
      public static function getUnassignedUsers() {
          return Patient::whereNull('doctor_id')->get();
      }
 
 
-     public static function searchPatient($email) {
-        return Patient::where("email", "LIKE", $email."%" )->get();
-
+    public static function searchPatient($email) {
+        return Patient::where('email', 'LIKE', $email.'%' )->orderBy('email', 'asc')->get();
     }
 
     public static function getUser($id) {

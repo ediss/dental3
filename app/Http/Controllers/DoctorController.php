@@ -51,8 +51,15 @@ class DoctorController extends Controller
         //dozvola
         $file = $request->file('patient_files');
 
-        $name = time(). '.' . $file->getClientOriginalExtension();
-        $path = $file ? $file->move('PatientsDocuments/'.$id_appointment, $name) : null;
+        if($file != "" && $file != null ) {
+            $name = time(). '.' . $file->getClientOriginalExtension();
+            $path = $file ? $file->move('PatientsDocuments/'.$id_appointment, $name) : null;
+        }
+        else {
+            $path = null;
+        }
+
+
 
 
         DoctorService::done_appointment($data['done_service'], $data['note'], $path, $id_appointment);

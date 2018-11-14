@@ -27,6 +27,20 @@ class AjaxController extends Controller
 
     }
 
+    public function ajaxGetPatients(Request $request) {
+
+        $search = $request->varSearch;
+
+        return UserService::searchPatient($search);
+    }
+
+
+    public function ajaxGetPermission(Request $request) {
+
+        $search = $request->varSearch;
+
+        return PermissionService::searchPermission($search);
+    }
 
     /**
      * Return view with payment form
@@ -117,11 +131,6 @@ class AjaxController extends Controller
 
     }
 
-    public function ajaxGetPatients(Request $request) {
-
-        $search = $request->varSearch;
-
-        return UserService::searchPatient($search);
-    }
+ 
 
 }

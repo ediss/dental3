@@ -1,21 +1,11 @@
 @extends ('admin.admin-main')
 
 @section('content')
-                @if (Session::has('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{Session::get('success')}}
-                    </div>
-                @endif
 
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+@include('components.messages')
+
+    <div class="alert alert-success" id = "success-messages" role="alert"></div>
+    <div class="alert alert-danger"  id = "error-messages" role="alert"></div>
             <div class="content">
                 <div class="title">
                    <h1>Rad sa ulogama</h1>

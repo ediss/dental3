@@ -66,7 +66,10 @@
                             <td>{{ $patientHistory->date_appoitment }}</td>
                             <td>{{ $patientHistory->term->term }}</td>
                             <td>{{ $patientHistory->note }}</td>
-                            <td><img src ="{{URL::to( $patientHistory->patient_file )}}" width="50px" height="40px"></td>
+                            <td>
+<a href = "#" class = "btn btn-primary openModal" data-toggle="modal" data-target="#exampleModal-{{$patientHistory->id_}}">     <img src ="{{URL::to( $patientHistory->patient_file )}}" id="myImg" width="50px" height="40px"> </a>
+
+                            </td>
 
                             <!--<td> <a href = "#" class = "btn btn-primary"> <strong>Karton</strong></a></td>-->
                         </tr>
@@ -80,7 +83,7 @@
     </div>
 
     <div class = "row">
-    
+
     </div>
 
         <div class = 'row'>
@@ -92,4 +95,12 @@
         </div>
     </div>
 
+@endsection
+
+@section('modal')
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
 @endsection

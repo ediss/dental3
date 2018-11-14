@@ -58,6 +58,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/dozvole',                      'AdminController@getPermissions')          ->name('admin.permissions');
 
     Route::post('/dozvole/update',              'AjaxController@ajaxPermissionUpdate');
+    Route::get('/dozvole/ajax',                 'AjaxController@ajaxGetPermission');
 
     Route::get('/dozvole/dodavanje',            'AdminController@createPermission')        ->name('admin.permission.create');
     Route::post('/dozvole/dodavanje',           'AdminController@storePermission')         ->name('admin.permission.create.submit');

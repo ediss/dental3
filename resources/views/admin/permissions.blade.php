@@ -16,9 +16,9 @@
                     <h1>Dozvole</h1>
                 </div>
                 <div class="links">
-                <input type="search" id="search_table" type="text" placeholder="Search..">
+                <!--<input type="search" id="search_permission_table" type="text" placeholder="Search..">-->
 
-                    <table class="table  table-dark" id ="permission_table">
+                    <table class="table  table-dark" id ="myTable">
                         <thead>
                             <tr>
                                 <!-- <th scope="col">#</th>-->
@@ -27,9 +27,9 @@
                                 <th scope="col">Akcije</th>
                             </tr>
                         </thead>
-                        <tbody id = "myTable">
+                        <tbody id = "permission_table_body">
                             @foreach($data['permissions'] as $permission)
-                                <tr>
+                                <tr id = "permission_row_{{$permission->id_permission}}">
                                     <td id = "permission_{{$permission->id_permission}}">{{ $permission->description }}</td>
                                     <td>
                                         @foreach($permission->permissionsRoles as $role)

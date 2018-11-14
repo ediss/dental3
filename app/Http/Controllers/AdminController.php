@@ -80,7 +80,7 @@ class AdminController extends Controller
     }
 
     public function getPatients() {
-        return self::response('admin/patients',     ['patients' => UserService::getUsers()]);
+        return self::response('admin/patients',     ['patients' => UserService::getUsers(), 'allPatients' => UserService::getAllUsers()]);
     }
 
 
@@ -205,10 +205,11 @@ class AdminController extends Controller
     */
 
     public function updateRole(Request $request, $id_role) {
-        $role  = $request->input('name');
+        $role  = $request->input('role');
 
         $request->validate( [
-            'role'  =>  'required|unique:roles,role',
+            'role'  =>  'required|unique:roles,role,'.$id_role.',id_role',
+
         ]);
 
         RoleService::updateRole($role, $id_role);

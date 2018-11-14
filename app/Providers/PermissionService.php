@@ -68,6 +68,10 @@ class PermissionService {
         return $permissions;
     }
 
+    public static function searchPermission($permission) {
+        return Permission::where('description', 'LIKE', '%'.$permission.'%' )->orderBy('description', 'asc')->get();
+    }
+
     /**
      *
      * CREATE

@@ -13,9 +13,9 @@
         </div>
         <div id = "testDiv"></div>
             <div class="links">
-            <input type="search" id="search_table" type="text" placeholder="Search..">
-
-                <table class="table  table-dark">
+            <input type="search" id="search_patient_table" type="text" placeholder="Search..">
+           <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">-->
+                <table class="table  table-dark" id="patients_table">
                     <thead>
                         <tr>
                            <!-- <th scope="col">#</th>-->
@@ -24,17 +24,18 @@
                             <th scope="col">Akcije</th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="patients_table_body">
                         @foreach($data['patients'] as $patient)
-                            <tr id = "patient_row_{{$patient->patient_id}}">
+                            <tr id = "patient_row_{{$patient->patient_id}}"  data-route = "{{ route('user.profile', $patient->patient_id)}}">
                                 <td id = "patient_name_{{$patient->patient_id}}">{{ $patient->patient_name }}</td>
                                 <td id = "patient_email_{{$patient->patient_id}}">{{ $patient->email }}</td>
                                 <td>
-                                    <a href= "{{ route('user.profile', $patient->patient_id) }}"  class = 'btn btn-primary' >Profil</a>
+                                    <a href= "{{ route('user.profile', $patient->patient_id) }}" id = "profil_button_{{$patient->patient_id}}" class = 'btn btn-primary' >Profil</a>
                                     <a href="#" class = 'btn btn-danger ml-1 openModal' data-id = "{{$patient->patient_id}}" data-toggle="modal" data-target="#confirm-delete-{{$patient->patient_id}}">Izbriši</a>
                                 </td>
                                 <td> </td>
                             </tr>
+                            <input type = "hidden" id = "hiddenId" value = "{{$patient->patient_id}}">
                         @endforeach
                     </tbody>
                 </table>
@@ -43,60 +44,26 @@
                     </div>
             </div>
     </div>
+    <script>
+
+</script>
 @endsection
 
 
 @section('modal')
 
 <!-- Modal -->
-@foreach($data['patients'] as $patient)
-
-<div class="modal fade" id="exampleModal-{{$patient->patient_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Izmena pacijenta</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <form method="POST">
-            {{ csrf_field() }}
-
-
-            <label>Ime:</label>
-            <input type="text"  id = "username_{{ $patient->patient_id }}"name="user-name"   class = 'form-control'  value="{{$patient->patient_name}}" />
-
-            <label>E-mail adresa:</label>
-            <input type="email" id = "email_{{ $patient->patient_id }}" name="email" class = 'form-control'  value="{{$patient->email}}" />
-
-            <!-- <label>Lozinka:</label>
-            <input type="password" name="password" class = 'form-control' />-->
-
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-        <button type="submit" class='btn btn-success' name = "update-patient">Sačuvaj izmene</button>
-
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+@foreach($data['allPatients'] as $patient)
 
 <!-- Modal for delete permissions -->
-<div class="modal fade" id="confirm-delete-{{$patient->patient_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirm-delete-{{$patient->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 POTVRDA
             </div>
             <div class="modal-body">
-                <p>Da li ste sigurni da želite da izbrišete pacijenta "{{$patient->patient_name}}"?</p>
+                <p>Da li ste sigurni da želite da izbrišete pacijenta "{{$patient->name}}"?</p>
             </div>
             <div class="modal-footer">
                 <form method = "POST">

@@ -1,6 +1,9 @@
 @extends ('admin.admin-main')
 
 @section ('content')
+
+@include('components.messages')
+
     <div class = 'col-md-4'>
         <div class="title">
             Dodeljivanje dozvola
